@@ -1,0 +1,50 @@
+Transaction ID,Date,Time,Type,Name,Emoji,Category,Amount,Currency,Local amount,Local currency,Notes and #tags,Address,Receipt,Description,Category split,Money Out,Money In
+tx_0000AkWJmsC4kKDZeoCj1F,01/08/2024,10:31:55,Pot transfer,Monthly Money Pot,,Savings,20.00,GBP,20.00,GBP,,,,,,,20.00
+tx_0000AkWK0UVPcBs3xaPJ3Z,01/08/2024,10:34:22,Pot transfer,Monthly Money Pot,,Savings,10.00,GBP,10.00,GBP,,,,,,,10.00
+tx_0000AkWK1rvE2TqfSomiGI,01/08/2024,10:34:37,Card payment,OVO Energy,⚡,Bills,-180.66,GBP,-180.66,GBP,,1 Rivergate,,OVO Energy Ltd         Bristol       GBR,,-180.66,
+tx_0000AkWKHI9SnfMV4z8YAz,01/08/2024,10:37:18,Pot transfer,Monthly Money Pot,,Savings,102.89,GBP,102.89,GBP,,,,,,,102.89
+tx_0000AkWKUURqOS6cys1mOP,01/08/2024,10:39:48,Pot transfer,Monthly Money Pot,,Savings,2000.00,GBP,2000.00,GBP,,,,,,,2000.00
+tx_0000AkWKXAQVI1LB5rKNkn,01/08/2024,10:40:16,Faster payment,"M A Dos Santos, Silvia Bazzarelli",,General,-2100.00,GBP,-2100.00,GBP,1 Montenotte Rent,,,1 Montenotte Rent,,-2100.00,
+tx_0000AkWKpXfnb7NMz7EGxN,01/08/2024,10:43:36,Card payment,J And R Kiosk,🍎,Groceries,-1.30,GBP,-1.30,GBP,,"1 Booking Office, Chancery Lane",,J and R Kiosk          London        GBR,,-1.30,
+tx_0000AkYSfAJQmlCK8rmMzK,02/08/2024,11:20:47,Card payment,J And R Kiosk,🍎,Groceries,-1.30,GBP,-1.30,GBP,,"1 Booking Office, Chancery Lane",,J and R Kiosk          London        GBR,,-1.30,
+tx_0000Aker9BvIvMQp0kivzP,05/08/2024,13:23:24,Pot transfer,Monthly Money Pot,,Savings,100.00,GBP,100.00,GBP,,,,,,,100.00
+tx_0000AkerEToZpd59oHnjDV,05/08/2024,13:24:21,Pot transfer,Monthly Money Pot,,Savings,431.00,GBP,431.00,GBP,,,,,,,431.00
+tx_0000AkerHKPtEKMhfYuTdT,05/08/2024,13:24:52,Faster payment,AMERICAN EXP 3773,,Transfers,-431.53,GBP,-431.53,GBP,PB987905984472476,,,PB987905984472476,,-431.53,
+tx_0000AkeuvHxc54ecBYe8KA,05/08/2024,14:05:42,Card payment,Virgin Media,☎️,Entertainment,-28.83,GBP,-28.83,GBP,,Bartley Wood Business Par,,VIRGIN MEDIA PYMTS E15 READING       GBR,,-28.83,
+tx_0000AkgJB5CJtOA92R23YQ,06/08/2024,06:12:12,Monzo-to-Monzo,Aletta Antoniades,,General,-25.00,GBP,-25.00,GBP,Physio contribution,,,,,-25.00,
+tx_0000AkhSzP8d7cgOKloa6T,06/08/2024,19:36:51,Card payment,Spotify,🎵,Bills,-19.99,GBP,-19.99,GBP,,1-11 John Adam Street                        ,,Spotify                London        GBR,,-19.99,
+tx_0000Akn6Ro7EiWtJCqW6G9,09/08/2024,12:52:32,Card payment,Sainsbury’s,🍏,Groceries,-2.85,GBP,-2.85,GBP,,60 Fetter Lane,,SAINSBURYS- FETTER LAN LONDON        GBR,,-2.85,
+tx_0000AkniE9oT2z9Yj7HWLZ,09/08/2024,19:55:51,Card payment,Chinatown Bakery,🍞,General,-2.50,GBP,-2.50,GBP,,7-9 Newport Place,,CHINATOWN BAKERY       LONDON WC2H   GBR,,-2.50,
+tx_0000Akowrfo1cpCPdcXLvd,10/08/2024,10:14:35,Card payment,GAIL's Bakery,🍞,Eating out,-19.80,GBP,-19.80,GBP,,48 the Broadway,,GAILS - CROUCH END     LONDON        GBR,,-19.80,
+tx_0000Akoy2KkaLj2hBdPk5B,10/08/2024,10:27:43,Card payment,GAIL's Bakery,🍞,Eating out,-2.95,GBP,-2.95,GBP,,48 the Broadway,,GAILS - CROUCH END     LONDON        GBR,,-2.95,
+tx_0000Akp7r8GvP0Vu7bTYMT,10/08/2024,12:17:44,Card payment,Transport for London,🚆,Transport,-3.00,GBP,-3.00,GBP,"Travel charge for Friday, 9 Aug",50 Victoria Street,,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,,-3.00,
+tx_0000Akv8FLGtt5fXbhzlYX,13/08/2024,09:50:23,Pot transfer,Monthly Money Pot,,Savings,140.00,GBP,140.00,GBP,,,,,,,140.00
+tx_0000Akv8FNLEBxtxgmMkvj,13/08/2024,09:50:23,Monzo-to-Monzo,Nicholas Antoniades,,Transfers,-140.00,GBP,-140.00,GBP,,,,,,-140.00,
+tx_0000AkvCU3z2qUQE2nSyZd,13/08/2024,10:37:51,Pot transfer,Monthly Money Pot,,Savings,8.00,GBP,8.00,GBP,,,,,,,8.00
+tx_0000AkvCU6hQkR6TVXppM9,13/08/2024,10:37:52,Monzo-to-Monzo,Nicholas Antoniades,,Transfers,-8.00,GBP,-8.00,GBP,,,,,,-8.00,
+tx_0000AkvD2h4G2S1GRLkf9l,13/08/2024,10:44:07,Monzo-to-Monzo,Nicholas Antoniades,,Transfers,150.00,GBP,150.00,GBP,,,,,,,150.00
+tx_0000AkvD2hv4s4HvKHJpth,13/08/2024,10:44:07,Pot transfer,Monthly Money Pot,,Savings,-150.00,GBP,-150.00,GBP,,,,,,-150.00,
+tx_0000AkvNYovjLAv3qv8Sxt,13/08/2024,12:41:58,Pot transfer,Monthly Money Pot,,Savings,150.00,GBP,150.00,GBP,,,,,,,150.00
+tx_0000AkvNYqYPIrZmDgFMJ7,13/08/2024,12:41:59,Monzo-to-Monzo,Nicholas Antoniades,,Transfers,-150.00,GBP,-150.00,GBP,,,,,,-150.00,
+tx_0000AkzxNFoRwKCKCTBjYP,15/08/2024,17:42:07,Card payment,Transport for London,🚆,Transport,-3.70,GBP,-3.70,GBP,"Travel charge for Thursday, 15 Aug","Windsor House, 42-50 Victoria Street",,TfL Travel Charge      TFL.gov.uk/CP GBR,,-3.70,
+tx_0000Al3TuG2XtZwZUvCFRB,17/08/2024,10:30:46,Pot transfer,Monthly Money Pot,,Savings,100.00,GBP,100.00,GBP,,,,,,,100.00
+tx_0000Al3TulWOqdH5x7VJ7i,17/08/2024,10:30:52,Card payment,ATM,💵,General,-80.00,GBP,-80.00,GBP,,Waitrose ,,WAITROSE BA15AL 1      BATH          GBR,,-80.00,
+tx_0000Al3lbgQBNuwelBRloo,17/08/2024,13:49:06,Card payment,Apple,🍎 ,Bills,-8.99,GBP,-8.99,GBP,,,,APPLE.COM/BILL         APPLE.COM/BIL IRL,,-8.99,
+tx_0000Al3mpftUF4xDpTQyB7,17/08/2024,14:02:50,Card payment,EE,📠,Bills,-10.00,GBP,-10.00,GBP,,,,EE TOPUP  VESTA        EE.CO.UK      GBR,,-10.00,
+tx_0000Al3n90T1yWt0vsvzfd,17/08/2024,14:06:20,Pot transfer,Monthly Money Pot,,Savings,9.00,GBP,9.00,GBP,,,,,,,9.00
+tx_0000Al3nBMnztSxdLcZtHX,17/08/2024,14:06:45,Card payment,EE,📠,Bills,-9.00,GBP,-9.00,GBP,,,,EE TOPUP  VESTA        EE.CO.UK      GBR,,-9.00,
+tx_0000Al7zxGpXO7ikKsxVOk,19/08/2024,14:48:43,Monzo-to-Monzo,Lara Antoniades,,Transfers,1.00,GBP,1.00,GBP,,,,,,,1.00
+tx_0000Al7zywTq1J0AjS02QE,19/08/2024,14:49:01,Card payment,La Baguette,🥖,Shopping,-1.70,GBP,-1.70,GBP,,3 Stall Street,,LA BAGUETTE            BATH BA1      GBR,,-1.70,
+tx_0000AlGJILrTKX7YsrvvYP,23/08/2024,15:03:03,Faster payment,CONNOLLY RETAIL LT,,Income,1766.71,GBP,1766.71,GBP,PAYROLL,,,PAYROLL,,,1766.71
+tx_0000AlJEVGZwMkXhr8dglG,25/08/2024,00:53:33,Card payment,EE,📠,Bills,-10.00,GBP,-10.00,GBP,,,,EE TOPUP  VESTA        EE.CO.UK      GBR,,-10.00,
+tx_0000AlK0PYUPel8EnkUdfd,25/08/2024,09:50:22,Card payment,Adobe,💻,Bills,-19.97,GBP,-19.97,GBP,,,,Adobe                  ADOBE.LY/BILL IRL,,-19.97,
+tx_0000AlMA3EgI0iwSEL6I9h,26/08/2024,10:47:48,Card payment,Sainsbury’s,🍏,Groceries,-1.80,GBP,-1.80,GBP,,17-21 Camden Road,,SAINSBURYS SUPERMARKET CAMDEN        GBR,,-1.80,
+tx_0000AlPYniQCkUzcknILKM,28/08/2024,02:09:16,Direct Debit,Barclays Partner Finance,,Bills,-41.62,GBP,-41.62,GBP,300 0110 745176066,,,300 0110 745176066,,-41.62,
+tx_0000AlQKGLIaUgJLhB8dN4,28/08/2024,11:01:04,Monzo-to-Monzo,Lara Antoniades,,Transfers,-400.00,GBP,-400.00,GBP,,,,,,-400.00,
+tx_0000AlRfWnC2qK3kXOryxG,29/08/2024,02:34:03,Faster payment,HPL CURRENT GBP,,Income,3854.32,GBP,3854.32,GBP,Payroll Aug 2024,,,Payroll Aug 2024,,,3854.32
+tx_0000AlThXv91M24Hb4Ncsk,30/08/2024,02:06:06,Direct Debit,Urban Jungle,,Bills,-18.45,GBP,-18.45,GBP,9TA94DV,,,9TA94DV,,-18.45,
+tx_0000AlUXKiP0c5Hj0qR830,30/08/2024,11:46:22,Card payment,Transport for London,🚆,Transport,-2.70,GBP,-2.70,GBP,"Travel charge for Friday, 30 Aug","Windsor House, 42-50 Victoria Street",,TfL Travel Charge      TFL.gov.uk/CP GBR,,-2.70,
+tx_0000AlUXUh4WPlsLCLzGlu,30/08/2024,11:48:10,Card payment,J And R Kiosk,🍎,Groceries,-1.30,GBP,-1.30,GBP,,"1 Booking Office, Chancery Lane",,J and R Kiosk          London        GBR,,-1.30,
+tx_0000AlVIPXUTJ3UgQ56Psf,30/08/2024,20:33:52,Faster payment,AMERICAN EXP 3773,,Transfers,-3277.14,GBP,-3277.14,GBP,PB261086276924814,,,PB261086276924814,,-3277.14,
+tx_0000AlVIRh4YeTGfqSaZKz,30/08/2024,20:34:16,Monzo-to-Monzo,Nicholas Antoniades,,Transfers,-744.00,GBP,-744.00,GBP,,,,,,-744.00,
+tx_0000AlWbTKRVqu0ZmpQpCj,31/08/2024,11:42:10,Faster payment,OVO ENERGY LTD,,General,-70.69,GBP,-70.69,GBP,PWBT1725104513320,,,PWBT1725104513320,,-70.69,
