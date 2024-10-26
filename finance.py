@@ -9,15 +9,16 @@ def load_keyword_mapping(file_path):
 
 def main():
     # Define the directory containing the CSV files
-    directory = 'personal-finance/finance_files'
-    keyword_file = 'personal-finance/keyword_mapping.csv'
+    directory = 'finance_files'
+    keyword_file = 'keyword_mapping.csv'
 
     # Load keyword mapping from CSV
     keyword_mapping = load_keyword_mapping(keyword_file)
 
     # Add custom extra keyword mappings
     custom_mappings = {
-        'nan': 'Transfers Category 1'
+        'nan': 'Transfers Category 1',
+        '': 'Transfers Category 2'
         # Add more custom mappings as needed
     }
 

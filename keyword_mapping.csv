@@ -1,74 +1,160 @@
-Keyword,Category
-tfl,Transport
-lime,Transport
-uber,Transport
-trainline,Transport
-bolt,Transport
-gett,Transport
-sainsbury,Groceries
-waitrose,Groceries
-m&s,Groceries
-aldi,Groceries
-tesco,Groceries
-crouch end greens,Groceries
-wizz,Groceries
-j and r kiosk,Groceries
-marks and spencer,Groceries
-gousto,Groceries
-jiovanis mini market,Groceries
-pret,Eating out
-gail,Eating out
-cafe,Eating out
-caffe nero,Eating out
-pophams,Eating out
-bun house,Eating out
-landrace,Eating out
-avellino,Eating out
-taverna,Eating out
-ouzeri,Eating out
-gyros,Eating out
-mcdonalds,Eating out
-ocean basket,Eating out
-netflix,Entertainment
-disney,Entertainment
-prime video,Entertainment
-openai,Entertainment
-cinema,Entertainment
-amazon,Shopping
-amznmktplace,Shopping
-etsy,Shopping
-uniqlo,Shopping
-ryohin keikaku,Shopping
-bobbi brown,Shopping
-deciem,Shopping
-jigsaw,Shopping
-toast,Shopping
-zettle,Shopping
-apple,Shopping
-connolly retail ltd,Shopping
-sp connolly england,Shopping
-bath potters supplies,Shopping
-boots,Personal care
-superdrug,Personal care
-morris,Personal care
-clinic,Personal care
-euro pharmacy,Personal care
-subscription,Subscriptions
-amazon prime,Subscriptions
-spotify,Subscriptions
-adobe,Subscriptions
-kiosk,Miscellaneous
-periptero,Miscellaneous
-bus stop,Miscellaneous
-connolly,Miscellaneous
-snappy snaps,Miscellaneous
-point,Miscellaneous
-mgp,Miscellaneous
-sumup,Miscellaneous
-payroll,Income
-payment received,Income
-connolly/ expenses,Refunds
-refund,Refunds
-airbnb,Travel
-w h smith,Travel
-virgin media,Utilities
+Category,Keyword
+Food & Drink,avellino
+Food & Drink,bun house
+Food & Drink,cafe
+Food & Drink,caffe nero
+Food & Drink,deliveroo
+Food & Drink,gail
+Food & Drink,gyros
+Food & Drink,landrace
+Food & Drink,mcdonalds
+Food & Drink,ocean basket
+Food & Drink,ouzeri
+Food & Drink,pophams
+Food & Drink,pret
+Food & Drink,taverna
+Food & Drink,the jar
+Food & Drink,comptoir
+Food & Drink,aldi
+Food & Drink,crouch end greens
+Food & Drink,gousto
+Food & Drink,j and r kiosk
+Food & Drink,jiovanis mini market
+Food & Drink,m&s
+Food & Drink,marks and spencer
+Food & Drink,sainsbury
+Food & Drink,tesco
+Food & Drink,waitrose
+Food & Drink,wizz
+Food & Drink,periptero
+Food & Drink,kiosk
+Food & Drink,cherry local
+Food & Drink,falafel stop
+Food & Drink,fam market
+Food & Drink,grocery post
+Food & Drink,loon fung
+Food & Drink,wing wing
+Food & Drink,xing long men
+Food & Drink,clocktower greens
+Food & Drink,old bell tavern
+Food & Drink,coffeenerd
+Food & Drink,ls the wells tavern
+Food & Drink,1014 grays inn road
+Food & Drink,zettle *k ismael
+Food & Drink,bath bun tea shoppe
+Food & Drink,same same but different
+Food & Drink,la baguette
+Food & Drink,the raven
+Food & Drink,queen's
+Food & Drink,v&a
+Food & Drink,london bridge confectionery
+Food & Drink,the dusty knuckle
+Food & Drink,zettle *lost gravity
+Food & Drink,co-op group food
+Food & Drink,butterandcrust
+Food & Drink,costa sevenoaks railway
+Food & Drink,five guys jv ltd
+Food & Drink,the mount vineyard
+Food & Drink,mount vineyard (bar &
+Food & Drink,kemsing premier
+Food & Drink,zettle_*but first coff
+Food & Drink,arknet
+
+Transportation & Travel,tfl
+Transportation & Travel,bus stop
+Transportation & Travel,uber
+Transportation & Travel,bolt
+Transportation & Travel,gett
+Transportation & Travel,lime
+Transportation & Travel,first great
+Transportation & Travel,trainline
+Transportation & Travel,shell
+Transportation & Travel,airbnb
+Transportation & Travel,jolene hor
+Transportation & Travel,london cai
+Transportation & Travel,w h smith
+
+Entertainment & Subscriptions,netflix
+Entertainment & Subscriptions,disney
+Entertainment & Subscriptions,prime video
+Entertainment & Subscriptions,spotify
+Entertainment & Subscriptions,openai
+Entertainment & Subscriptions,adobe
+Entertainment & Subscriptions,google
+Entertainment & Subscriptions,google one
+Entertainment & Subscriptions,wetransfer
+Entertainment & Subscriptions,subscription
+Entertainment & Subscriptions,amazon prime
+Entertainment & Subscriptions,eventim
+Entertainment & Subscriptions,cursor
+Entertainment & Subscriptions,turning earth ceramics
+Entertainment & Subscriptions,turning earth leyton
+Entertainment & Subscriptions,nintendo
+Entertainment & Subscriptions,thermae bath spa
+
+Shopping,amazon
+Shopping,amznmktplace
+Shopping,apple
+Shopping,bath potters supplies
+Shopping,bobbi brown
+Shopping,boots
+Shopping,connolly
+Shopping,connolly retail ltd
+Shopping,deciem
+Shopping,etsy
+Shopping,euro pharmacy
+Shopping,foto plus
+Shopping,jacksonsart
+Shopping,jigsaw
+Shopping,mgp
+Shopping,morris
+Shopping,ryohin keikaku
+Shopping,robert dyas
+Shopping,ryman
+Shopping,sp connolly england
+Shopping,sumup
+Shopping,snappy snaps
+Shopping,superdrug
+Shopping,toast
+Shopping,uniqlo
+Shopping,waterston
+Shopping,point
+Shopping,broadway
+Shopping,buy 2 save
+Shopping,wholesale flowers natio
+Shopping,clr*hartleyandnoble.co
+Shopping,london camera exchange
+Shopping,route one
+Shopping,bath old books
+Shopping,crouch end hardware
+Shopping,hart & sons dorset
+Shopping,sidney rose
+Shopping,zettle *turning earth c
+Shopping,bobbibrown.co.uk
+Shopping,arknet
+
+Utilities & Bills,virgin media
+Utilities & Bills,flex
+Utilities & Bills,voxi
+Utilities & Bills,ee topup vesta
+Utilities & Bills,post office grays inn
+
+Income,payment received
+Income,payroll
+Income,positive balance adjustments
+
+Refunds,connolly/ expenses
+Refunds,refund
+Refunds,negative balance adjustments
+
+Miscellaneous,human for
+Miscellaneous,vms sally
+Miscellaneous,hitecwashroomssolu
+Miscellaneous,ukfingerprints.com
+Miscellaneous,t1253000070
+Miscellaneous,g kaye & j waldren t/a
+Miscellaneous,zettle *james theory
+Miscellaneous,zettle *druces pressed
+Miscellaneous,dorothyhousebro
+Miscellaneous,unidentified transactions
+
