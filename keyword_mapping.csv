@@ -1,128 +1,117 @@
 Category,Keyword
-Food & Drink,avellino
-Food & Drink,bun house
-Food & Drink,cafe
-Food & Drink,caffe nero
-Food & Drink,deliveroo
-Food & Drink,gail
-Food & Drink,gyros
-Food & Drink,landrace
-Food & Drink,mcdonalds
-Food & Drink,ocean basket
-Food & Drink,ouzeri
-Food & Drink,pophams
-Food & Drink,pret
-Food & Drink,taverna
-Food & Drink,the jar
-Food & Drink,comptoir
-Food & Drink,aldi
-Food & Drink,crouch end greens
-Food & Drink,gousto
-Food & Drink,j and r kiosk
-Food & Drink,jiovanis mini market
-Food & Drink,m&s
-Food & Drink,marks and spencer
-Food & Drink,MARKS&SPENCER 
-Food & Drink,sainsbury
-Food & Drink,tesco
-Food & Drink,waitrose
-Food & Drink,wizz
-Food & Drink,periptero
-Food & Drink,kiosk
-Food & Drink,cherry local
-Food & Drink,falafel stop
-Food & Drink,fam market
-Food & Drink,grocery post
-Food & Drink,loon fung
-Food & Drink,wing wing
-Food & Drink,xing long men
-Food & Drink,clocktower greens
-Food & Drink,old bell tavern
-Food & Drink,coffeenerd
-Food & Drink,ls the wells tavern
-Food & Drink,1014 grays inn road
-Food & Drink,zettle *k ismael
-Food & Drink,bath bun tea shoppe
-Food & Drink,same same but different
-Food & Drink,la baguette
-Food & Drink,the raven
-Food & Drink,queen's
-Food & Drink,v&a
-Food & Drink,london bridge confectionery
-Food & Drink,the dusty knuckle
-Food & Drink,zettle *lost gravity
-Food & Drink,co-op group food
-Food & Drink,butterandcrust
-Food & Drink,costa sevenoaks railway
-Food & Drink,five guys jv ltd
-Food & Drink,the mount vineyard
-Food & Drink,mount vineyard (bar &
-Food & Drink,kemsing premier
-Food & Drink,petersham nurseries
-Food & Drink,e5 bakehouse ltd
-Food & Drink,zettle_*druces pressed
-Food & Drink,turf tavern
-Food & Drink,the woodman
-Food & Drink,plateia agiou lazarou
-Food & Drink,gyr evontas ellada
-Food & Drink,chris express
-Food & Drink,food village lca airport
-Food & Drink,park local express
-Food & Drink,the cock inn
-Food & Drink,kemsing news+wine
-Food & Drink,gaucho covent garden
-Food & Drink,chinatown bakery
-Food & Drink,tianfu
-Food & Drink,the service london ltd
-Food & Drink,FOOD
+eating_out,avellino
+eating_out,bun house
+eating_out,cafe
+eating_out,deliveroo
+eating_out,gail
+eating_out,gyros
+eating_out,landrace
+eating_out,mcdonalds
+eating_out,ocean basket
+eating_out,ouzeri
+eating_out,pophams
+eating_out,pret
+eating_out,taverna
+eating_out,the jar
+eating_out,comptoir
+eating_out,aldi
+eating_out,crouch end greens
+eating_out,gousto
+eating_out,j and r kiosk
+eating_out,jiovanis mini market
+eating_out,wizz
+eating_out,periptero
+eating_out,kiosk
+eating_out,cherry local
+eating_out,falafel stop
+eating_out,fam market
+eating_out,loon fung
+eating_out,wing wing
+eating_out,xing long men
+eating_out,clocktower greens
+eating_out,old bell tavern
+eating_out,coffeenerd
+eating_out,ls the wells tavern
+eating_out,1014 grays inn road
+eating_out,bath bun tea shoppe
+eating_out,same same but different
+eating_out,la baguette
+eating_out,the raven
+eating_out,queen's
+eating_out,v&a
+eating_out,london bridge confectionery
+eating_out,the dusty knuckle
+eating_out,co-op group food
+eating_out,butterandcrust
+eating_out,costa sevenoaks railway
+eating_out,five guys 
+eating_out,mount vineyard 
+eating_out,kemsing premier
+eating_out,petersham nurseries
+eating_out,e5 bakehouse ltd
+eating_out,zettle_*druces pressed
+eating_out,turf tavern
+eating_out,the woodman
+eating_out,plateia agiou lazarou
+eating_out,gyr evontas ellada
+eating_out,chris express
+eating_out,food village lca airport
+eating_out,park local express
+eating_out,the cock inn
+eating_out,kemsing news+wine
+eating_out,gaucho covent garden
+eating_out,chinatown bakery
+eating_out,tianfu
+eating_out,the service london ltd
+eating_out,FOOD
+eating_out,jolene
 
-Transportation & Travel,tfl
-Transportation & Travel,bus stop
-Transportation & Travel,uber
-Transportation & Travel,bolt
-Transportation & Travel,gett
-Transportation & Travel,lime
-Transportation & Travel,first great
-Transportation & Travel,trainline
-Transportation & Travel,shell
-Transportation & Travel,airbnb
-Transportation & Travel,jolene hor
-Transportation & Travel,london cai
-Transportation & Travel,w h smith
-Transportation & Travel,sp piedaterre venice
-Transportation & Travel,london overground
-Transportation & Travel,waterloo
+groceries,marks and spencer
+groceries,MARKS&SPENCER
+groceries,sainsbury
+groceries,tesco
+groceries,waitrose
+groceries,m&s
+groceries,morris
 
-Entertainment & Subscriptions,netflix
-Entertainment & Subscriptions,disney
-Entertainment & Subscriptions,prime video
-Entertainment & Subscriptions,spotify
-Entertainment & Subscriptions,openai
-Entertainment & Subscriptions,adobe
-Entertainment & Subscriptions,google
-Entertainment & Subscriptions,google one
-Entertainment & Subscriptions,wetransfer
-Entertainment & Subscriptions,subscription
-Entertainment & Subscriptions,amazon prime
-Entertainment & Subscriptions,eventim
-Entertainment & Subscriptions,cursor
-Entertainment & Subscriptions,turning earth ceramics
-Entertainment & Subscriptions,turning earth leyton
-Entertainment & Subscriptions,nintendo
-Entertainment & Subscriptions,thermae bath spa
-Entertainment & Subscriptions,zettle_*chiriac music
-Entertainment & Subscriptions,zettle_*gpx music
-Entertainment & Subscriptions,zettle_*joe franco mus
-Entertainment & Subscriptions,squarespace inc.
-Entertainment & Subscriptions,sqsp* inv149696583
-Entertainment & Subscriptions,microsoft*ea play
-Entertainment & Subscriptions,zettle_*matt sugarpants
-Entertainment & Subscriptions,zettle *turning earth c
-Entertainment & Subscriptions,zettle_*turning earth
-Entertainment & Subscriptions,zettle *terence fox
+Transportation,tfl
+Transportation,bus stop
+Transportation,uber
+Transportationbolt
+Transportation,gett
+Transportation,lime
+Transportation,first great
+Transportation,trainline
+Transportation,london cai
+Transportation,london overground
+Transportation,waterloo
 
+Travel,airbnb
+Travel,sp piedaterre venice
+
+Entertainment,eventim
+Entertainment,thermae bath spa
+Entertainment,nintendo
+Entertainment,turning earth ceramics
+Entertainment,turning earth leyton
+
+Subscriptions,cursor
+Subscriptions,netflix
+Subscriptions,disney
+Subscriptions,prime video
+Subscriptions,spotify
+Subscriptions,openai
+Subscriptions,adobe
+Subscriptions,google
+Subscriptions,google one
+Subscriptions,subscription
+Subscriptions,amazon prime
+Subscriptions,squarespace
+Subscriptions,microsoft
+
+Shopping,grocery
 Shopping,amazon
-Shopping,amznmktplace
+Shopping,shell
 Shopping,apple
 Shopping,bath potters supplies
 Shopping,bobbi brown
@@ -166,16 +155,14 @@ Shopping,sp hoyles of oxford
 Shopping,scriptum ltd
 Shopping,tradeinn retal services
 Shopping,lgl ltd
-Shopping,zettle 
-Shopping,ORDER
-Shopping,TOPUP
-Shopping,POST
+Shopping,w h smith
+Shopping,wetransfer
 
 Utilities & Bills,virgin media
 Utilities & Bills,flex
 Utilities & Bills,voxi
-Utilities & Bills,ee topup vesta
-Utilities & Bills,post office grays inn
+Utilities & Bills,topup
+Utilities & Bills,post
 Utilities & Bills,www.haringey.gov.uk
 Utilities & Bills,ovo energy
 Utilities & Bills,boost
@@ -193,7 +180,6 @@ Refunds,negative balance adjustments
 Personal Care,boots
 Personal Care,clinic
 Personal Care,euro pharmacy
-Personal Care,morris
 Personal Care,superdrug
 Personal Care,london doctors clinic
 
@@ -205,6 +191,4 @@ Housing & Rent,1 montenotte rent
 Miscellaneous,human for
 Miscellaneous,vms sally
 Miscellaneous,unidentified transactions
-Miscellaneous,zettle_*james theory
-Miscellaneous,zettle *k ismael
 Miscellaneous,unlabeled expenses
