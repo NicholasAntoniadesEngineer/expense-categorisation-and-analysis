@@ -9,12 +9,50 @@ def load_keyword_mapping(file_path):
     # Convert all keywords to strings to avoid type issues
     return dict(zip(df['Keyword'].astype(str).str.lower(), df['Category']))
 
+# Function to categorize expenses
+def categorize_expense(row):
+            
+    description = str(row['Description']).lower() if pd.notnull(row['Description']) else ''
+    if description and description != 'nan':
+        for keyword, category in keyword_mapping.items():
+            if keyword.lower() in description.lower():
+                return category
+            
+    # # Try to categorize using Description
+    transfers = str(row['Transfers']).lower() if pd.notnull(row['Transfers']) else ''
+    if transfers and transfers != 'nan':
+        for keyword, category in keyword_mapping.items():
+            if keyword.lower() in transfers.lower():
+                return category
+            
+    # If Description didn't yield a category, or was empty/invalid, try Name
+    name = str(row['Name']).lower() if pd.notnull(row['Name']) else ''
+    if name and name != 'nan':
+        print(f"Trying Name: {name}")
+        for keyword, category in keyword_mapping.items():
+            print(f"Trying keyword: {keyword}")
+            if keyword.lower() in name.lower():
+                print(f"Matched {keyword} to {category}")
+                return category
+
+    return 'Uncategorized'
+
+# Apply categorization with error handling
+def safe_categorize(row):
+    try:
+        return categorize_expense(row)
+    except Exception as e:
+        logging.error(f"Error categorizing row: {row}\nError: {str(e)}")
+        print(f"Error categorizing row: {row}\nError: {str(e)}")
+        return 'Error'
+
 def main():
     # Define the directory containing the CSV files
     directory = 'finance_files'
     keyword_file = 'keyword_mapping.csv'
 
     # Load keyword mapping from CSV
+    global keyword_mapping
     keyword_mapping = load_keyword_mapping(keyword_file)
 
     # Add custom extra keyword mappings
@@ -32,7 +70,6 @@ def main():
 
     # List all CSV files in the directory
     csv_files = glob(os.path.join(directory, '*.csv'))
-    # print("CSV files found:", csv_files)
 
     # Read all CSV files in the directory
     for file in csv_files:
@@ -60,27 +97,14 @@ def main():
 
     # Ensure 'Description' column is filled with empty strings where there are NaN values
     all_expenses['Description'] = all_expenses['Description'].fillna('')
-
-    # Function to categorize expenses
-    def categorize_expense(row):
-        # Convert the description to a string and handle NaN values
-        description = str(row['Description']).lower()
-        for keyword, category in keyword_mapping.items():
-            # Ensure the keyword is a string
-            if str(keyword).lower() in description:
-                return category
-        return 'Uncategorized'
+    # Ensure 'Name' column exists and fill NaN values with empty strings
+    if 'Name' in all_expenses.columns:
+        all_expenses['Name'] = all_expenses['Name'].fillna('')
+    else:
+        all_expenses['Name'] = ''
 
     # Set up logging
     logging.basicConfig(filename='finance_log.txt', level=logging.ERROR)
-
-    # Apply categorization with error handling
-    def safe_categorize(row):
-        try:
-            return categorize_expense(row)
-        except Exception as e:
-            logging.error(f"Error categorizing row: {row}\nError: {str(e)}")
-            return 'Error'
 
     all_expenses['Category'] = all_expenses.apply(safe_categorize, axis=1)
 
@@ -101,8 +125,8 @@ def main():
         print(f"{len(duplicate_entries)} duplicate entries were removed. Details saved to {removed_filename}")
 
     # Define the order of columns for the output
-    output_columns = ['Date', 'Month',  'FileOrigin', 'Description', 'Amount', 'Category']
- 
+    output_columns = ['Date', 'Month', 'FileOrigin', 'Description', 'Amount', 'Category']
+
     # Merge the individual entries with their categories and months
     detailed_expenses = all_expenses[output_columns]
 
