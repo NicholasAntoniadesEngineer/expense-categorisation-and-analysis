@@ -112,6 +112,7 @@ Subscriptions,microsoft
 
 Shopping,grocery
 Shopping,amazon
+Shopping,american
 Shopping,shell
 Shopping,apple
 Shopping,bath potters supplies
@@ -160,6 +161,10 @@ Shopping,w h smith
 Shopping,wetransfer
 Shopping,PAYMENT RECEIVED 
 Shopping,zettle
+Shopping,flex
+Shopping,arknet
+Shopping,Hart & Sons
+
 
 Utilities & Bills,virgin media
 Utilities & Bills,flex
@@ -169,11 +174,14 @@ Utilities & Bills,post
 Utilities & Bills,www.haringey.gov.uk
 Utilities & Bills,ovo energy
 Utilities & Bills,boost
+Utilities & Bills,Urban
 
 Moving Money,monthly
-Nicholas Moving money, Nicholas
-Lara Moving money, Lara
+Nicholas Moving money,nicholas
+Lara Moving money,lara
 Transfers,Transfers
+Pay mom,aletta
+Savings,emergency
 
 
 Income,payment received

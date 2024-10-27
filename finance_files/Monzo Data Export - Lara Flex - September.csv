@@ -1,0 +1,14 @@
+Transaction ID,Date,Time,Type,Name,Emoji,Category,Amount,Currency,Local amount,Local currency,Notes and #tags,Address,Receipt,Description,Category split,Money Out,Money In
+tx_0000AlYjvCTEH4ba6TuQeP,01/09/2024,12:26:16,Card payment,Richlands Convenience Store,🍎,Groceries,-3.24,GBP,-3.24,GBP,,Dynes Road,,KEMSING PREMIER        SEVENOAKS     GBR,,-3.24,
+tx_0000AleZTI9thO85IVEtdp,04/09/2024,07:57:27,Card payment,Pophams Bakery,🍎,Eating out,-3.80,GBP,-3.80,GBP,,197 Richmond Road,,SQ *POPHAMS HACKNEY    London        GBR,,-3.80,
+tx_0000AlzkOQ6XuM8WiC7ecb,14/09/2024,13:08:45,Card payment,Petersham Nurseries Ca,🍽,Eating out,-22.78,GBP,-22.78,GBP,,Petersham Road,,PETERSHAM NURSERIES CA RICHMOND      GBR,,-22.78,
+tx_0000Am1l24k98W2hZYA1mj,15/09/2024,12:25:21,Card payment,Wetransfer Bb2119b7,💻,General,-11.00,GBP,-11.00,GBP,,,,WETRANSFER* BB2119B7   AMSTERDAM     NLD,,-11.00,
+tx_0000AmAHAS4n1KJtd9ASGH,19/09/2024,15:03:07,Card payment,Tesco,🍏 ,Groceries,-18.40,GBP,-18.40,GBP,,50-52 Curzon Street,,TESCO STORES           MAYFAIR       GBR,,-18.40,
+tx_0000AmCY57DxCxIOzk7nXt,20/09/2024,17:22:03,Card payment,Lime Pass X23q,🚗,Transport,-36.99,GBP,-36.99,GBP,,,,LIME*PASS X23Q         +448008085223 GBR,,-36.99,
+tx_0000AmEILD1ODA7fQw34G9,21/09/2024,13:35:06,Card payment,Connolly Retail Ltd,👕,Shopping,-375.00,GBP,-375.00,GBP,,,,CONNOLLY RETAIL LTD    LONDON        GBR,,-375.00,
+tx_0000AmGM9WBpuDym9iarJJ,22/09/2024,13:27:14,Card payment,GAIL's Bakery,🍞,Eating out,-20.80,GBP,-20.80,GBP,,22-24 Buckingham Palace Road,,GAILS BUCKINGHAM PALAC LONDON        GBR,,-20.80,
+tx_0000AmKXKUOGoQo7c7exaj,24/09/2024,13:51:19,Card payment,Transport for London,🚆,Transport,-3.00,GBP,-3.00,GBP,"Travel charge for Tuesday, 24 Sep","Windsor House, 42-50 Victoria Street",,TfL Travel Charge      TFL.gov.uk/CP GBR,,-3.00,
+tx_0000AmNBr9XVk2vD6ypTcn,25/09/2024,20:34:51,Card payment,Vinted,👕,Shopping,-6.23,GBP,-6.23,GBP,,109 Kesperry House,,MGP*Vinted             London        GBR,,-6.23,
+tx_0000AmUpVfxHteDMRfMUGg,29/09/2024,13:02:09,Flex,,,Transfers,467.01,GBP,467.01,GBP,,,,Flex,,,467.01
+tx_0000AmVPevkU8uQy3sQtWr,29/09/2024,19:47:12,Card payment,Vinted,👕,Shopping,-9.29,GBP,-9.29,GBP,,109 Kesperry House,,MGP*Vinted             London        GBR,,-9.29,
+tx_0000AmVajI06S3iG21kYXR,29/09/2024,21:51:14,Card payment,Google,💻,Entertainment,-8.09,GBP,-184.99,ZAR,,Belgrave House 76 Buckingham P,,GOOGLE *Google One     650-253-0000  GBR,,-8.09,
