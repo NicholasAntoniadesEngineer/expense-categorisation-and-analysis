@@ -18,7 +18,7 @@ def main():
     # Add custom extra keyword mappings
     custom_mappings = {
         'nan': 'Transfers Category 1',
-        '': 'Transfers Category 2'
+        # '': 'Transfers Category 2'
         # Add more custom mappings as needed
     }
 
@@ -35,6 +35,11 @@ def main():
     # Read all CSV files in the directory
     for file in csv_files:
         df = pd.read_csv(file)
+        
+        # Extract the first word of the file name (without extension) for the FileOrigin column
+        file_origin = os.path.basename(file).split(' ')[0]
+        df['FileOrigin'] = file_origin
+        
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
 
     # Check if the DataFrame is empty
@@ -66,8 +71,19 @@ def main():
     # Apply categorization
     all_expenses['Category'] = all_expenses.apply(categorize_expense, axis=1)
 
+    # Remove duplicate entries
+    duplicates = all_expenses.duplicated(subset=['Date', 'Amount', 'Description'], keep=False)
+    duplicate_entries = all_expenses[duplicates]
+    all_expenses = all_expenses.drop_duplicates(subset=['Date', 'Amount', 'Description'])
+
+    # Save removed duplicates to a CSV file
+    if not duplicate_entries.empty:
+        removed_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_removed_items.csv"
+        duplicate_entries.to_csv(removed_filename, index=False)
+        print(f"{len(duplicate_entries)} duplicate entries were removed. Details saved to {removed_filename}")
+
     # Define the order of columns for the output
-    output_columns = ['Date', 'Description', 'Amount', 'Category', 'Month']
+    output_columns = ['Date', 'Month',  'FileOrigin', 'Description', 'Amount', 'Category']
  
     # Merge the individual entries with their categories and months
     detailed_expenses = all_expenses[output_columns]
@@ -82,7 +98,7 @@ def main():
     print(detailed_expenses)
 
     # Output the results to a CSV file with the name finance_{the_date}.csv
-    output_filename = f"finance_{pd.Timestamp.now().strftime('%Y-%m-%d')}.csv"
+    output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
     detailed_expenses.to_csv(output_filename, index=False)
     print(f"Results have been saved to {output_filename}")
 
