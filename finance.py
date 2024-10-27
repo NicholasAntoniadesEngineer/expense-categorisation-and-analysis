@@ -68,6 +68,21 @@ def categorize_expense(row):
     return 'Uncategorized'
 
 
+def get_file_origin(basename):
+    parts = basename.split(' ')
+    origin = []
+    i = 0
+    while i < len(parts):
+        if (parts[i] != '-' and 
+            parts[i] != 'Data' and 
+            parts[i] != 'Export'):
+            # Keep 'july' but remove '.csv' extension
+            if parts[i].lower().endswith('.csv'):
+                parts[i] = parts[i][:-4]
+            origin.append(parts[i])
+        i += 1
+    return ' '.join(origin)
+
 
 def load_and_preprocess_data(directory, keyword_file):
     # Load keyword mapping from CSV
@@ -87,10 +102,27 @@ def load_and_preprocess_data(directory, keyword_file):
 
     # List and read all CSV files in the directory
     csv_files = glob(os.path.join(directory, '*.csv'))
+
+    
     for file in csv_files:
         df = pd.read_csv(file)
-        file_origin = os.path.basename(file).split(' ')[0]
-        df['FileOrigin'] = file_origin
+        file_basename = os.path.basename(file)
+        df['FileOrigin'] = get_file_origin(file_basename)
+        
+        # If Description is empty or just numbers/spaces, use Category or Name as Description
+        empty_desc_mask = df['Description'].isna() | (df['Description'] == '')
+        numeric_desc_mask = df['Description'].str.replace(' ', '', regex=False).str.replace('.', '', regex=False).str.isnumeric()
+
+        # Fill NaN values in the mask with False
+        numeric_desc_mask = numeric_desc_mask.fillna(False)
+        if 'Category' in df.columns:
+            df.loc[empty_desc_mask, 'Description'] = df.loc[empty_desc_mask, 'Category']
+        
+        if 'Name' in df.columns:
+            # Check for numeric descriptions or descriptions with more than 8 numbers
+            numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(8)
+            df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
+            
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
 
     if all_expenses.empty:
@@ -105,7 +137,6 @@ def load_and_preprocess_data(directory, keyword_file):
     all_expenses['Name'] = all_expenses['Name'].fillna('') if 'Name' in all_expenses.columns else ''
 
     return all_expenses
-
 def categorize_expenses(all_expenses):
     logging.basicConfig(filename='finance_log.txt', level=logging.ERROR)
     all_expenses['Category'] = all_expenses.apply(safe_categorize, axis=1)
@@ -149,7 +180,7 @@ def main():
         return
 
     all_expenses = categorize_expenses(all_expenses)
-    all_expenses = remove_duplicates(all_expenses)
+    # all_expenses = remove_duplicates(all_expenses)
     detailed_expenses = prepare_output(all_expenses)
 
     print(detailed_expenses)
