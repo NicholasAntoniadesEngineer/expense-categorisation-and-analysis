@@ -28,7 +28,7 @@ def safe_categorize(row):
 
 # Function to categorize expenses
 def categorize_expense(row):
-    PRINT_TRUE = True  # Set to True to enable prints, False to disable
+    PRINT_TRUE = False  # Set to True to enable prints, False to disable
 
     if PRINT_TRUE:
         print("====================================")
@@ -84,6 +84,7 @@ def get_file_origin(basename):
     return ' '.join(origin)
 
 
+
 def load_and_preprocess_data(directory, keyword_file):
     # Load keyword mapping from CSV
     global keyword_mapping
@@ -91,7 +92,7 @@ def load_and_preprocess_data(directory, keyword_file):
 
     # Add custom extra keyword mappings
     custom_mappings = {
-        'nan': 'Transfers Category 1',
+        'nan': 'Transfers',
         # '': 'Transfers Category 2'
         # Add more custom mappings as needed
     }
@@ -106,6 +107,9 @@ def load_and_preprocess_data(directory, keyword_file):
     
     for file in csv_files:
         df = pd.read_csv(file)
+        # Skip rows where Description is "PAYMENT RECEIVED - THANK YOU"
+        df = df[df['Description'] != 'PAYMENT RECEIVED - THANK YOU']
+        
         file_basename = os.path.basename(file)
         df['FileOrigin'] = get_file_origin(file_basename)
         
@@ -123,6 +127,9 @@ def load_and_preprocess_data(directory, keyword_file):
             numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(8)
             df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
             
+        # Make Amex/American Express values negative since they are expenses
+        if 'amex' in file_basename.lower() or 'american express' in file_basename.lower():
+            df['Amount'] = df['Amount'].apply(lambda x: -abs(x))
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
 
     if all_expenses.empty:
@@ -135,6 +142,10 @@ def load_and_preprocess_data(directory, keyword_file):
     all_expenses['Month'] = all_expenses[date_column].dt.to_period('M')
     all_expenses['Description'] = all_expenses['Description'].fillna('')
     all_expenses['Name'] = all_expenses['Name'].fillna('') if 'Name' in all_expenses.columns else ''
+
+    # Ensure transactions with Description "Savings" keep their Category as "Savings"
+    savings_mask = all_expenses['Description'].str.lower() == 'savings'
+    all_expenses.loc[savings_mask, 'Category'] = 'Savings'
 
     return all_expenses
 def categorize_expenses(all_expenses):
@@ -167,9 +178,63 @@ def prepare_output(all_expenses):
     return detailed_expenses
 
 def save_results(detailed_expenses):
+    # Save the detailed expenses with monthly separators and totals
     output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
-    detailed_expenses.to_csv(output_filename, index=False)
+    
+    # Convert Amount to numeric for calculations
+    detailed_expenses['Amount'] = pd.to_numeric(detailed_expenses['Amount'], errors='coerce')
+    
+    # Create a list to store the modified data
+    modified_data = []
+    
+    # Group by Month and iterate
+    for month, month_data in detailed_expenses.groupby('Month'):
+        # Add month's transactions
+        modified_data.extend(month_data.to_dict('records'))
+        
+        # Calculate month total, ignoring 'Nothing' category
+        month_total = month_data[month_data['Category'] != 'Nothing']['Amount'].sum()
+        
+        # Add monthly total row
+        total_row = {
+            'Date': None,
+            'Month': month,
+            'FileOrigin': None,
+            'Description': 'TOTAL',
+            'Amount': f"{month_total:.2f}",
+            'Category': None
+        }
+        modified_data.append(total_row)
+        
+        # Add empty row as separator
+        empty_row = {col: None for col in detailed_expenses.columns}
+        modified_data.append(empty_row)
+    
+    # Convert back to DataFrame and save
+    modified_df = pd.DataFrame(modified_data)
+    modified_df.to_csv(output_filename, index=False)
     print(f"Results have been saved to {output_filename}")
+
+    # Create a summary of total amounts per category for each month
+    summary = pd.pivot_table(
+        detailed_expenses,
+        values='Amount',
+        index=['Month'],
+        columns=['Category'],
+        aggfunc='sum'
+    ).reset_index().melt(
+        id_vars=['Month'],
+        var_name='Category',
+        value_name='Amount'
+    ).dropna()
+
+    # Format the summary for better readability
+    summary['Amount'] = summary['Amount'].map(lambda x: f"{x:.2f}")
+
+    # Save the summary to a new CSV file
+    summary_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_summary.csv"
+    summary.to_csv(summary_filename, index=False)
+    print(f"Summary has been saved to {summary_filename}")
 
 def main():
     directory = 'finance_files'

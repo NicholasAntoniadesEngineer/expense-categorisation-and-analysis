@@ -1,70 +1,70 @@
 Category,Keyword
-eating_out,avellino
-eating_out,bun house
-eating_out,cafe
-eating_out,nero
-eating_out,deliveroo
-eating_out,gail
-eating_out,gyros
-eating_out,landrace
-eating_out,mcdonalds
-eating_out,ocean basket
-eating_out,ouzeri
-eating_out,pophams
-eating_out,pret
-eating_out,taverna
-eating_out,the jar
-eating_out,comptoir
-eating_out,aldi
-eating_out,crouch end greens
-eating_out,gousto
-eating_out,j and r kiosk
-eating_out,jiovanis mini market
-eating_out,wizz
-eating_out,periptero
-eating_out,kiosk
-eating_out,cherry local
-eating_out,falafel stop
-eating_out,fam market
-eating_out,loon fung
-eating_out,wing wing
-eating_out,xing long men
-eating_out,clocktower greens
-eating_out,old bell tavern
-eating_out,coffeenerd
-eating_out,ls the wells tavern
-eating_out,1014 grays inn road
-eating_out,bath bun tea shoppe
-eating_out,same same but different
-eating_out,la baguette
-eating_out,the raven
-eating_out,queen's
-eating_out,v&a
-eating_out,london bridge confectionery
-eating_out,the dusty knuckle
-eating_out,co-op group food
-eating_out,butterandcrust
-eating_out,costa sevenoaks railway
-eating_out,five guys 
-eating_out,mount vineyard 
-eating_out,kemsing premier
-eating_out,petersham nurseries
-eating_out,e5 bakehouse ltd
-eating_out,turf tavern
-eating_out,the woodman
-eating_out,plateia agiou lazarou
-eating_out,gyr evontas ellada
-eating_out,chris express
-eating_out,food village lca airport
-eating_out,park local express
-eating_out,the cock inn
-eating_out,kemsing news+wine
-eating_out,gaucho covent garden
-eating_out,chinatown bakery
-eating_out,tianfu
-eating_out,the service london ltd
-eating_out,FOOD
-eating_out,jolene
+activities,avellino
+activities,bun house
+activities,cafe
+activities,nero
+activities,deliveroo
+activities,gail
+activities,gyros
+activities,landrace
+activities,mcdonalds
+activities,ocean basket
+activities,ouzeri
+activities,pophams
+activities,pret
+activities,taverna
+activities,the jar
+activities,comptoir
+activities,aldi
+activities,crouch end greens
+activities,gousto
+activities,j and r kiosk
+activities,jiovanis mini market
+activities,wizz
+activities,periptero
+activities,kiosk
+activities,cherry local
+activities,falafel stop
+activities,fam market
+activities,loon fung
+activities,wing wing
+activities,xing long men
+activities,clocktower greens
+activities,old bell tavern
+activities,coffeenerd
+activities,ls the wells tavern
+activities,1014 grays inn road
+activities,bath bun tea shoppe
+activities,same same but different
+activities,la baguette
+activities,the raven
+activities,queen's
+activities,v&a
+activities,london bridge confectionery
+activities,the dusty knuckle
+activities,co-op group food
+activities,butterandcrust
+activities,costa sevenoaks railway
+activities,five guys 
+activities,mount vineyard 
+activities,kemsing premier
+activities,petersham nurseries
+activities,e5 bakehouse ltd
+activities,turf tavern
+activities,the woodman
+activities,plateia agiou lazarou
+activities,gyr evontas ellada
+activities,chris express
+activities,food village lca airport
+activities,park local express
+activities,the cock inn
+activities,kemsing news+wine
+activities,gaucho covent garden
+activities,chinatown bakery
+activities,tianfu
+activities,the service london ltd
+activities,FOOD
+activities,jolene
 
 groceries,marks and spencer
 groceries,MARKS&SPENCER
@@ -73,6 +73,7 @@ groceries,tesco
 groceries,waitrose
 groceries,m&s
 groceries,morris
+groceries,grocery
 
 Transportation,tfl
 Transportation,HUMAN FOREST
@@ -87,8 +88,9 @@ Transportation,london cai
 Transportation,london overground
 Transportation,waterloo
 
-Travel,airbnb
-Travel,sp piedaterre venice
+Holiday,airbnb
+Holiday,sp piedaterre venice
+Holiday,holidays
 
 Entertainment,eventim
 Entertainment,thermae bath spa
@@ -104,13 +106,11 @@ Subscriptions,spotify
 Subscriptions,openai
 Subscriptions,adobe
 Subscriptions,google
-Subscriptions,google one
 Subscriptions,subscription
 Subscriptions,amazon prime
 Subscriptions,squarespace
 Subscriptions,microsoft
 
-Shopping,grocery
 Shopping,amazon
 Shopping,american
 Shopping,shell
@@ -164,38 +164,37 @@ Shopping,zettle
 Shopping,flex
 Shopping,arknet
 Shopping,Hart & Sons
-Shopping,holidays
 Shopping,general
+Shopping,coinbase uk
+
+Utilities,virgin media
+Utilities,flex
+Utilities,voxi
+Utilities,topup
+Utilities,post
+Utilities,www.haringey.gov.uk
+Utilities,ovo energy
+Utilities,boost
+Utilities,Urban
 
 
-
-Utilities & Bills,virgin media
-Utilities & Bills,flex
-Utilities & Bills,voxi
-Utilities & Bills,topup
-Utilities & Bills,post
-Utilities & Bills,www.haringey.gov.uk
-Utilities & Bills,ovo energy
-Utilities & Bills,boost
-Utilities & Bills,Urban
-
-Moving Money,monthly
-Nicholas Moving money,nicholas
-Lara Moving money,lara
-Transfers,Transfers
+pay nicholas,nicholas
+pay lara,lara
 Pay mom,aletta
-Savings,emergency
 
+Nothing,emergency
+Nothing,savings
+Nothing,Monthly Money Pot
+Nothing,pot transfer
+Transfers,Transfers
 
 Income,payment received
 Income,payroll
-Income,positive balance adjustments
 Income,refund
 Income,unlabeled income
 
 Refunds,connolly/ expenses
 Refunds,refund
-Refunds,negative balance adjustments
 
 Personal Care,boots
 Personal Care,clinic
@@ -203,10 +202,8 @@ Personal Care,euro pharmacy
 Personal Care,superdrug
 Personal Care,london doctors clinic
 
-Investments,coinbase uk
-
-Housing & Rent,rent payment
-Housing & Rent,1 montenotte rent
+Rent,rent payment
+Rent,1 montenotte rent
 
 Miscellaneous,human for
 Miscellaneous,vms sally
