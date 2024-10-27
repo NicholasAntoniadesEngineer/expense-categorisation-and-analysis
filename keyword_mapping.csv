@@ -2,6 +2,7 @@ Category,Keyword
 eating_out,avellino
 eating_out,bun house
 eating_out,cafe
+eating_out,nero
 eating_out,deliveroo
 eating_out,gail
 eating_out,gyros
@@ -49,7 +50,6 @@ eating_out,mount vineyard
 eating_out,kemsing premier
 eating_out,petersham nurseries
 eating_out,e5 bakehouse ltd
-eating_out,zettle_*druces pressed
 eating_out,turf tavern
 eating_out,the woodman
 eating_out,plateia agiou lazarou
@@ -75,9 +75,10 @@ groceries,m&s
 groceries,morris
 
 Transportation,tfl
+Transportation,HUMAN FOREST
 Transportation,bus stop
 Transportation,uber
-Transportationbolt
+Transportation,bolt
 Transportation,gett
 Transportation,lime
 Transportation,first great
@@ -157,6 +158,8 @@ Shopping,tradeinn retal services
 Shopping,lgl ltd
 Shopping,w h smith
 Shopping,wetransfer
+Shopping,PAYMENT RECEIVED 
+Shopping,zettle
 
 Utilities & Bills,virgin media
 Utilities & Bills,flex

@@ -1,11 +1,13 @@
 import pandas as pd
 import os
 from glob import glob
+import logging
 
 def load_keyword_mapping(file_path):
     # Load the keyword mapping from a CSV file
     df = pd.read_csv(file_path)
-    return dict(zip(df['Keyword'].str.lower(), df['Category']))
+    # Convert all keywords to strings to avoid type issues
+    return dict(zip(df['Keyword'].astype(str).str.lower(), df['Category']))
 
 def main():
     # Define the directory containing the CSV files
@@ -64,12 +66,28 @@ def main():
         # Convert the description to a string and handle NaN values
         description = str(row['Description']).lower()
         for keyword, category in keyword_mapping.items():
-            if keyword in description:
+            # Ensure the keyword is a string
+            if str(keyword).lower() in description:
                 return category
         return 'Uncategorized'
 
-    # Apply categorization
-    all_expenses['Category'] = all_expenses.apply(categorize_expense, axis=1)
+    # Set up logging
+    logging.basicConfig(filename='finance_log.txt', level=logging.ERROR)
+
+    # Apply categorization with error handling
+    def safe_categorize(row):
+        try:
+            return categorize_expense(row)
+        except Exception as e:
+            logging.error(f"Error categorizing row: {row}\nError: {str(e)}")
+            return 'Error'
+
+    all_expenses['Category'] = all_expenses.apply(safe_categorize, axis=1)
+
+    # After categorization, check for any errors
+    error_rows = all_expenses[all_expenses['Category'] == 'Error']
+    if not error_rows.empty:
+        print(f"There were {len(error_rows)} rows that couldn't be categorized. Check finance_log.txt for details.")
 
     # Remove duplicate entries
     duplicates = all_expenses.duplicated(subset=['Date', 'Amount', 'Description'], keep=False)
