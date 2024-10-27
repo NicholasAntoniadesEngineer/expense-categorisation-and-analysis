@@ -1,5 +1,5 @@
 Transaction ID,Date,Time,Type,Name,Emoji,Category,Amount,Currency,Local amount,Local currency,Notes and #tags,Address,Receipt,Description,Category split,Money Out,Money In,FileOrigin,Month
-tx_0000AkvD2h4G2S1GRLkf9l,2024-08-13,10:44:07,Monzo-to-Monzo,Nicholas Antoniades,,Error,150.0,GBP,150.0,GBP,,,,,,,150.0,Monzo,2024-08
-tx_0000AkvD2hv4s4HvKHJpth,2024-08-13,10:44:07,Pot transfer,Monthly Money Pot,,Error,-150.0,GBP,-150.0,GBP,,,,,,-150.0,,Monzo,2024-08
-tx_0000AkvNYovjLAv3qv8Sxt,2024-08-13,12:41:58,Pot transfer,Monthly Money Pot,,Error,150.0,GBP,150.0,GBP,,,,,,,150.0,Monzo,2024-08
-tx_0000AkvNYqYPIrZmDgFMJ7,2024-08-13,12:41:59,Monzo-to-Monzo,Nicholas Antoniades,,Error,-150.0,GBP,-150.0,GBP,,,,,,-150.0,,Monzo,2024-08
+tx_0000AkvD2h4G2S1GRLkf9l,2024-08-13,10:44:07,Monzo-to-Monzo,Nicholas Antoniades,,Uncategorized,150.0,GBP,150.0,GBP,,,,,,,150.0,Monzo,2024-08
+tx_0000AkvD2hv4s4HvKHJpth,2024-08-13,10:44:07,Pot transfer,Monthly Money Pot,,Moving Money,-150.0,GBP,-150.0,GBP,,,,,,-150.0,,Monzo,2024-08
+tx_0000AkvNYovjLAv3qv8Sxt,2024-08-13,12:41:58,Pot transfer,Monthly Money Pot,,Moving Money,150.0,GBP,150.0,GBP,,,,,,,150.0,Monzo,2024-08
+tx_0000AkvNYqYPIrZmDgFMJ7,2024-08-13,12:41:59,Monzo-to-Monzo,Nicholas Antoniades,,Uncategorized,-150.0,GBP,-150.0,GBP,,,,,,-150.0,,Monzo,2024-08

@@ -12,29 +12,37 @@ def load_keyword_mapping(file_path):
 # Function to categorize expenses
 def categorize_expense(row):
             
-    description = str(row['Description']).lower() if pd.notnull(row['Description']) else ''
-    if description and description != 'nan':
-        for keyword, category in keyword_mapping.items():
-            if keyword.lower() in description.lower():
-                return category
-            
-    # # Try to categorize using Description
-    transfers = str(row['Transfers']).lower() if pd.notnull(row['Transfers']) else ''
-    if transfers and transfers != 'nan':
-        for keyword, category in keyword_mapping.items():
-            if keyword.lower() in transfers.lower():
-                return category
-            
-    # If Description didn't yield a category, or was empty/invalid, try Name
-    name = str(row['Name']).lower() if pd.notnull(row['Name']) else ''
-    if name and name != 'nan':
-        print(f"Trying Name: {name}")
-        for keyword, category in keyword_mapping.items():
-            print(f"Trying keyword: {keyword}")
-            if keyword.lower() in name.lower():
-                print(f"Matched {keyword} to {category}")
-                return category
+    # Define a helper function to check for keyword matches
+    def match_keyword(text, keyword_mapping):
+        if text and text.lower() != 'nan':
+            for keyword, category in keyword_mapping.items():
+                if keyword.lower() in text.lower():
+                    return category
+        return None
 
+    # Try to categorize using Description
+    description = str(row.get('Description', '')).lower()
+    category = match_keyword(description, keyword_mapping)
+    if category:
+        return category
+
+    # Try to categorize using Transfers
+    transfers = str(row.get('Transfers', '')).lower()
+    category = match_keyword(transfers, keyword_mapping)
+    if category:
+        return category
+
+    # Try to categorize using Name
+    name = str(row.get('Name', '')).lower()
+    category = match_keyword(name, keyword_mapping)
+    if category:
+        return category
+
+    # If no category found, check for specific conditions
+    if 'pot transfer' in description.lower() or 'pot transfer' in name.lower():
+        return 'Transfers'
+
+    # If still no category found, return Uncategorized
     return 'Uncategorized'
 
 # Apply categorization with error handling

@@ -1,48 +1,48 @@
 Date,Month,FileOrigin,Description,Amount,Category
-2024-08-01,2024-08,Monzo,,20.00,Error
-2024-08-01,2024-08,Monzo,,10.00,Error
-2024-08-01,2024-08,Monzo,,102.89,Error
-2024-08-01,2024-08,Monzo,,2000.00,Error
 2024-08-01,2024-08,Monzo,1 Montenotte Rent,-2100.00,Housing & Rent
+2024-08-01,2024-08,Monzo,,20.00,Moving Money
+2024-08-01,2024-08,Monzo,,10.00,Moving Money
+2024-08-01,2024-08,Monzo,,102.89,Moving Money
+2024-08-01,2024-08,Monzo,,2000.00,Moving Money
 2024-08-01,2024-08,Monzo,OVO Energy Ltd         Bristol       GBR,-180.66,Utilities & Bills
 2024-08-01,2024-08,Monzo,J and R Kiosk          London        GBR,-1.30,eating_out
 2024-08-02,2024-08,Monzo,J and R Kiosk          London        GBR,-1.30,eating_out
-2024-08-05,2024-08,Monzo,,100.00,Error
-2024-08-05,2024-08,Monzo,,431.00,Error
-2024-08-05,2024-08,Monzo,PB987905984472476,-431.53,Error
+2024-08-05,2024-08,Monzo,,100.00,Moving Money
+2024-08-05,2024-08,Monzo,,431.00,Moving Money
+2024-08-05,2024-08,Monzo,PB987905984472476,-431.53,Uncategorized
 2024-08-05,2024-08,Monzo,VIRGIN MEDIA PYMTS E15 READING       GBR,-28.83,Utilities & Bills
-2024-08-06,2024-08,Monzo,,-25.00,Error
 2024-08-06,2024-08,Monzo,Spotify                London        GBR,-19.99,Subscriptions
+2024-08-06,2024-08,Monzo,,-25.00,Uncategorized
 2024-08-09,2024-08,Monzo,CHINATOWN BAKERY       LONDON WC2H   GBR,-2.50,eating_out
 2024-08-09,2024-08,Monzo,SAINSBURYS- FETTER LAN LONDON        GBR,-2.85,groceries
 2024-08-10,2024-08,Monzo,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.00,Transportation
 2024-08-10,2024-08,Monzo,GAILS - CROUCH END     LONDON        GBR,-19.80,eating_out
 2024-08-10,2024-08,Monzo,GAILS - CROUCH END     LONDON        GBR,-2.95,eating_out
-2024-08-13,2024-08,Monzo,,140.00,Error
-2024-08-13,2024-08,Monzo,,-140.00,Error
-2024-08-13,2024-08,Monzo,,8.00,Error
-2024-08-13,2024-08,Monzo,,-8.00,Error
-2024-08-13,2024-08,Monzo,,150.00,Error
-2024-08-13,2024-08,Monzo,,-150.00,Error
+2024-08-13,2024-08,Monzo,,140.00,Moving Money
+2024-08-13,2024-08,Monzo,,8.00,Moving Money
+2024-08-13,2024-08,Monzo,,-150.00,Moving Money
+2024-08-13,2024-08,Monzo,,-140.00,Uncategorized
+2024-08-13,2024-08,Monzo,,-8.00,Uncategorized
+2024-08-13,2024-08,Monzo,,150.00,Uncategorized
 2024-08-15,2024-08,Monzo,TfL Travel Charge      TFL.gov.uk/CP GBR,-3.70,Transportation
-2024-08-17,2024-08,Monzo,,100.00,Error
-2024-08-17,2024-08,Monzo,,9.00,Error
+2024-08-17,2024-08,Monzo,,100.00,Moving Money
+2024-08-17,2024-08,Monzo,,9.00,Moving Money
 2024-08-17,2024-08,Monzo,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,Shopping
 2024-08-17,2024-08,Monzo,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.00,Utilities & Bills
 2024-08-17,2024-08,Monzo,EE TOPUP  VESTA        EE.CO.UK      GBR,-9.00,Utilities & Bills
 2024-08-17,2024-08,Monzo,WAITROSE BA15AL 1      BATH          GBR,-80.00,groceries
-2024-08-19,2024-08,Monzo,,1.00,Error
+2024-08-19,2024-08,Monzo,,1.00,Uncategorized
 2024-08-19,2024-08,Monzo,LA BAGUETTE            BATH BA1      GBR,-1.70,eating_out
 2024-08-23,2024-08,Monzo,PAYROLL,1766.71,Income
 2024-08-25,2024-08,Monzo,Adobe                  ADOBE.LY/BILL IRL,-19.97,Subscriptions
 2024-08-25,2024-08,Monzo,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.00,Utilities & Bills
 2024-08-26,2024-08,Monzo,SAINSBURYS SUPERMARKET CAMDEN        GBR,-1.80,groceries
-2024-08-28,2024-08,Monzo,300 0110 745176066,-41.62,Error
-2024-08-28,2024-08,Monzo,,-400.00,Error
+2024-08-28,2024-08,Monzo,300 0110 745176066,-41.62,Transfers Category 1
+2024-08-28,2024-08,Monzo,,-400.00,Uncategorized
 2024-08-29,2024-08,Monzo,Payroll Aug 2024,3854.32,Income
-2024-08-30,2024-08,Monzo,9TA94DV,-18.45,Error
-2024-08-30,2024-08,Monzo,PB261086276924814,-3277.14,Error
-2024-08-30,2024-08,Monzo,,-744.00,Error
 2024-08-30,2024-08,Monzo,TfL Travel Charge      TFL.gov.uk/CP GBR,-2.70,Transportation
+2024-08-30,2024-08,Monzo,9TA94DV,-18.45,Uncategorized
+2024-08-30,2024-08,Monzo,PB261086276924814,-3277.14,Uncategorized
+2024-08-30,2024-08,Monzo,,-744.00,Uncategorized
 2024-08-30,2024-08,Monzo,J and R Kiosk          London        GBR,-1.30,eating_out
-2024-08-31,2024-08,Monzo,PWBT1725104513320,-70.69,Error
+2024-08-31,2024-08,Monzo,PWBT1725104513320,-70.69,Utilities & Bills
