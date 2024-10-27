@@ -129,7 +129,7 @@ def load_and_preprocess_data(directory, keyword_file):
             
         # Make Amex/American Express values negative since they are expenses
         if 'amex' in file_basename.lower() or 'american express' in file_basename.lower():
-            df['Amount'] = df['Amount'].apply(lambda x: -abs(x))
+            df['Amount'] = df['Amount'].apply(lambda x: -x)
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
 
     if all_expenses.empty:
@@ -178,41 +178,14 @@ def prepare_output(all_expenses):
     return detailed_expenses
 
 def save_results(detailed_expenses):
-    # Save the detailed expenses with monthly separators and totals
+    # Save the detailed expenses without monthly totals
     output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
     
     # Convert Amount to numeric for calculations
     detailed_expenses['Amount'] = pd.to_numeric(detailed_expenses['Amount'], errors='coerce')
     
-    # Create a list to store the modified data
-    modified_data = []
-    
-    # Group by Month and iterate
-    for month, month_data in detailed_expenses.groupby('Month'):
-        # Add month's transactions
-        modified_data.extend(month_data.to_dict('records'))
-        
-        # Calculate month total, ignoring 'Nothing' category
-        month_total = month_data[month_data['Category'] != 'Nothing']['Amount'].sum()
-        
-        # Add monthly total row
-        total_row = {
-            'Date': None,
-            'Month': month,
-            'FileOrigin': None,
-            'Description': 'TOTAL',
-            'Amount': f"{month_total:.2f}",
-            'Category': None
-        }
-        modified_data.append(total_row)
-        
-        # Add empty row as separator
-        empty_row = {col: None for col in detailed_expenses.columns}
-        modified_data.append(empty_row)
-    
-    # Convert back to DataFrame and save
-    modified_df = pd.DataFrame(modified_data)
-    modified_df.to_csv(output_filename, index=False)
+    # Save the detailed expenses directly to CSV
+    detailed_expenses.to_csv(output_filename, index=False)
     print(f"Results have been saved to {output_filename}")
 
     # Create a summary of total amounts per category for each month

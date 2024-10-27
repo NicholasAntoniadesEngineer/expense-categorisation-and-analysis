@@ -4,11 +4,11 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-01,2024-07,Amex Joint JulyOctober,M&S CHANCERY LANE       LONDON,-4.05,groceries
 2024-07-01,2024-07,Amex Joint JulyOctober,WAITROSE CROUCH END     CROUCH END,-2.65,groceries
 2024-07-02,2024-07,Monzo Joint July,Savings,75.0,Nothing
+2024-07-02,2024-07,Monzo Joint July,Transfers,-75.0,Nothing
 2024-07-02,2024-07,Amex Joint JulyOctober,AMZNMKTPLACE*WF7QV5KL5  AMAZON.CO.UK,-143.76,Shopping
 2024-07-02,2024-07,Monzo Nicholas Flex JulyOctober,BATH POTTERS SUPPLIES  RADSTOCK      GBR,-98.26,Shopping
-2024-07-02,2024-07,Amex Joint JulyOctober,AMAZON PRIME            AMZN.CO.UK/PM,-4.5,Subscriptions
+2024-07-02,2024-07,Amex Joint JulyOctober,AMAZON PRIME            AMZN.CO.UK/PM,4.5,Subscriptions
 2024-07-02,2024-07,Amex Joint JulyOctober,AMAZON PRIME*5T40I6QG5  AMZN.CO.UK/PM,-8.99,Subscriptions
-2024-07-02,2024-07,Monzo Joint July,Transfers,-75.0,Transfers
 2024-07-02,2024-07,Amex Joint JulyOctober,LIME*PASS               LONDON,-36.99,Transportation
 2024-07-02,2024-07,Amex Joint JulyOctober,LIME*RIDE               LONDON,-0.3,Transportation
 2024-07-02,2024-07,Monzo Nicholas Flex JulyOctober,Booking40528871684,-104.36,Uncategorized
@@ -24,28 +24,28 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-03,2024-07,Monzo Joint July,Nicholas Antoniade,-9.0,pay nicholas
 2024-07-04,2024-07,Monzo Joint July,Savings,15.0,Nothing
 2024-07-04,2024-07,Monzo Joint July,Savings,3093.42,Nothing
-2024-07-04,2024-07,Monzo Joint July,AMERICAN EXP 3773,-3093.42,Shopping
+2024-07-04,2024-07,Monzo Joint July,AMERICAN EXP 3773,-3093.42,Nothing
 2024-07-04,2024-07,Amex Joint JulyOctober,SUMUP*NKORA LIMITED     ST ALBANS,-3.5,Shopping
 2024-07-04,2024-07,Amex Joint JulyOctober,SUMUP*NKORA LIMITED     ST ALBANS,-3.6,Shopping
 2024-07-04,2024-07,Amex Joint JulyOctober,ZETTLE *CHIRIAC MUSIC   LONDON,-5.0,Shopping
 2024-07-04,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.4,Transportation
-2024-07-04,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-15.0,Utilities
 2024-07-04,2024-07,Monzo Nicholas Flex JulyOctober,The Woodman            London        GBR,-22.1,activities
+2024-07-04,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-15.0,subscriptions
 2024-07-05,2024-07,Amex Joint JulyOctober,AIRBNB * HM9FKFHKXQ     LONDON,-204.88,Holiday
 2024-07-05,2024-07,Monzo Joint July,Savings,15.0,Nothing
 2024-07-05,2024-07,Amex Joint JulyOctober,W H SMITH               GATWICK,-12.76,Shopping
 2024-07-05,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.0,Transportation
 2024-07-05,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-8.5,Transportation
 2024-07-05,2024-07,Amex Joint JulyOctober,TRAINLINE trainline     LONDON,-9.1,Transportation
-2024-07-05,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-15.0,Utilities
 2024-07-05,2024-07,Amex Joint JulyOctober,3CPAYMENT*PRET A MANGER LONDON,-5.99,activities
 2024-07-05,2024-07,Amex Joint JulyOctober,SAINSBURY'S             LONDON,-2.0,groceries
+2024-07-05,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-15.0,subscriptions
 2024-07-06,2024-07,Monzo Joint July,Savings,20.0,Nothing
 2024-07-06,2024-07,Monzo Joint July,Savings,160.0,Nothing
+2024-07-06,2024-07,Monzo Joint July,Transfers,-160.0,Nothing
+2024-07-06,2024-07,Monzo Joint July,Transfers,-5.0,Nothing
 2024-07-06,2024-07,Monzo Joint July,Savings,12.0,Nothing
 2024-07-06,2024-07,Amex Joint JulyOctober,ZETTLE *TURNING EARTH C LONDON,-15.0,Shopping
-2024-07-06,2024-07,Monzo Joint July,Transfers,-160.0,Transfers
-2024-07-06,2024-07,Monzo Joint July,Transfers,-5.0,Transfers
 2024-07-06,2024-07,Amex Joint JulyOctober,GETT LONDON             London,-23.79,Transportation
 2024-07-06,2024-07,Monzo Joint July,Plateia Agiou Lazarou  Larnaka       CYP,0.0,activities
 2024-07-06,2024-07,Monzo Joint July,Plateia Agiou Lazarou  Larnaka       CYP,-23.09,activities
@@ -60,27 +60,27 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-06,2024-07,Monzo Nicholas Flex JulyOctober,GYR EVONTAS ELLADA     LARNACA       CYP,-15.22,activities
 2024-07-06,2024-07,Monzo Nicholas Flex JulyOctober,GYR EVONTAS ELLADA     LARNACA       CYP,-0.68,activities
 2024-07-07,2024-07,Monzo Joint July,Savings,30.0,Nothing
-2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,EURO PHARMACY          FAMAGUSTA     CYP,-13.55,Personal Care
+2024-07-07,2024-07,Monzo Joint July,Transfers,-30.0,Nothing
+2024-07-07,2024-07,Monzo Joint July,Transfers,-12.0,Nothing
 2024-07-07,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-0.1,Shopping
 2024-07-07,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,0.1,Shopping
 2024-07-07,2024-07,Monzo Lara Flex July,MGP*Vinted 99917365    London        GBR,-12.0,Shopping
-2024-07-07,2024-07,Monzo Joint July,Transfers,-30.0,Transfers
-2024-07-07,2024-07,Monzo Joint July,Transfers,-12.0,Transfers
+2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,EURO PHARMACY          FAMAGUSTA     CYP,-13.55,Toiletries
 2024-07-07,2024-07,Amex Joint JulyOctober,CAFFE NERO FINIKOUDES   .,-10.13,activities
 2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,CHRIS EXPRESS          FAMAGUSTA     CYP,-0.85,activities
 2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,OCEAN BASKET (AGIA NAP AMMOCHOSTOS   CYP,-38.16,activities
 2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,ENJOY KIOSK FINIKOUDES LARNACA       CYP,-1.19,activities
-2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,Jiovanis Mini Market   Larnaka       CYP,-4.58,activities
-2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,Jiovanis Mini Market   Larnaka       CYP,-3.99,activities
+2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,Jiovanis Mini Market   Larnaka       CYP,-4.58,groceries
+2024-07-07,2024-07,Monzo Nicholas Flex JulyOctober,Jiovanis Mini Market   Larnaka       CYP,-3.99,groceries
+2024-07-08,2024-07,Monzo Joint July,Transfers,6.0,Nothing
 2024-07-08,2024-07,Monzo Lara Flex July,MGP*Vinted 99966429    London        GBR,-142.39,Shopping
 2024-07-08,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-173.89,Shopping
 2024-07-08,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-8.85,Shopping
 2024-07-08,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-24.6,Shopping
 2024-07-08,2024-07,Amex Joint JulyOctober,AMZNMKTPLACE*Q189V2NB5  AMAZON.CO.UK,-31.55,Shopping
-2024-07-08,2024-07,Monzo Joint July,Transfers,6.0,Transfers
 2024-07-08,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.9,Transportation
 2024-07-08,2024-07,Amex Joint JulyOctober,TRAINLINE trainline     LONDON,-12.1,Transportation
-2024-07-08,2024-07,Monzo Joint July,Boost,-6.0,Utilities
+2024-07-08,2024-07,Monzo Joint July,Boost,-6.0,Uncategorized
 2024-07-08,2024-07,Amex Joint JulyOctober,3CPAYMENT*PRET A MANGER LONDON,-5.99,activities
 2024-07-08,2024-07,Monzo Nicholas Flex JulyOctober,FOOD VILLAGE LCA AIRPO LARNACA       CYP,-8.23,activities
 2024-07-09,2024-07,Monzo Lara Flex July,MGP-VINTED\109 Kesperry House\London\SE13XB       GBR,142.39,Shopping
@@ -90,8 +90,8 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-09,2024-07,Amex Joint JulyOctober,"DISNEY PLUS             HAMMERSMITH, LO",-7.99,Subscriptions
 2024-07-09,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.4,Transportation
 2024-07-09,2024-07,Amex Joint JulyOctober,ORDER 69205996 17205415 720541544975,-70.0,Uncategorized
-2024-07-09,2024-07,Monzo Nicholas Flex JulyOctober,Flex,484.02,Utilities
 2024-07-09,2024-07,Amex Joint JulyOctober,3CPAYMENT*PRET A MANGER LONDON,-5.5,activities
+2024-07-09,2024-07,Monzo Nicholas Flex JulyOctober,Flex,484.02,credit card
 2024-07-09,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-1.2,groceries
 2024-07-09,2024-07,Amex Joint JulyOctober,WAITROSE CROUCH END     CROUCH END,-18.47,groceries
 2024-07-10,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.7,Transportation
@@ -115,17 +115,17 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-15,2024-07,Monzo Lara Flex July,Wetransfer,-11.0,Shopping
 2024-07-15,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-4.2,groceries
 2024-07-16,2024-07,Monzo Joint July,CONNOLLY,11.0,Shopping
-2024-07-16,2024-07,Monzo Joint July,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,Shopping
 2024-07-16,2024-07,Amex Joint JulyOctober,SIDNEY ROSE             LONDON,-2.4,Shopping
 2024-07-16,2024-07,Monzo Joint July,"Adobe.com              Saggart, Dubl IRL",-19.97,Subscriptions
 2024-07-16,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.7,Transportation
 2024-07-16,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.4,Transportation
 2024-07-16,2024-07,Amex Joint JulyOctober,J and R Kiosk           London,-2.3,activities
 2024-07-16,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-4.2,groceries
-2024-07-17,2024-07,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,Shopping
-2024-07-17,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-13.5,Utilities
+2024-07-16,2024-07,Monzo Joint July,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,subscriptions
 2024-07-17,2024-07,Amex Joint JulyOctober,M&S CROUCH END SIMPLY F LONDON,-21.2,groceries
 2024-07-17,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-4.2,groceries
+2024-07-17,2024-07,Monzo Joint July,EE TOPUP  VESTA        EE.CO.UK      GBR,-13.5,subscriptions
+2024-07-17,2024-07,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,subscriptions
 2024-07-18,2024-07,Monzo Lara Flex July,PPOINT_*CU CONVENIENCE London        GBR,-4.08,Shopping
 2024-07-18,2024-07,Monzo Nicholas Flex JulyOctober,PPOINT_*H V Kingsley 3 London        GBR,-2.2,Shopping
 2024-07-18,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-5.2,groceries
@@ -136,26 +136,26 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-19,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.4,Transportation
 2024-07-20,2024-07,Monzo Joint July,PPOINT_*CU CONVENIENCE London        GBR,-5.48,Shopping
 2024-07-20,2024-07,Monzo Joint July,Zettle_*TURNING EARTH  LONDON        GBR,-54.0,Shopping
-2024-07-20,2024-07,Amex Joint JulyOctober,Crouch End Greens LTD   London,-1.29,activities
+2024-07-20,2024-07,Amex Joint JulyOctober,Crouch End Greens LTD   London,-1.29,groceries
 2024-07-20,2024-07,Amex Joint JulyOctober,M&S CROUCH END SIMPLY F LONDON,-50.45,groceries
 2024-07-21,2024-07,Amex Joint JulyOctober,GAIL'S HAMPSTEAD        LONDON,-6.85,activities
-2024-07-22,2024-07,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
-2024-07-22,2024-07,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
 2024-07-22,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-9.99,Shopping
+2024-07-22,2024-07,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
+2024-07-22,2024-07,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
 2024-07-22,2024-07,Monzo Joint July,Vanguard,-0.28,Uncategorized
 2024-07-23,2024-07,Monzo Nicholas Flex JulyOctober,Airbnb,155.79,Holiday
-2024-07-23,2024-07,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-2.99,Shopping
 2024-07-23,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-7.1,Transportation
-2024-07-23,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-155.79,Utilities
 2024-07-23,2024-07,Monzo Joint July,Park Local Express     London        GBR,-3.18,activities
 2024-07-23,2024-07,Monzo Joint July,Park Local Express     London        GBR,-2.99,activities
 2024-07-23,2024-07,Amex Joint JulyOctober,THE SERVICE LONDON LTD  Mayfair,-3.8,activities
-2024-07-24,2024-07,Amex Joint JulyOctober,AIRBNB * HM9CMRJQYE     LONDON,-59.78,Holiday
+2024-07-23,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-155.79,credit card
+2024-07-23,2024-07,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-2.99,subscriptions
+2024-07-24,2024-07,Amex Joint JulyOctober,AIRBNB * HM9CMRJQYE     LONDON,59.78,Holiday
 2024-07-24,2024-07,Monzo Nicholas Flex JulyOctober,Airbnb,157.67,Holiday
 2024-07-24,2024-07,Monzo Lara Flex July,PPOINT_*CU CONVENIENCE London        GBR,-6.66,Shopping
-2024-07-24,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-157.67,Utilities
+2024-07-24,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-157.67,credit card
 2024-07-24,2024-07,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-5.2,groceries
-2024-07-24,2024-07,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-98.97,groceries
+2024-07-24,2024-07,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,98.97,groceries
 2024-07-24,2024-07,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-98.97,groceries
 2024-07-25,2024-07,Monzo Joint July,PAYROLL,1766.91,Income
 2024-07-25,2024-07,Monzo Lara Flex July,PPOINT_*CU CONVENIENCE London        GBR,-16.47,Shopping
@@ -182,38 +182,36 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-07-27,2024-07,Monzo Joint July,Microsoft*EA Play 1 Mo msbill.info   GBR,-5.99,Subscriptions
 2024-07-27,2024-07,Amex Joint JulyOctober,GAIL'S CROUCH END       LONDON,-12.5,activities
 2024-07-27,2024-07,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-95.96,groceries
+2024-07-28,2024-07,Monzo Joint July,Transfers,-192.0,Nothing
 2024-07-28,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-6.75,Shopping
 2024-07-28,2024-07,Monzo Lara Flex July,MGP*Vinted 99920294    London        GBR,-35.05,Shopping
 2024-07-28,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-28.8,Shopping
-2024-07-28,2024-07,Monzo Joint July,Transfers,-192.0,Transfers
 2024-07-28,2024-07,Monzo Joint July,TfL Travel Charge      TFL.gov.uk/CP GBR,-6.7,Transportation
 2024-07-28,2024-07,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-6.7,Transportation
-2024-07-28,2024-07,Monzo Lara Flex July,Flex,197.58,Utilities
 2024-07-28,2024-07,Monzo Joint July,THE COCK INN           RICKMANSWORTH GBR,-16.35,activities
 2024-07-28,2024-07,Monzo Joint July,THE COCK INN           RICKMANSWORTH GBR,-8.95,activities
 2024-07-28,2024-07,Amex Joint JulyOctober,3CPAYMENT*PRET A MANGER LONDON,-5.59,activities
-2024-07-29,2024-07,Amex Joint JulyOctober,AIRBNB * HM9CMRJQYE     LONDON,-50.39,Holiday
+2024-07-28,2024-07,Monzo Lara Flex July,Flex,197.58,credit card
+2024-07-29,2024-07,Amex Joint JulyOctober,AIRBNB * HM9CMRJQYE     LONDON,50.39,Holiday
 2024-07-29,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-56.1,Shopping
 2024-07-29,2024-07,Monzo Lara Flex July,Google,-7.89,Subscriptions
 2024-07-29,2024-07,Monzo Joint July,SAINSBURYS- FETTER LAN LONDON        GBR,-2.85,groceries
 2024-07-30,2024-07,Amex Joint JulyOctober,AIRBNB * HMJ3XANJDB     LONDON,-481.0,Holiday
 2024-07-30,2024-07,Monzo Nicholas Flex JulyOctober,Airbnb,325.35,Holiday
 2024-07-30,2024-07,Monzo Lara Flex July,PPOINT_*CU CONVENIENCE London        GBR,-25.16,Shopping
-2024-07-30,2024-07,Monzo Joint July,Barclays Partner Finance,-41.62,Transfers
+2024-07-30,2024-07,Monzo Joint July,Barclays Partner Finance,-41.62,Subscriptions
 2024-07-30,2024-07,Amex Joint JulyOctober,TRAINLINE trainline     LONDON,-102.89,Transportation
 2024-07-30,2024-07,Monzo Joint July,9TA94DV,-18.45,Utilities
-2024-07-30,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-325.35,Utilities
+2024-07-30,2024-07,Monzo Nicholas Flex JulyOctober,Flex,-325.35,credit card
 2024-07-31,2024-07,Monzo Joint July,Payroll July 2024,3854.32,Income
+2024-07-31,2024-07,Monzo Joint July,AMERICAN EXP 3773,-2404.68,Nothing
+2024-07-31,2024-07,Monzo Joint July,Transfers,-10.0,Nothing
 2024-07-31,2024-07,Monzo Joint July,Savings,-1300.0,Nothing
 2024-07-31,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-14.19,Shopping
 2024-07-31,2024-07,Monzo Lara Flex July,MGP*Vinted             London        GBR,-12.0,Shopping
-2024-07-31,2024-07,Monzo Joint July,AMERICAN EXP 3773,-2404.68,Shopping
-2024-07-31,2024-07,Monzo Joint July,Transfers,-10.0,Transfers
-2024-07-31,2024-07,Monzo Nicholas Flex JulyOctober,Flex,2.2,Utilities
-2024-07-31,2024-07,Amex Joint JulyOctober,Crouch End Greens LTD   London,-12.06,activities
+2024-07-31,2024-07,Monzo Nicholas Flex JulyOctober,Flex,2.2,credit card
+2024-07-31,2024-07,Amex Joint JulyOctober,Crouch End Greens LTD   London,-12.06,groceries
 2024-07-31,2024-07,Amex Joint JulyOctober,M&S CROUCH END SIMPLY F LONDON,-26.45,groceries
-,2024-07,,TOTAL,-6417.69,
-,,,,,
 2024-08-01,2024-08,Monzo Joint August,Savings,20.0,Nothing
 2024-08-01,2024-08,Monzo Joint August,Savings,10.0,Nothing
 2024-08-01,2024-08,Monzo Joint August,Savings,102.89,Nothing
@@ -238,11 +236,11 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-02,2024-08,Amex Joint JulyOctober,J and R Kiosk           London,-1.3,activities
 2024-08-03,2024-08,Amex Joint JulyOctober,OPENAI *CHATGPT SUBSCR  SAN FRANCISCO,-19.45,Subscriptions
 2024-08-03,2024-08,Amex Joint JulyOctober,LIME*RIDE FZY2          LONDON,-3.77,Transportation
-2024-08-03,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-2.88,activities
 2024-08-03,2024-08,Amex Joint JulyOctober,GAIL'S CROUCH END       LONDON,-8.8,activities
 2024-08-03,2024-08,Amex Joint JulyOctober,GAIL'S CROUCH END       LONDON,-14.7,activities
-2024-08-04,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       LONDON,-3.5,Personal Care
+2024-08-03,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-2.88,groceries
 2024-08-04,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE*206BM6175  AMAZON.CO.UK,-5.03,Shopping
+2024-08-04,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       LONDON,-3.5,Toiletries
 2024-08-04,2024-08,Amex Joint JulyOctober,LIME*PASS FZY2          LONDON,-36.99,Transportation
 2024-08-04,2024-08,Amex Joint JulyOctober,TRAINLINE trainline     LONDON,-21.1,Transportation
 2024-08-04,2024-08,Amex Joint JulyOctober,JOLENE HORNSEY ROAD (BA London,-3.9,activities
@@ -251,16 +249,16 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-04,2024-08,Monzo Nicholas Flex JulyOctober,Kemsing News+Wine      Sevenoaks     GBR,-5.98,activities
 2024-08-05,2024-08,Monzo Joint August,Savings,100.0,Nothing
 2024-08-05,2024-08,Monzo Joint August,Savings,431.0,Nothing
-2024-08-05,2024-08,Monzo Joint August,AMERICAN EXP 3773,-431.53,Shopping
-2024-08-05,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-72.11,Shopping
+2024-08-05,2024-08,Monzo Joint August,AMERICAN EXP 3773,-431.53,Nothing
 2024-08-05,2024-08,Monzo Joint August,VIRGIN MEDIA PYMTS E15 READING       GBR,-28.83,Utilities
 2024-08-05,2024-08,Amex Joint JulyOctober,J and R Kiosk           London,-1.3,activities
+2024-08-05,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-72.11,groceries
 2024-08-06,2024-08,Monzo Joint August,General,-25.0,Shopping
 2024-08-06,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE*9Z8Q42MN5  AMAZON.CO.UK,-31.24,Shopping
 2024-08-06,2024-08,Monzo Joint August,Spotify                London        GBR,-19.99,Subscriptions
 2024-08-06,2024-08,Amex Joint JulyOctober,WAITROSE CROUCH END     CROUCH END,-9.48,groceries
-2024-08-07,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-14.9,activities
 2024-08-07,2024-08,Amex Joint JulyOctober,GAUCHO COVENT GARDEN 8- LONDON,-323.18,activities
+2024-08-07,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-14.9,groceries
 2024-08-08,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-13.59,Shopping
 2024-08-08,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-6.53,Shopping
 2024-08-08,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-5.36,Shopping
@@ -318,18 +316,18 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-12,2024-08,Amex Joint JulyOctober,JOLENE HORNSEY ROAD (BA London,-15.2,activities
 2024-08-12,2024-08,Amex Joint JulyOctober,M&S MUSWELL HILL        LONDON,-6.2,groceries
 2024-08-13,2024-08,Monzo Joint August,Savings,140.0,Nothing
+2024-08-13,2024-08,Monzo Joint August,Transfers,-140.0,Nothing
 2024-08-13,2024-08,Monzo Joint August,Savings,8.0,Nothing
+2024-08-13,2024-08,Monzo Joint August,Transfers,-8.0,Nothing
+2024-08-13,2024-08,Monzo Joint August,Transfers,150.0,Nothing
 2024-08-13,2024-08,Monzo Joint August,Savings,-150.0,Nothing
 2024-08-13,2024-08,Monzo Joint August,Savings,150.0,Nothing
-2024-08-13,2024-08,Monzo Joint August,Transfers,-140.0,Transfers
-2024-08-13,2024-08,Monzo Joint August,Transfers,-8.0,Transfers
-2024-08-13,2024-08,Monzo Joint August,Transfers,150.0,Transfers
-2024-08-13,2024-08,Monzo Joint August,Transfers,-150.0,Transfers
+2024-08-13,2024-08,Monzo Joint August,Transfers,-150.0,Nothing
 2024-08-13,2024-08,Amex Joint JulyOctober,BOLT                    LONDON,-22.6,Transportation
 2024-08-13,2024-08,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.7,Transportation
-2024-08-13,2024-08,Amex Joint JulyOctober,DELIVEROO               LONDON,-59.08,activities
 2024-08-13,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-2.99,activities
 2024-08-13,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-8.97,activities
+2024-08-13,2024-08,Amex Joint JulyOctober,DELIVEROO               LONDON,-59.08,groceries
 2024-08-13,2024-08,Amex Joint JulyOctober,SAINSBURY'S SPRMRKTS LT LONDON,-4.2,groceries
 2024-08-14,2024-08,Amex Joint JulyOctober,BOLT                    LONDON,-16.8,Transportation
 2024-08-14,2024-08,Amex Joint JulyOctober,LIME*PASS FZY2          LONDON,-36.99,Transportation
@@ -338,12 +336,12 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-14,2024-08,Amex Joint JulyOctober,LIME*RIDE X23Q          LONDON,-0.3,Transportation
 2024-08-14,2024-08,Amex Joint JulyOctober,LIME*RIDE X23Q          LONDON,-3.31,Transportation
 2024-08-14,2024-08,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.7,Transportation
-2024-08-14,2024-08,Amex Joint JulyOctober,DELIVEROO               LONDON,-110.78,activities
 2024-08-14,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-1.69,activities
 2024-08-14,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-1.69,activities
 2024-08-14,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-2.99,activities
 2024-08-14,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-3.38,activities
 2024-08-14,2024-08,Amex Joint JulyOctober,THE JAR - HEALTHY VENDI LONDON,-4.68,activities
+2024-08-14,2024-08,Amex Joint JulyOctober,DELIVEROO               LONDON,-110.78,groceries
 2024-08-14,2024-08,Amex Joint JulyOctober,M&S CROUCH END SIMPLY F LONDON,-39.62,groceries
 2024-08-15,2024-08,Amex Joint JulyOctober,Morris's of Bond Street London,-26.0,Shopping
 2024-08-15,2024-08,Monzo Lara Flex August,Wetransfer Bb2119b7,-11.0,Shopping
@@ -363,20 +361,20 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-16,2024-08,Monzo Nicholas Flex JulyOctober,Human Forest,-1.9,Transportation
 2024-08-17,2024-08,Monzo Joint August,Savings,100.0,Nothing
 2024-08-17,2024-08,Monzo Joint August,Savings,9.0,Nothing
-2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-3.4,Personal Care
-2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-5.1,Personal Care
-2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-27.99,Personal Care
-2024-08-17,2024-08,Monzo Joint August,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,Shopping
-2024-08-17,2024-08,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,Shopping
 2024-08-17,2024-08,Amex Joint JulyOctober,WATERSTONES             BATH,-8.99,Shopping
 2024-08-17,2024-08,Monzo Lara Flex August,Zettle_*Druces Pressed Failand       GBR,-4.0,Shopping
-2024-08-17,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,Utilities
-2024-08-17,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-9.0,Utilities
+2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-3.4,Toiletries
+2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-5.1,Toiletries
+2024-08-17,2024-08,Amex Joint JulyOctober,BOOTS THE CHEMIST       BATH,-27.99,Toiletries
 2024-08-17,2024-08,Amex Joint JulyOctober,Upstairs at Landrace    Bath,-20.2,activities
 2024-08-17,2024-08,Amex Joint JulyOctober,Upstairs at Landrace    Bath,-56.1,activities
 2024-08-17,2024-08,Amex Joint JulyOctober,ZETTLE *AVELLINO_S ITAL BATH,-3.0,activities
 2024-08-17,2024-08,Monzo Joint August,WAITROSE BA15AL 1      BATH          GBR,-80.0,groceries
 2024-08-17,2024-08,Amex Joint JulyOctober,WAITROSE BATH           BATH,-20.13,groceries
+2024-08-17,2024-08,Monzo Joint August,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,subscriptions
+2024-08-17,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,subscriptions
+2024-08-17,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-9.0,subscriptions
+2024-08-17,2024-08,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,subscriptions
 2024-08-18,2024-08,Monzo Lara Flex August,Nintendo,-10.99,Entertainment
 2024-08-18,2024-08,Monzo Lara Flex August,Nintendo,-12.99,Entertainment
 2024-08-18,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE*EE85V6S35  AMAZON.CO.UK,-33.29,Shopping
@@ -386,11 +384,11 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-18,2024-08,Amex Joint JulyOctober,Bath Bun Tea Shoppe     Bath,-18.7,activities
 2024-08-19,2024-08,Amex Joint JulyOctober,THERMAE BATH SPA        BATH,-5.0,Entertainment
 2024-08-19,2024-08,Amex Joint JulyOctober,THERMAE BATH SPA        BATH,-82.0,Entertainment
+2024-08-19,2024-08,Monzo Joint August,Transfers,1.0,Nothing
 2024-08-19,2024-08,Amex Joint JulyOctober,JIGSAW BATH 006         BATH,-52.0,Shopping
 2024-08-19,2024-08,Monzo Lara Flex August,Route one              Bath          GBR,-70.0,Shopping
 2024-08-19,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-9.03,Shopping
 2024-08-19,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-9.9,Shopping
-2024-08-19,2024-08,Monzo Joint August,Transfers,1.0,Transfers
 2024-08-19,2024-08,Monzo Joint August,LA BAGUETTE            BATH BA1      GBR,-1.7,activities
 2024-08-19,2024-08,Amex Joint JulyOctober,Cafe Lucca              Bath,-16.06,activities
 2024-08-19,2024-08,Monzo Lara Flex August,LA BAGUETTE            BATH BA1      GBR,-1.7,activities
@@ -406,7 +404,7 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-20,2024-08,Amex Joint JulyOctober,The Raven               Bath,-7.4,activities
 2024-08-20,2024-08,Amex Joint JulyOctober,The Raven               Bath,-22.8,activities
 2024-08-20,2024-08,Amex Joint JulyOctober,ZETTLE *LANDRACE BAKERY BATH,-16.1,activities
-2024-08-21,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE            AMAZON.CO.UK,-29.8,Shopping
+2024-08-21,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE            AMAZON.CO.UK,29.8,Shopping
 2024-08-21,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-6.98,Shopping
 2024-08-21,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-19.35,Shopping
 2024-08-21,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-9.9,Shopping
@@ -421,18 +419,18 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-22,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-9.9,Shopping
 2024-08-22,2024-08,Monzo Lara Flex August,PPOINT_*CU CONVENIENCE London        GBR,-10.97,Shopping
 2024-08-22,2024-08,Amex Joint JulyOctober,PRIME VIDEO *HO2TY1105  353-12477661,-7.99,Subscriptions
-2024-08-23,2024-08,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
-2024-08-23,2024-08,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
 2024-08-23,2024-08,Monzo Joint August,PAYROLL,1766.71,Income
 2024-08-23,2024-08,Amex Joint JulyOctober,AMZNMKTPLACE*AR41K5QI5  AMAZON.CO.UK,-11.0,Shopping
 2024-08-23,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-7.61,Shopping
 2024-08-23,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-7.61,Shopping
-2024-08-23,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-92.81,Shopping
-2024-08-23,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-3.94,Shopping
+2024-08-23,2024-08,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
+2024-08-23,2024-08,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
 2024-08-23,2024-08,Amex Joint JulyOctober,UBER TRIP               HTTPS://HELP.UB,-15.9,Transportation
 2024-08-23,2024-08,Amex Joint JulyOctober,GAIL'S BUCKINHAM PALACE LONDON,-23.6,activities
 2024-08-23,2024-08,Amex Joint JulyOctober,QUEEN'S                 LONDON,-7.5,activities
 2024-08-23,2024-08,Amex Joint JulyOctober,V&A                     LONDON,-7.2,activities
+2024-08-23,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-92.81,groceries
+2024-08-23,2024-08,Monzo Nicholas Flex JulyOctober,BUY 2 SAVE (GG) LTD    LONDON        GBR,-3.94,groceries
 2024-08-24,2024-08,Amex Joint JulyOctober,ZETTLE *TURNING EARTH C LONDON,-40.5,Shopping
 2024-08-24,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-17.25,Shopping
 2024-08-24,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-27.75,Shopping
@@ -441,8 +439,8 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-25,2024-08,Amex Joint JulyOctober,Crouch end hardware     London,-5.98,Shopping
 2024-08-25,2024-08,Monzo Nicholas Flex JulyOctober,HART & SONS  DORSET  L Sturminster N GBR,-187.2,Shopping
 2024-08-25,2024-08,Monzo Joint August,Adobe                  ADOBE.LY/BILL IRL,-19.97,Subscriptions
-2024-08-25,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,Utilities
 2024-08-25,2024-08,Amex Joint JulyOctober,GAIL'S CROUCH END       LONDON,-14.85,activities
+2024-08-25,2024-08,Monzo Joint August,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,subscriptions
 2024-08-26,2024-08,Amex Joint JulyOctober,LIME*PASS FZY2          LONDON,-36.99,Transportation
 2024-08-26,2024-08,Amex Joint JulyOctober,LIME*RIDE FZY2          LONDON,-24.52,Transportation
 2024-08-26,2024-08,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-1.9,Transportation
@@ -456,18 +454,18 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-27,2024-08,Monzo Lara Flex August,MGP*Vinted             London        GBR,-10.05,Shopping
 2024-08-27,2024-08,Amex Joint JulyOctober,TFL TRAVEL CHARGE       TFL.GOV.UK/CP,-3.7,Transportation
 2024-08-27,2024-08,Amex Joint JulyOctober,3CPAYMENT*PRET A MANGER LONDON,-5.5,activities
-2024-08-27,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-4.93,activities
+2024-08-27,2024-08,Amex Joint JulyOctober,Crouch End Greens LTD   London,-4.93,groceries
 2024-08-27,2024-08,Amex Joint JulyOctober,M&S CROUCH END SIMPLY F LONDON,-38.85,groceries
+2024-08-28,2024-08,Monzo Joint August,Transfers,-400.0,Nothing
 2024-08-28,2024-08,Amex Joint JulyOctober,ZETTLE *TURNING EARTH C LONDON,-18.0,Shopping
-2024-08-28,2024-08,Monzo Joint August,Barclays Partner Finance,-41.62,Transfers
-2024-08-28,2024-08,Monzo Joint August,Transfers,-400.0,Transfers
+2024-08-28,2024-08,Monzo Joint August,Barclays Partner Finance,-41.62,Subscriptions
 2024-08-28,2024-08,Amex Joint JulyOctober,LIME*PASS X23Q          LONDON,-36.99,Transportation
 2024-08-28,2024-08,Amex Joint JulyOctober,LIME*RIDE X23Q          LONDON,-0.58,Transportation
 2024-08-28,2024-08,Amex Joint JulyOctober,LIME*RIDE X23Q          LONDON,-2.16,Transportation
 2024-08-28,2024-08,Monzo Nicholas Flex JulyOctober,G KAYE & J WALDREN T/A LONDON N8     GBR,-110.0,Uncategorized
-2024-08-28,2024-08,Monzo Lara Flex August,Flex,321.14,Utilities
 2024-08-28,2024-08,Monzo Lara Flex August,PPOINT_*ASEES FOOD AND London        GBR,-4.99,activities
-2024-08-28,2024-08,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-1.5,groceries
+2024-08-28,2024-08,Monzo Lara Flex August,Flex,321.14,credit card
+2024-08-28,2024-08,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,1.5,groceries
 2024-08-28,2024-08,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-74.26,groceries
 2024-08-28,2024-08,Amex Joint JulyOctober,WAITROSE CROUCH END     CROUCH END,-22.65,groceries
 2024-08-29,2024-08,Monzo Joint August,Payroll Aug 2024,3854.32,Income
@@ -476,25 +474,23 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-08-29,2024-08,Amex Joint JulyOctober,J and R Kiosk           London,-1.3,activities
 2024-08-29,2024-08,Monzo Nicholas Flex JulyOctober,CO-OP GROUP FOOD       LONDON        GBR,-4.5,activities
 2024-08-29,2024-08,Monzo Nicholas Flex JulyOctober,BUTTERANDCRUST         LONDON        GBR,-20.04,activities
-2024-08-30,2024-08,Monzo Joint August,AMERICAN EXP 3773,-3277.14,Shopping
-2024-08-30,2024-08,Monzo Joint August,Transfers,-744.0,Transfers
+2024-08-30,2024-08,Monzo Joint August,AMERICAN EXP 3773,-3277.14,Nothing
+2024-08-30,2024-08,Monzo Joint August,Transfers,-744.0,Nothing
 2024-08-30,2024-08,Monzo Joint August,TfL Travel Charge      TFL.gov.uk/CP GBR,-2.7,Transportation
 2024-08-30,2024-08,Monzo Joint August,9TA94DV,-18.45,Utilities
-2024-08-30,2024-08,Monzo Nicholas Flex JulyOctober,Flex,744.52,Utilities
 2024-08-30,2024-08,Monzo Joint August,J and R Kiosk          London        GBR,-1.3,activities
+2024-08-30,2024-08,Monzo Nicholas Flex JulyOctober,Flex,744.52,credit card
 2024-08-31,2024-08,Monzo Nicholas Flex JulyOctober,AMZNMktplace           amazon.co.uk  GBR,-3.99,Shopping
 2024-08-31,2024-08,Monzo Joint August,OVO ENERGY LTD,-70.69,Utilities
-,2024-08,,TOTAL,-6008.80,
-,,,,,
 2024-09-01,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*FO7WA4GS5  AMAZON.CO.UK,-91.14,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*L33623285  AMAZON.CO.UK,-18.99,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,ARKNET                  LONDON,-27.0,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,ARKNET                  LONDON,-37.0,Shopping
-2024-09-01,2024-09,Amex Joint JulyOctober,BOBBIBROWN.CO.UK        LONDON,-123.0,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,DECIEM UK LTD.          LONDON,-73.1,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,RYOHIN KEIKAKU EUROPE L LONDON,-18.9,Shopping
 2024-09-01,2024-09,Amex Joint JulyOctober,UNIQLO EUROPE LTD       LONDON,-55.4,Shopping
 2024-09-01,2024-09,Monzo Joint September,Spotify                London        GBR,-19.99,Subscriptions
+2024-09-01,2024-09,Amex Joint JulyOctober,BOBBIBROWN.CO.UK        LONDON,-123.0,Toiletries
 2024-09-01,2024-09,Amex Joint JulyOctober,LIME*RIDE FZY2          LONDON,-9.86,Transportation
 2024-09-01,2024-09,Amex Joint JulyOctober,TRAINLINE trainline     LONDON,-21.1,Transportation
 2024-09-01,2024-09,Monzo Lara Flex September,KEMSING PREMIER        SEVENOAKS     GBR,-3.24,activities
@@ -506,7 +502,7 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-02,2024-09,Monzo Joint September,TfL Travel Charge      TFL.gov.uk/CP GBR,-9.9,Transportation
 2024-09-02,2024-09,Monzo Nicholas Flex JulyOctober,TfL Travel Charge      TFL.gov.uk/CP GBR,-9.9,Transportation
 2024-09-02,2024-09,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-8.2,groceries
-2024-09-03,2024-09,Monzo Joint September,AMERICAN EXP 3773,-342.78,Shopping
+2024-09-03,2024-09,Monzo Joint September,AMERICAN EXP 3773,-342.78,Nothing
 2024-09-03,2024-09,Amex Joint JulyOctober,OPENAI *CHATGPT SUBSCR  SAN FRANCISCO,-18.83,Subscriptions
 2024-09-03,2024-09,Monzo Joint September,J and R Kiosk          London        GBR,-1.3,activities
 2024-09-03,2024-09,Monzo Joint September,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-10.4,groceries
@@ -531,7 +527,7 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-05,2024-09,Monzo Joint September,PRET A MANGER          HULL          GBR,-10.59,activities
 2024-09-05,2024-09,Monzo Joint September,CAFFE NERO 86 HIGH HOL LONDON        GBR,-3.98,activities
 2024-09-05,2024-09,Monzo Joint September,J and R Kiosk          London        GBR,-1.3,activities
-2024-09-05,2024-09,Monzo Joint September,Crouch End Greens LTD  London        GBR,-10.75,activities
+2024-09-05,2024-09,Monzo Joint September,Crouch End Greens LTD  London        GBR,-10.75,groceries
 2024-09-06,2024-09,Monzo Joint September,TfL Travel Charge      TFL.gov.uk/CP GBR,-12.3,Transportation
 2024-09-06,2024-09,Monzo Joint September,TfL Travel Charge      TFL.gov.uk/CP GBR,-3.7,Transportation
 2024-09-06,2024-09,Monzo Joint September,SQ *JOLENE HORNSEY ROA London        GBR,-15.2,activities
@@ -541,17 +537,17 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-07,2024-09,Monzo Joint September,LS The Wells Tavern    London        GBR,-8.2,activities
 2024-09-07,2024-09,Monzo Joint September,MARKS&SPENCER PLC SF   CROUCH END    GBR,-17.8,groceries
 2024-09-07,2024-09,Monzo Joint September,WAITROSE               LONDON        GBR,-27.3,groceries
+2024-09-08,2024-09,Monzo Joint September,Transfers,-40.0,Nothing
 2024-09-08,2024-09,Monzo Joint September,Zettle_*But First Coff London        GBR,-6.6,Shopping
 2024-09-08,2024-09,Monzo Joint September,Zettle_*But First Coff London        GBR,-2.4,Shopping
 2024-09-08,2024-09,Monzo Joint September,PPOINT_*CU CONVENIENCE London        GBR,-6.49,Shopping
-2024-09-08,2024-09,Monzo Joint September,Transfers,-40.0,Transfers
 2024-09-08,2024-09,Monzo Joint September,CLOCKTOWER GREENS      LONDON        GBR,-4.58,activities
 2024-09-08,2024-09,Monzo Joint September,WAITROSE               LONDON        GBR,-14.85,groceries
 2024-09-09,2024-09,Monzo Joint September,Savings,2100.0,Nothing
+2024-09-09,2024-09,Monzo Joint September,Transfers,303.18,Nothing
 2024-09-09,2024-09,Monzo Joint September,Savings,-115.0,Nothing
 2024-09-09,2024-09,Monzo Joint September,1 Montenotte Rent,-2100.0,Rent
 2024-09-09,2024-09,Amex Joint JulyOctober,"DISNEY PLUS             HAMMERSMITH, LO",-7.99,Subscriptions
-2024-09-09,2024-09,Monzo Joint September,Transfers,303.18,Transfers
 2024-09-09,2024-09,Monzo Joint September,WWW.HARINGEY.GOV.UK    LONDON        GBR,-561.0,Utilities
 2024-09-09,2024-09,Monzo Joint September,e5 Bakehouse Ltd       London        GBR,-9.3,activities
 2024-09-09,2024-09,Monzo Joint September,e5 Bakehouse Ltd       London        GBR,-4.1,activities
@@ -566,13 +562,13 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-11,2024-09,Monzo Joint September,Klarna                \Aviation House 125 Kingsway\London       \WC2B 6NH     GBR,1979.0,Shopping
 2024-09-11,2024-09,Monzo Joint September,SumUp  *Nkora Limited  St Albans     GBR,-11.8,Shopping
 2024-09-11,2024-09,Monzo Joint September,Zettle_*Chiriac music  LONDON        GBR,-5.0,Shopping
-2024-09-11,2024-09,Monzo Joint September,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,Shopping
 2024-09-11,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*YI3WH3SB5  AMAZON.CO.UK,-12.99,Shopping
 2024-09-11,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.7,Transportation
 2024-09-11,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.7,Transportation
 2024-09-11,2024-09,Monzo Joint September,THATS SHOE BUSINESS    LONDON EC1N   GBR,-3.5,Uncategorized
 2024-09-11,2024-09,Monzo Joint September,PRET A MANGER          LONDON        GBR,-5.5,activities
 2024-09-11,2024-09,Monzo Joint September,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-8.2,groceries
+2024-09-11,2024-09,Monzo Joint September,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,subscriptions
 2024-09-12,2024-09,Monzo Joint September,PPOINT_*CU CONVENIENCE London        GBR,-1.59,Shopping
 2024-09-12,2024-09,Monzo Joint September,Zettle_*TURNING EARTH  LONDON        GBR,-20.0,Shopping
 2024-09-12,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-6.0,Transportation
@@ -607,15 +603,15 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-15,2024-09,Monzo Joint September,SAINSBURYS             LONDON        GBR,-126.75,groceries
 2024-09-16,2024-09,Monzo Joint September,Adobe                  ADOBE.LY/BILL IRL,-19.97,Subscriptions
 2024-09-16,2024-09,Monzo Joint September,VIRGIN MEDIA PYMTS E15 READING       GBR,-65.16,Utilities
-2024-09-16,2024-09,Monzo Joint September,EE TOPUP  VESTA        EE.CO.UK      GBR,-9.0,Utilities
 2024-09-16,2024-09,Monzo Joint September,GAILS - SOUTHBANK PLAC LONDON        GBR,-3.9,activities
 2024-09-16,2024-09,Monzo Joint September,J and R Kiosk          London        GBR,-2.3,activities
+2024-09-16,2024-09,Monzo Joint September,EE TOPUP  VESTA        EE.CO.UK      GBR,-9.0,subscriptions
 2024-09-17,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*T67F94MZ4  AMAZON.CO.UK,-13.43,Shopping
-2024-09-17,2024-09,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,Shopping
 2024-09-17,2024-09,Monzo Nicholas Flex JulyOctober,Amazon.co.uk           AMAZON.CO.UK  GBR,-7.25,Shopping
 2024-09-17,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-10.7,Transportation
 2024-09-17,2024-09,Monzo Joint September,SQ *JOLENE HORNSEY ROA London        GBR,-15.2,activities
 2024-09-17,2024-09,Monzo Joint September,J and R Kiosk          London        GBR,-1.3,activities
+2024-09-17,2024-09,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,subscriptions
 2024-09-18,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.7,Transportation
 2024-09-18,2024-09,Monzo Joint September,PRET A MANGER          LONDON        GBR,-13.5,activities
 2024-09-19,2024-09,Monzo Joint September,TfL Travel Charge      TFL.gov.uk/CP GBR,-3.0,Transportation
@@ -635,8 +631,8 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-22,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*TH5YV23A4  AMAZON.CO.UK,-4.49,Shopping
 2024-09-22,2024-09,Monzo Lara Flex September,GAILS BUCKINGHAM PALAC LONDON        GBR,-20.8,activities
 2024-09-22,2024-09,Monzo Nicholas Flex JulyOctober,WAITROSE               LONDON        GBR,-1.1,groceries
-2024-09-23,2024-09,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
-2024-09-23,2024-09,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
+2024-09-23,2024-09,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
+2024-09-23,2024-09,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
 2024-09-23,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.0,Transportation
 2024-09-23,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.0,Transportation
 2024-09-23,2024-09,Monzo Nicholas Flex JulyOctober,J and R Kiosk          London        GBR,-1.3,activities
@@ -647,20 +643,20 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-24,2024-09,Monzo Joint September,TfL Unpaid Fares       TFL.gov.uk/CP GBR,-0.1,Transportation
 2024-09-24,2024-09,Monzo Lara Flex September,TfL Travel Charge      TFL.gov.uk/CP GBR,-3.0,Transportation
 2024-09-25,2024-09,Monzo Joint September,PAYROLL,1766.91,Income
-2024-09-25,2024-09,Monzo Joint September,APPLE.COM/BILL         APPLE.COM/BIL IRL,-9.99,Shopping
 2024-09-25,2024-09,Monzo Lara Flex September,MGP*Vinted             London        GBR,-6.23,Shopping
-2024-09-25,2024-09,Monzo Joint September,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,Utilities
 2024-09-25,2024-09,Monzo Joint September,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-4.1,groceries
 2024-09-25,2024-09,Monzo Joint September,Nicholas Antoniade,-600.0,pay nicholas
-2024-09-26,2024-09,Monzo Joint September,AMERICAN EXP 3773,-781.86,Shopping
+2024-09-25,2024-09,Monzo Joint September,EE TOPUP  VESTA        EE.CO.UK      GBR,-10.0,subscriptions
+2024-09-25,2024-09,Monzo Joint September,APPLE.COM/BILL         APPLE.COM/BIL IRL,-9.99,subscriptions
+2024-09-26,2024-09,Monzo Joint September,Transfers,-161.04,Nothing
+2024-09-26,2024-09,Monzo Joint September,AMERICAN EXP 3773,-781.86,Nothing
 2024-09-26,2024-09,Monzo Joint September,Zettle_*TURNING EARTH  LONDON        GBR,-15.0,Shopping
 2024-09-26,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*TH4AF0UY4  AMAZON.CO.UK,-54.7,Shopping
 2024-09-26,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*TH74T2KP4  AMAZON.CO.UK,-5.99,Shopping
-2024-09-26,2024-09,Monzo Joint September,Transfers,-161.04,Transfers
 2024-09-26,2024-09,Monzo Joint September,TfL Travel Charge      TFL.gov.uk/CP GBR,-3.7,Transportation
 2024-09-26,2024-09,Monzo Joint September,OVO ENERGY LTD,-65.89,Utilities
-2024-09-26,2024-09,Monzo Nicholas Flex JulyOctober,Flex,161.04,Utilities
-2024-09-26,2024-09,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-1.75,groceries
+2024-09-26,2024-09,Monzo Nicholas Flex JulyOctober,Flex,161.04,credit card
+2024-09-26,2024-09,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,1.75,groceries
 2024-09-26,2024-09,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-145.2,groceries
 2024-09-27,2024-09,Monzo Joint September,Payroll Sep 2024,3854.32,Income
 2024-09-27,2024-09,Monzo Joint September,Savings,-3500.0,Nothing
@@ -677,40 +673,38 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-09-28,2024-09,Monzo Joint September,GAILS - JERICHO        OXFORD        GBR,-31.8,activities
 2024-09-28,2024-09,Monzo Joint September,TURF TAVERN            OXFORD        GBR,-41.9,activities
 2024-09-28,2024-09,Monzo Joint September,GAILS - JERICHO        OXFORD        GBR,-8.2,activities
+2024-09-29,2024-09,Monzo Joint September,AMERICAN EXP 3773,-212.26,Nothing
 2024-09-29,2024-09,Monzo Joint September,Savings,300.0,Nothing
-2024-09-29,2024-09,Monzo Joint September,AMERICAN EXP 3773,-212.26,Shopping
+2024-09-29,2024-09,Monzo Joint September,Transfers,-300.0,Nothing
 2024-09-29,2024-09,Monzo Lara Flex September,MGP*Vinted             London        GBR,-9.29,Shopping
 2024-09-29,2024-09,Monzo Lara Flex September,Google,-8.09,Subscriptions
-2024-09-29,2024-09,Monzo Joint September,Transfers,-300.0,Transfers
 2024-09-29,2024-09,Monzo Joint September,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.0,Transportation
 2024-09-29,2024-09,Monzo Joint September,Lime Pass Fzy2,-36.99,Transportation
 2024-09-29,2024-09,Monzo Joint September,Lime Pass X23q,-36.99,Transportation
-2024-09-29,2024-09,Monzo Lara Flex September,Flex,467.01,Utilities
+2024-09-29,2024-09,Monzo Lara Flex September,Flex,467.01,credit card
 2024-09-30,2024-09,Monzo Joint September,Savings,109.0,Nothing
 2024-09-30,2024-09,Amex Joint JulyOctober,AMZNMKTPLACE*TA6M54QN4  AMAZON.CO.UK,-58.77,Shopping
-2024-09-30,2024-09,Monzo Joint September,Barclays Partner Finance,-41.62,Transfers
+2024-09-30,2024-09,Monzo Joint September,Barclays Partner Finance,-41.62,Subscriptions
 2024-09-30,2024-09,Monzo Joint September,9TA94DV,-18.45,Utilities
 2024-09-30,2024-09,Monzo Joint September,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-4.55,groceries
-,2024-09,,TOTAL,-1635.26,
-,,,,,
 2024-10-01,2024-10,Monzo Nicholas Flex JulyOctober,Sp Piedaterre Venice,-128.9,Holiday
-2024-10-01,2024-10,Amex Joint JulyOctober,AMZNMKTPLACE            AMAZON.CO.UK,-138.18,Shopping
+2024-10-01,2024-10,Amex Joint JulyOctober,AMZNMKTPLACE            AMAZON.CO.UK,138.18,Shopping
 2024-10-01,2024-10,Amex Joint JulyOctober,AMZNMKTPLACE*TA9B10BP4  AMAZON.CO.UK,-56.0,Shopping
 2024-10-01,2024-10,Monzo Joint October,Spotify                London        GBR,-19.99,Subscriptions
 2024-10-01,2024-10,Monzo Joint October,London Borough Of Haringey,-145.0,Uncategorized
 2024-10-02,2024-10,Monzo Joint October,Savings,70.0,Nothing
+2024-10-02,2024-10,Monzo Joint October,Transfers,-70.0,Nothing
 2024-10-02,2024-10,Monzo Joint October,SumUp  *Nkora Limited  St Albans     GBR,-3.6,Shopping
 2024-10-02,2024-10,Monzo Joint October,Zettle_*Chiriac music  LONDON        GBR,-5.0,Shopping
 2024-10-02,2024-10,Amex Joint JulyOctober,AMAZON PRIME*TA8IH4KT4  AMZN.CO.UK/PM,-8.99,Subscriptions
-2024-10-02,2024-10,Monzo Joint October,Transfers,-70.0,Transfers
 2024-10-02,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-6.7,Transportation
 2024-10-02,2024-10,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-3.2,groceries
 2024-10-03,2024-10,Amex Joint JulyOctober,EVENTIM UK COMMERCE     LONDON,-52.25,Entertainment
 2024-10-03,2024-10,Monzo Joint October,Savings,130.0,Nothing
+2024-10-03,2024-10,Monzo Joint October,Transfers,-15.0,Nothing
 2024-10-03,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-7.55,Shopping
 2024-10-03,2024-10,Monzo Joint October,Coinbase UK            London        GBR,-70.0,Shopping
 2024-10-03,2024-10,Amex Joint JulyOctober,OPENAI *CHATGPT SUBSCR  SAN FRANCISCO,-18.66,Subscriptions
-2024-10-03,2024-10,Monzo Joint October,Transfers,-15.0,Transfers
 2024-10-03,2024-10,Monzo Joint October,TfL Travel Charge      TFL.gov.uk/CP GBR,-6.7,Transportation
 2024-10-03,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.7,Transportation
 2024-10-03,2024-10,Monzo Joint October,www.ukfingerprints.com,-78.0,Uncategorized
@@ -729,16 +723,16 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-10-06,2024-10,Monzo Joint October,NYX*HiTecWashroomsSolu London        GBR,-0.5,Uncategorized
 2024-10-06,2024-10,Monzo Joint October,NYX*HiTecWashroomsSolu London        GBR,-0.5,Uncategorized
 2024-10-06,2024-10,Monzo Joint October,SQ *JOLENE HORNSEY ROA London        GBR,-4.7,activities
-2024-10-06,2024-10,Monzo Joint October,Deliveroo,-13.73,activities
 2024-10-06,2024-10,Monzo Joint October,Falafel stop Limited   London        GBR,-7.0,activities
 2024-10-06,2024-10,Monzo Nicholas Flex JulyOctober,SQ *JOLENE HORNSEY ROA London        GBR,-7.4,activities
 2024-10-06,2024-10,Monzo Joint October,MARKS&SPENCER PLC SACA LONDON N4     GBR,-5.45,groceries
+2024-10-06,2024-10,Monzo Joint October,Deliveroo,-13.73,groceries
 2024-10-07,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-11.22,Shopping
 2024-10-07,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-5.7,Shopping
 2024-10-07,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-7.89,Shopping
 2024-10-07,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-17.2,Shopping
 2024-10-07,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-5.8,Transportation
-2024-10-07,2024-10,Monzo Joint October,Deliveroo,3.95,activities
+2024-10-07,2024-10,Monzo Joint October,Deliveroo,3.95,groceries
 2024-10-07,2024-10,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-92.21,groceries
 2024-10-07,2024-10,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-12.95,groceries
 2024-10-08,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-18.94,Shopping
@@ -755,7 +749,7 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-10-09,2024-10,Monzo Joint October,Bolt,3.5,Transportation
 2024-10-09,2024-10,Amex Joint JulyOctober,LIME*RIDE FZY2          LONDON,-6.09,Transportation
 2024-10-09,2024-10,Monzo Nicholas Flex JulyOctober,Lime Pass Fzy2,-36.99,Transportation
-2024-10-09,2024-10,Monzo Lara Flex October,Flex,70.0,Utilities
+2024-10-09,2024-10,Monzo Lara Flex October,Flex,70.0,credit card
 2024-10-10,2024-10,Monzo Joint October,Savings,200.0,Nothing
 2024-10-10,2024-10,Monzo Nicholas Flex JulyOctober,ROBERT DYAS HIGH HOLBO LONDON        GBR,-40.95,Shopping
 2024-10-10,2024-10,Monzo Joint October,Lime Ride X23q,-8.99,Transportation
@@ -767,22 +761,22 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-10-10,2024-10,Monzo Nicholas Flex JulyOctober,LOON FUNG SUPERMKT     LONDON W1D    GBR,-3.05,activities
 2024-10-10,2024-10,Monzo Joint October,TESCO STORES 3220      SUNBURY       GBR,-3.25,groceries
 2024-10-10,2024-10,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-10.75,groceries
-2024-10-11,2024-10,Monzo Joint October,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,Shopping
 2024-10-11,2024-10,Monzo Lara Flex October,Lime Pass X23q,-36.99,Transportation
 2024-10-11,2024-10,Monzo Joint October,TfL Travel Charge      TFL.gov.uk/CP GBR,-18.0,Transportation
-2024-10-11,2024-10,Monzo Joint October,FAM MARKET             LONDON        GBR,-22.22,activities
+2024-10-11,2024-10,Monzo Joint October,FAM MARKET             LONDON        GBR,-22.22,groceries
+2024-10-11,2024-10,Monzo Joint October,APPLE.COM/BILL         APPLE.COM/BIL IRL,-8.99,subscriptions
 2024-10-12,2024-10,Monzo Joint October,CHERRY LOCAL           LONDON        GBR,-2.5,activities
 2024-10-12,2024-10,Monzo Lara Flex October,SQ *GROCERY POST - HIG London        GBR,-23.5,groceries
-2024-10-13,2024-10,Monzo Joint October,Turning Earth Ceramics,-50.0,Entertainment
 2024-10-13,2024-10,Monzo Joint October,Savings,200.0,Nothing
 2024-10-13,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-3.32,Shopping
 2024-10-13,2024-10,Monzo Joint October,Zettle_*TURNING EARTH  LONDON        GBR,-18.0,Shopping
-2024-10-13,2024-10,Monzo Joint October,BUY 2 SAVE (GG) LTD    LONDON        GBR,-120.38,Shopping
 2024-10-13,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK*TQ02R4DO4  AMAZON.CO.UK,-15.9,Shopping
 2024-10-13,2024-10,Amex Joint JulyOctober,AMZNMKTPLACE*TQ2TC72N4  AMAZON.CO.UK,-14.99,Shopping
+2024-10-13,2024-10,Monzo Joint October,Turning Earth Ceramics,-50.0,Subscriptions
+2024-10-13,2024-10,Monzo Joint October,BUY 2 SAVE (GG) LTD    LONDON        GBR,-120.38,groceries
 2024-10-14,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-9.85,Shopping
 2024-10-14,2024-10,Monzo Joint October,SumUp  *Nkora Limited  St Albans     GBR,-7.9,Shopping
-2024-10-14,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK            AMAZON.CO.UK,-104.99,Shopping
+2024-10-14,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK            AMAZON.CO.UK,104.99,Shopping
 2024-10-14,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK*TQ8MJ6WU4  AMAZON.CO.UK,-104.99,Shopping
 2024-10-14,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK*TQ96187W4  AMAZON.CO.UK,-104.99,Shopping
 2024-10-14,2024-10,Amex Joint JulyOctober,AMZNMKTPLACE*TQ8GM9IR4  AMAZON.CO.UK,-8.49,Shopping
@@ -803,26 +797,26 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-10-16,2024-10,Monzo Nicholas Flex JulyOctober,Lime Pass Fzy2,-36.99,Transportation
 2024-10-16,2024-10,Monzo Joint October,M&S SIMPLY FOOD-SSP    LONDON BRIDGE GBR,-9.0,activities
 2024-10-16,2024-10,Monzo Joint October,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-4.75,groceries
-2024-10-17,2024-10,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,Shopping
 2024-10-17,2024-10,Amex Joint JulyOctober,PRIME VIDEO *T38DC5PM4  353-12477661,-5.99,Subscriptions
 2024-10-17,2024-10,Monzo Joint October,TfL Unpaid Fares       TFL.gov.uk/CP GBR,-0.1,Transportation
 2024-10-17,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-10.0,Transportation
 2024-10-17,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-9.2,Transportation
 2024-10-17,2024-10,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CHANCERY LANE GBR,-3.9,groceries
 2024-10-17,2024-10,Monzo Nicholas Flex JulyOctober,WAITROSE               LONDON        GBR,-5.6,groceries
+2024-10-17,2024-10,Amex Joint JulyOctober,APPLE.COM/BILL          HOLLYHILL,-19.99,subscriptions
 2024-10-18,2024-10,Monzo Joint October,Savings,200.0,Nothing
 2024-10-18,2024-10,Monzo Lara Flex October,www.jacksonsart.com    London        GBR,-33.1,Shopping
-2024-10-18,2024-10,Monzo Joint October,Apple,-5.99,Shopping
 2024-10-18,2024-10,Monzo Nicholas Flex JulyOctober,MARKS&SPENCER PLC SF   CROUCH END    GBR,-14.5,groceries
+2024-10-18,2024-10,Monzo Joint October,Apple,-5.99,subscriptions
 2024-10-19,2024-10,Monzo Joint October,Zettle_*TURNING EARTH  LONDON        GBR,-21.0,Shopping
 2024-10-19,2024-10,Amex Joint JulyOctober,AMAZON.CO.UK*T300X6DK4  AMAZON.CO.UK,-21.97,Shopping
 2024-10-19,2024-10,Monzo Joint October,GAILS - CROUCH END     LONDON        GBR,-23.3,activities
 2024-10-19,2024-10,Monzo Nicholas Flex JulyOctober,GAILS - CROUCH END     LONDON        GBR,-7.8,activities
 2024-10-19,2024-10,Monzo Nicholas Flex JulyOctober,CLOCKTOWER GREENS      LONDON        GBR,-0.99,activities
-2024-10-19,2024-10,Monzo Nicholas Flex JulyOctober,Crouch End Greens LTD  London        GBR,-2.99,activities
 2024-10-19,2024-10,Monzo Joint October,SAINSBURY S CROUCH END LONDON        GBR,-11.8,groceries
+2024-10-19,2024-10,Monzo Nicholas Flex JulyOctober,Crouch End Greens LTD  London        GBR,-2.99,groceries
 2024-10-20,2024-10,Monzo Joint October,WAITROSE               LONDON        GBR,-16.45,groceries
-2024-10-20,2024-10,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-1.35,groceries
+2024-10-20,2024-10,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,1.35,groceries
 2024-10-20,2024-10,Amex Joint JulyOctober,SAINSBURYS ONLINE       LONDON,-91.17,groceries
 2024-10-21,2024-10,Monzo Joint October,SumUp  *Nkora Limited  St Albans     GBR,-7.9,Shopping
 2024-10-21,2024-10,Monzo Joint October,Zettle_*GPX music      Surrey        GBR,-2.0,Shopping
@@ -835,37 +829,35 @@ Date,Month,FileOrigin,Description,Amount,Category
 2024-10-21,2024-10,Monzo Nicholas Flex JulyOctober,Old Bell Tavern        LONDON        GBR,-33.44,activities
 2024-10-22,2024-10,Monzo Lara Flex October,MGP*Vinted             London        GBR,-11.97,Shopping
 2024-10-22,2024-10,Monzo Joint October,Zettle_*Joe Franco Mus LONDON        GBR,-3.0,Shopping
-2024-10-23,2024-10,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
-2024-10-23,2024-10,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Entertainment
-2024-10-23,2024-10,Monzo Nicholas Flex JulyOctober,BOOTS 0707             SEDLEY PLACE  GBR,-11.55,Personal Care
+2024-10-23,2024-10,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
+2024-10-23,2024-10,Amex Joint JulyOctober,TURNING EARTH LEYTON    LONDON,-245.0,Subscriptions
+2024-10-23,2024-10,Monzo Nicholas Flex JulyOctober,BOOTS 0707             SEDLEY PLACE  GBR,-11.55,Toiletries
 2024-10-23,2024-10,Monzo Lara Flex October,Lime Pass X23q,-36.99,Transportation
 2024-10-23,2024-10,Monzo Joint October,Lime Ride X23q,-1.74,Transportation
 2024-10-23,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-6.7,Transportation
 2024-10-23,2024-10,Monzo Nicholas Flex JulyOctober,SQ *JOLENE HORNSEY ROA London        GBR,-11.3,activities
-2024-10-24,2024-10,Monzo Lara Flex October,London Doctors Clinic,-20.0,Personal Care
 2024-10-24,2024-10,Monzo Lara Flex October,Sp Connolly England,-32.5,Shopping
 2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Cursor,-15.47,Subscriptions
+2024-10-24,2024-10,Monzo Lara Flex October,London Doctors Clinic,-20.0,Toiletries
 2024-10-24,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.0,Transportation
 2024-10-24,2024-10,Monzo Joint October,TFL TRAVEL CH\VICTORIA STREET\TFL.GOV.UK/CP\SW1H 0TL     GBR,-3.0,Transportation
-2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-1.95,Utilities
-2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-65.0,Utilities
-2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-0.3,Utilities
-2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-10.0,Utilities
+2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-1.95,credit card
+2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-65.0,credit card
+2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-0.3,credit card
+2024-10-24,2024-10,Monzo Nicholas Flex JulyOctober,Flex,-10.0,credit card
 2024-10-25,2024-10,Monzo Joint October,PAYROLL,1766.91,Income
-2024-10-25,2024-10,Monzo Lara Flex October,LONDON DOCTORS CLINIC  LONDON        GBR,-236.7,Personal Care
-2024-10-25,2024-10,Monzo Joint October,APPLE.COM/BILL         APPLE.COM/BIL IRL,-9.99,Shopping
-2024-10-25,2024-10,Monzo Joint October,Transfers,-1500.0,Transfers
-2024-10-25,2024-10,Monzo Joint October,Transfers,113.11,Transfers
+2024-10-25,2024-10,Monzo Joint October,Transfers,-1500.0,Nothing
+2024-10-25,2024-10,Monzo Joint October,Transfers,113.11,Nothing
+2024-10-25,2024-10,Monzo Lara Flex October,LONDON DOCTORS CLINIC  LONDON        GBR,-236.7,Toiletries
 2024-10-25,2024-10,Monzo Joint October,TfL Unpaid Fares       TFL.gov.uk/CP GBR,0.1,Transportation
 2024-10-25,2024-10,Monzo Joint October,TfL Unpaid Fares       TFL.gov.uk/CP GBR,0.1,Transportation
 2024-10-25,2024-10,Monzo Joint October,TfL Unpaid Fares       TFL.gov.uk/CP GBR,-0.1,Transportation
 2024-10-25,2024-10,Monzo Joint October,TfL Travel Charge      TFL.gov.uk/CP GBR,-6.0,Transportation
 2024-10-25,2024-10,Monzo Joint October,Trainline.Com          London        GBR,-38.8,Transportation
-2024-10-25,2024-10,Monzo Lara Flex October,Flex,1395.34,Utilities
 2024-10-25,2024-10,Monzo Joint October,M&S SIMPLY FOOD-SSP    LONDON BRIDGE GBR,-8.15,activities
 2024-10-25,2024-10,Monzo Joint October,M&S SIMPLY FOOD - SSP  CHARING CROSS GBR,-1.65,activities
 2024-10-25,2024-10,Monzo Joint October,MCDONALDS              LONDON        GBR,-4.37,activities
+2024-10-25,2024-10,Monzo Lara Flex October,Flex,1395.34,credit card
+2024-10-25,2024-10,Monzo Joint October,APPLE.COM/BILL         APPLE.COM/BIL IRL,-9.99,subscriptions
 2024-10-26,2024-10,Monzo Joint October,Zettle_*TURNING EARTH  LONDON        GBR,-18.0,Shopping
 2024-10-26,2024-10,Monzo Joint October,TfL Travel Charge      TFL.gov.uk/CP GBR,-6.0,Transportation
-,2024-10,,TOTAL,-2074.33,
-,,,,,
