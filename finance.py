@@ -25,6 +25,10 @@ def match_keyword(text, keyword_mapping):
         for keyword, category in keyword_mapping.items():
             if keyword.lower() in text.lower():
                 return category
+    if text and text.lower() != 'nan':
+        for keyword, category in keyword_mapping.items():
+            if text.lower() in keyword.lower():
+                return category
     return None
 
 # Apply categorization with error handling
@@ -40,15 +44,22 @@ def safe_categorize(row):
 def categorize_expense(row):
     PRINT_TRUE = False  # Set to True to enable prints, False to disable
 
-    if PRINT_TRUE:
-        print("====================================")
+    if PRINT_TRUE: print("====================================")
     
     # Try to categorize using Description
-    description = str(row.get('Description', '')).lower()
-    if PRINT_TRUE: print(f"Checking Description: {description}")
+    description = (str(row.get('Description', '')).lower())
+    if PRINT_TRUE:print(f"Checking Description:{description}")
     category = match_keyword(description, keyword_mapping)
     if category:
         if PRINT_TRUE: print(f"Matched Description with category: {category}")
+        return category
+    
+    # Try to categorize using Name
+    name = str(row.get('Name', '')).lower()
+    if PRINT_TRUE: print(f"Checking Name: {name}")
+    category = match_keyword(name, keyword_mapping)
+    if category:
+        if PRINT_TRUE: print(f"Matched Name with category: {category}")
         return category
 
     # Try to categorize using Transfers
@@ -59,21 +70,13 @@ def categorize_expense(row):
         if PRINT_TRUE: print(f"Matched Transfers with category: {category}")
         return category
 
-    # Try to categorize using Name
-    name = str(row.get('Name', '')).lower()
-    if PRINT_TRUE: print(f"Checking Name: {name}")
-    category = match_keyword(name, keyword_mapping)
-    if category:
-        if PRINT_TRUE: print(f"Matched Name with category: {category}")
-        return category
-
     # Check for specific conditions
     if 'pot transfer' in description.lower() or 'pot transfer' in name.lower():
         if PRINT_TRUE: print("Matched 'pot transfer' condition")
         return 'Transfers'
 
     # Default to Uncategorized
-    if PRINT_TRUE: print("No category found, returning Uncategorized")
+    if PRINT_TRUE:print("No category found, returning Uncategorized")
     return 'Uncategorized'
 
 # Extract file origin from filename
@@ -105,24 +108,21 @@ def load_and_preprocess_data(directory, keyword_file):
 
     for file in csv_files:
         df = pd.read_csv(file)
-        df = df[df['Description'] != 'PAYMENT RECEIVED - THANK YOU']
         
         file_basename = os.path.basename(file)
         df['FileOrigin'] = get_file_origin(file_basename)
         
+        # Create mask for empty descriptions (either NaN or empty string)
         empty_desc_mask = df['Description'].isna() | (df['Description'] == '')
-        numeric_desc_mask = df['Description'].str.replace(' ', '', regex=False).str.replace('.', '', regex=False).str.isnumeric()
-        numeric_desc_mask = numeric_desc_mask.fillna(False)
         
+        # Set numeric_desc_mask to all False since we want to keep numeric descriptions
+        # numeric_desc_mask = pd.Series(False, index=df.index)
         if 'Category' in df.columns:
             df.loc[empty_desc_mask, 'Description'] = df.loc[empty_desc_mask, 'Category']
-        
-        if 'Name' in df.columns:
-            numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(8)
-            df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
-            
+
         if 'amex' in file_basename.lower() or 'american express' in file_basename.lower():
             df['Amount'] = df['Amount'].apply(lambda x: -x)
+            
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
 
     if all_expenses.empty:
@@ -190,6 +190,9 @@ def save_results(detailed_expenses):
         var_name='Category',
         value_name='Amount'
     ).dropna()
+
+    # Remove the 'Nothing' category from the summary
+    summary = summary[summary['Category'] != 'Nothing']
 
     summary['Amount'] = summary['Amount'].map(lambda x: f"{x:.2f}")
     summary_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_summary.csv"

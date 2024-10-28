@@ -153,7 +153,6 @@ Shopping,tradeinn retal services
 Shopping,lgl ltd
 Shopping,w h smith
 Shopping,wetransfer
-Shopping,PAYMENT RECEIVED 
 Shopping,zettle
 Shopping,arknet
 Shopping,Hart & Sons
@@ -173,20 +172,18 @@ Utilities,Urban
 pay nicholas,nicholas
 pay lara,lara
 Pay mom,aletta
+  
 
-// TODO: Deal with this correctly
-credit card,flex
+credit card,PAYMENT RECEIVED 
+credit card,american
 
 Nothing,emergency
 Nothing,savings
 Nothing,Monthly Money Pot
 Nothing,pot transfer
 Nothing,Transfers
+Nothing,Flex 
 
-// TODO: Deal with this correctly
-Nothing,american
-
-Income,payment received
 Income,payroll
 Income,refund
 Income,unlabeled income
