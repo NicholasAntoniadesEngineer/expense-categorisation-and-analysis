@@ -173,6 +173,8 @@ Utilities,Urban
 pay nicholas,nicholas
 pay lara,lara
 Pay mom,aletta
+
+// TODO: Deal with this correctly
 credit card,flex
 
 Nothing,emergency
@@ -180,6 +182,8 @@ Nothing,savings
 Nothing,Monthly Money Pot
 Nothing,pot transfer
 Nothing,Transfers
+
+// TODO: Deal with this correctly
 Nothing,american
 
 Income,payment received
