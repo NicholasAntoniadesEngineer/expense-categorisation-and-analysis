@@ -2,7 +2,7 @@
 
 This Python script processes finance CSV files to categorize expenses based on keywords, removes duplicates, and generates categorized summaries. The script is designed for financial data preprocessing, including categorization, error handling, and reporting.
 
-##Bugs
+## Bugs
 - The implementation needs to be able to handle monzo and amex, monzo only and amex only.
   Currently monzo payments to amex, and actual amex expenses clash
   - Amex repayments should cancel each other out if included
