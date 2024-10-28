@@ -112,11 +112,20 @@ def load_and_preprocess_data(directory, keyword_file):
         file_basename = os.path.basename(file)
         df['FileOrigin'] = get_file_origin(file_basename)
         
+        
         # Create mask for empty descriptions (either NaN or empty string)
         empty_desc_mask = df['Description'].isna() | (df['Description'] == '')
         
+        numeric_desc_mask = df['Description'].str.replace(' ', '', regex=False).str.replace('.', '', regex=False).str.isnumeric()
+        numeric_desc_mask = numeric_desc_mask.fillna(False)
+
+                
+        if 'Name' in df.columns:
+            numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(8)
+            df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
+            
+        
         # Set numeric_desc_mask to all False since we want to keep numeric descriptions
-        # numeric_desc_mask = pd.Series(False, index=df.index)
         if 'Category' in df.columns:
             df.loc[empty_desc_mask, 'Description'] = df.loc[empty_desc_mask, 'Category']
 
