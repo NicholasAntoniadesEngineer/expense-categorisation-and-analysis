@@ -222,7 +222,7 @@ def main():
     # all_expenses = remove_duplicates(all_expenses)
     detailed_expenses = prepare_output(all_expenses)
 
-    print(detailed_expenses)
+    # print(detailed_expenses)
     save_results(detailed_expenses)
 
 if __name__ == "__main__":

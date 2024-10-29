@@ -1,223 +1,215 @@
 Category,Keyword
-activities,avellino
-activities,bun house
-activities,cafe
-activities,nero
-activities,gail
-activities,gyros
-activities,landrace
-activities,mcdonalds
-activities,ocean basket
-activities,ouzeri
-activities,pophams
-activities,pret
-activities,taverna
-activities,the jar
-activities,comptoir
-activities,gousto
-activities,wizz
-activities,periptero
-activities,kiosk
-activities,cherry local
-activities,falafel stop
-activities,loon fung
-activities,wing wing
-activities,xing long men
-activities,clocktower greens
-activities,old bell tavern
-activities,coffeenerd
-activities,ls the wells tavern
-activities,1014 grays inn road
-activities,bath bun tea shoppe
-activities,same same but different
-activities,la baguette
-activities,the raven
-activities,queen's
-activities,v&a
-activities,london bridge confectionery
-activities,the dusty knuckle
-activities,butterandcrust
-activities,costa sevenoaks railway
-activities,five guys 
-activities,mount vineyard 
-activities,kemsing premier
-activities,petersham nurseries
-activities,e5 bakehouse ltd
-activities,turf tavern
-activities,the woodman
-activities,plateia agiou lazarou
-activities,gyr evontas ellada
-activities,chris express
-activities,food village lca airport
-activities,park local express
-activities,the cock inn
-activities,kemsing news+wine
-activities,gaucho covent garden
-activities,chinatown bakery
-activities,tianfu
-activities,the service london ltd
-activities,FOOD
-activities,jolene
+Admin,ukfingerprints
 
-groceries,co-op group food
-groceries,marks and spencer
-groceries,MARKS&SPENCER
-groceries,sainsbury
-groceries,tesco
-groceries,waitrose
-groceries,m&s
-groceries,morris
-groceries,grocery
-groceries,deliveroo
-groceries,j and r kiosk
-groceries,jiovanis mini market
-groceries,fam market
-groceries,aldi
-groceries,crouch end greens
-groceries,buy 2 save
+Activities,avellino
+Activities,bun house
+Activities,cafe
+Activities,cherry local
+Activities,chinatown bakery
+Activities,chris express
+Activities,clocktower greens
+Activities,coffeenerd
+Activities,comptoir
+Activities,costa sevenoaks railway
+Activities,e5 bakehouse ltd
+Activities,falafel stop
+Activities,food
+Activities,food village lca airport
+Activities,five guys 
+Activities,gail
+Activities,gaucho covent garden
+Activities,gousto
+Activities,gyros
+Activities,gyr evontas ellada
+Activities,jolene
+Activities,kemsing news+wine
+Activities,kemsing premier
+Activities,kiosk
+Activities,la baguette
+Activities,landrace
+Activities,loon fung
+Activities,ls the wells tavern
+Activities,london bridge confectionery
+Activities,mcdonalds
+Activities,mount vineyard 
+Activities,nero
+Activities,ocean basket
+Activities,old bell tavern
+Activities,ouzeri
+Activities,park local express
+Activities,periptero
+Activities,petersham nurseries
+Activities,plateia agiou lazarou
+Activities,pophams
+Activities,pret
+Activities,queen's
+Activities,same same but different
+Activities,taverna
+Activities,the cock inn
+Activities,the dusty knuckle
+Activities,the jar
+Activities,the raven
+Activities,the service london ltd
+Activities,the woodman
+Activities,tianfu
+Activities,turf tavern
+Activities,v&a
+Activities,wing wing
+Activities,wizz
+Activities,xing long men
 
-Transportation,tfl
-Transportation,HUMAN FOREST
-Transportation,bus stop
-Transportation,uber
-Transportation,bolt
-Transportation,gett
-Transportation,lime
-Transportation,first great
-Transportation,trainline
-Transportation,london cai
-Transportation,london overground
-Transportation,waterloo
+Credit card,american
+Credit card,payment received 
 
-Holiday,airbnb
-Holiday,sp piedaterre venice
-Holiday,holidays
-Holiday,booking
+Doctor,london doctors clinic
 
 Entertainment,eventim
-Entertainment,thermae bath spa
 Entertainment,nintendo
+Entertainment,thermae bath spa
 
+Groceries,aldi
+Groceries,buy 2 save
+Groceries,co-op group food
+Groceries,crouch end greens
+Groceries,deliveroo
+Groceries,fam market
+Groceries,grocery
+Groceries,j and r kiosk
+Groceries,jiovanis mini market
+Groceries,m&s
+Groceries,marks and spencer
+Groceries,marks&spencer
+Groceries,morris
+Groceries,sainsbury
+Groceries,tesco
+Groceries,waitrose
 
-Subscriptions,turning earth ceramics
-Subscriptions,turning earth leyton
-Subscriptions,cursor
-Subscriptions,netflix
-Subscriptions,disney
-Subscriptions,prime video
-Subscriptions,spotify
-Subscriptions,openai
-Subscriptions,adobe
-Subscriptions,google
-Subscriptions,subscription
-Subscriptions,amazon prime
-Subscriptions,squarespace
-Subscriptions,microsoft
-Subscriptions,Barclays
-Subscriptions,topup
-Subscriptions,apple
-Subscriptions,sqsp
+Holiday,airbnb
+Holiday,booking
+Holiday,holidays
+Holiday,sp piedaterre venice
 
+Income,connolly retail lt
 Income,payroll
 Income,refund
 Income,unlabeled income
-Income,connolly retail lt
 
-
-Shopping,connolly retail ltd
-Shopping,LONDON BRIDGE CONFECTIO
-Shopping,Sebastian Kupper
-Shopping,G KAYE & J WALDREN
-Shopping,amazon
-Shopping,shell
-Shopping,bath potters supplies
-Shopping,deciem
-Shopping,etsy
-Shopping,jigsaw
-Shopping,mgp
-Shopping,morris
-Shopping,ryohin keikaku
-Shopping,robert dyas
-Shopping,ryman
-Shopping,sp connolly england
-Shopping,sumup
-Shopping,toast
-Shopping,uniqlo
-Shopping,waterston
-Shopping,point
-Shopping,broadway
-Shopping,wholesale flowers natio
-Shopping,clR
-Shopping,london camera exchange
-Shopping,route one
-Shopping,bath old books
-Shopping,crouch end hardware
-Shopping,hart & sons dorset
-Shopping,sidney rose
-Shopping,jessops
-Shopping,that's shoe business
-Shopping,klarna
-Shopping,sp hoyles of oxford
-Shopping,scriptum ltd
-Shopping,tradeinn retal services
-Shopping,lgl ltd
-Shopping,w h smith
-Shopping,wetransfer
-Shopping,zettle
-Shopping,arknet
-Shopping,Hart & Sons
-Shopping,general
-Shopping,coinbase uk
-Shopping,snappy snaps
-Shopping,foto plus
-Shopping,jacksonsart
-Shopping,order
-Shopping,vinted
-
-Admin,ukfingerprints
-
-Utilities,virgin media
-Utilities,voxi
-Utilities,post
-Utilities,haringey
-Utilities,ovo energy
-Utilities,Urban
-Utilities,9TA94DV
-Utilities,vanguard
-Rent,rent payment
-Rent,1 montenotte rent
-
-pay nicholas,nicholas
-pay lara,lara
-Pay mom,aletta
-  
-
-credit card,PAYMENT RECEIVED 
-credit card,american
+Miscellaneous,human for
+Miscellaneous,unidentified transactions
+Miscellaneous,unlabeled expenses
+Miscellaneous,vms sally
 
 Nothing,emergency
-Nothing,savings
-Nothing,Monthly Money Pot
+Nothing,flex
+Nothing,monthly money pot
 Nothing,pot transfer
-Nothing,Transfers
-Nothing,Flex 
+Nothing,savings
+Nothing,transfers
 
-
+Pay lara,lara
+Pay mom,aletta
+Pay nicholas,nicholas
 
 Refunds,connolly/ expenses
 Refunds,refund
 
+Rent,1 montenotte rent
+Rent,rent payment
+
+Shopping,amazon
+Shopping,arknet
+Shopping,bath old books
+Shopping,bath potters supplies
+Shopping,broadway
+Shopping,clR
+Shopping,coinbase uk
+Shopping,connolly retail ltd
+Shopping,crouch end hardware
+Shopping,deciem
+Shopping,etsy
+Shopping,foto plus
+Shopping,general
+Shopping,g kaye & j waldren
+Shopping,hart & sons dorset
+Shopping,hart & sons
+Shopping,jacksonsart
+Shopping,jessops
+Shopping,jigsaw
+Shopping,klarna
+Shopping,lgl ltd
+Shopping,london bridge confectio
+Shopping,london camera exchange
+Shopping,mgp
+Shopping,morris
+Shopping,order
+Shopping,point
+Shopping,robert dyas
+Shopping,route one
+Shopping,ryman
+Shopping,ryohin keikaku
+Shopping,sbastian kupper
+Shopping,shell
+Shopping,sidney rose
+Shopping,snappy snaps
+Shopping,sp connolly england
+Shopping,sp hoyles of oxford
+Shopping,scriptum ltd
+Shopping,sumup
+Shopping,that's shoe business
+Shopping,toast
+Shopping,tradeinn retal services
+Shopping,uniqlo
+Shopping,vinted
+Shopping,waterston
+Shopping,wetransfer
+Shopping,w h smith
+Shopping,wholesale flowers natio
+Shopping,zettle
+
+Subscriptions,adobe
+Subscriptions,amazon prime
+Subscriptions,apple
+Subscriptions,barclays
+Subscriptions,cursor
+Subscriptions,disney
+Subscriptions,google
+Subscriptions,microsoft
+Subscriptions,netflix
+Subscriptions,openai
+Subscriptions,prime video
+Subscriptions,sqsp
+Subscriptions,squarespace
+Subscriptions,spotify
+Subscriptions,subscription
+Subscriptions,topup
+Subscriptions,turning earth ceramics
+Subscriptions,turning earth leyton
+
+Toiletries,bobbi brown
+Toiletries,bobbibrown.co.uk
 Toiletries,boots
 Toiletries,clinic
 Toiletries,euro pharmacy
 Toiletries,superdrug
-Toiletries,boots
-Toiletries,bobbi brown
-Toiletries,bobbibrown.co.uk
 
-Doctor,london doctors clinic
+Transportation,bolt
+Transportation,bus stop
+Transportation,first great
+Transportation,gett
+Transportation,human forest
+Transportation,lime
+Transportation,london cai
+Transportation,london overground
+Transportation,tfl
+Transportation,trainline
+Transportation,uber
+Transportation,waterloo
 
-Miscellaneous,human for
-Miscellaneous,vms sally
-Miscellaneous,unidentified transactions
-Miscellaneous,unlabeled expenses
+Utilities,9ta94dv
+Utilities,haringey
+Utilities,ovo energy
+Utilities,post
+Utilities,urban
+Utilities,vanguard
+Utilities,virgin media
+Utilities,voxi
