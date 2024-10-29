@@ -31,7 +31,6 @@ def match_keyword(text, keyword_mapping):
                 return category
     return None
 
-# Apply categorization with error handling
 def safe_categorize(row):
     try:
         return categorize_expense(row)
@@ -70,13 +69,12 @@ def categorize_expense(row):
         if PRINT_TRUE: print(f"Matched Transfers with category: {category}")
         return category
 
-    # Check for specific conditions
-    if 'pot transfer' in description.lower() or 'pot transfer' in name.lower():
-        if PRINT_TRUE: print("Matched 'pot transfer' condition")
-        return 'Transfers'
-
     # Default to Uncategorized
-    if PRINT_TRUE:print("No category found, returning Uncategorized")
+    if PRINT_TRUE:    
+        print(f"Checking Description:{description}")
+        print(f"Checking Name: {name}")
+        print(f"Checking Transfers: {transfers}")
+        print("No category found, returning Uncategorized")
     return 'Uncategorized'
 
 # Extract file origin from filename
@@ -120,19 +118,22 @@ def load_and_preprocess_data(directory, keyword_file):
         numeric_desc_mask = numeric_desc_mask.fillna(False)
 
                 
-        if 'Name' in df.columns:
-            numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(8)
-            df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
-            
-        
-        # Set numeric_desc_mask to all False since we want to keep numeric descriptions
         if 'Category' in df.columns:
             df.loc[empty_desc_mask, 'Description'] = df.loc[empty_desc_mask, 'Category']
 
         if 'amex' in file_basename.lower() or 'american express' in file_basename.lower():
             df['Amount'] = df['Amount'].apply(lambda x: -x)
+        
+        if 'Name' in df.columns:
+            # Update the alphanumeric pattern to capture strings like 'T1253000070'
+            alphanumeric_pattern_mask = df['Description'].str.match(r'^[A-Za-z0-9]{7,}$', na=False)
+            
+            numeric_or_long_numbers_mask = numeric_desc_mask | df['Description'].str.count('\d').gt(5) | alphanumeric_pattern_mask
+
+            df.loc[numeric_or_long_numbers_mask, 'Description'] = df.loc[numeric_or_long_numbers_mask, 'Name']
             
         all_expenses = pd.concat([all_expenses, df], ignore_index=True)
+        
 
     if all_expenses.empty:
         print("No data found in the CSV files.")

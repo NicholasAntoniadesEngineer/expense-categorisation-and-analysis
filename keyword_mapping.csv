@@ -92,6 +92,7 @@ Transportation,waterloo
 Holiday,airbnb
 Holiday,sp piedaterre venice
 Holiday,holidays
+Holiday,booking
 
 Entertainment,eventim
 Entertainment,thermae bath spa
@@ -113,14 +114,23 @@ Subscriptions,amazon prime
 Subscriptions,squarespace
 Subscriptions,microsoft
 Subscriptions,Barclays
-subscriptions,topup
-subscriptions,apple
+Subscriptions,topup
+Subscriptions,apple
+Subscriptions,sqsp
 
+Income,payroll
+Income,refund
+Income,unlabeled income
+Income,connolly retail lt
+
+
+Shopping,connolly retail ltd
+Shopping,LONDON BRIDGE CONFECTIO
+Shopping,Sebastian Kupper
+Shopping,G KAYE & J WALDREN
 Shopping,amazon
 Shopping,shell
 Shopping,bath potters supplies
-Shopping,connolly
-Shopping,connolly retail ltd
 Shopping,deciem
 Shopping,etsy
 Shopping,jigsaw
@@ -161,13 +171,21 @@ Shopping,coinbase uk
 Shopping,snappy snaps
 Shopping,foto plus
 Shopping,jacksonsart
+Shopping,order
+Shopping,vinted
+
+Admin,ukfingerprints
 
 Utilities,virgin media
 Utilities,voxi
 Utilities,post
-Utilities,www.haringey.gov.uk
+Utilities,haringey
 Utilities,ovo energy
 Utilities,Urban
+Utilities,9TA94DV
+Utilities,vanguard
+Rent,rent payment
+Rent,1 montenotte rent
 
 pay nicholas,nicholas
 pay lara,lara
@@ -184,9 +202,7 @@ Nothing,pot transfer
 Nothing,Transfers
 Nothing,Flex 
 
-Income,payroll
-Income,refund
-Income,unlabeled income
+
 
 Refunds,connolly/ expenses
 Refunds,refund
@@ -200,9 +216,6 @@ Toiletries,bobbi brown
 Toiletries,bobbibrown.co.uk
 
 Doctor,london doctors clinic
-
-Rent,rent payment
-Rent,1 montenotte rent
 
 Miscellaneous,human for
 Miscellaneous,vms sally
