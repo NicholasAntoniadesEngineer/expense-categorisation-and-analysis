@@ -1,40 +1,53 @@
-# Finance Categorization Script
+# Finance Categorization and Visualization Scripts
 
-This Python script processes finance CSV files to categorize expenses based on keywords, removes duplicates, and generates categorized summaries. The script is designed for financial data preprocessing, including categorization, error handling, and reporting.
-
-## Bugs
-- The implementation needs to be able to handle monzo and amex, monzo only and amex only.
-  Currently monzo payments to amex, and actual amex expenses clash
-  - Amex repayments should cancel each other out if included
-  - if only monzo amex repayment indicate all amex expenses
+This project consists of Python scripts designed to process finance CSV files, categorize expenses based on keywords, remove duplicates, generate categorized summaries, and visualize the categorized data. The scripts are intended for financial data preprocessing, including categorization, error handling, reporting, and visualization.
 
 ## Features
 
-- **Expense Categorization**: Matches keywords from the `keyword_mapping.csv` file to categorize transactions.
+- **Expense Categorization**: Matches keywords from the `categorization_keywords.csv` file to categorize transactions.
 - **Data Preprocessing**: Handles missing descriptions, converts American Express transactions to negative values, and merges all files from a directory.
-- **Duplicate Removal**: Optionally identifies and removes duplicate entries.
-- **Summarized Output**: Generates a monthly summary report of total expenses per category and saves categorized details.
+- **Summarized Output**: Generates monthly and weekly summary reports of total expenses per category and saves categorized details.
+- **Data Visualization**: Visualizes categorized data using bar plots to show total amounts by category.
 
 ## Prerequisites
 
 - Python 3.x
 - `pandas` library (install via `pip install pandas`)
+- `matplotlib` library (install via `pip install matplotlib`)
+- `seaborn` library (install via `pip install seaborn`)
+- `numpy` library (install via `pip install numpy`)
 
 ## Setup
 
 1. **Directory Structure**:
-   - Place all finance CSV files in a directory named `finance_files`.
-   - Include a `keyword_mapping.csv` file with two columns: `Keyword` and `Category`.
+   - Place all finance CSV files in a directory named `files_to_categorize`.
+   - Include a `categorization_keywords.csv` file with two columns: `Keyword` and `Category`.
 
 2. **Configure Keyword Mapping**:
-   - `keyword_mapping.csv` should contain keywords (e.g., "rent", "utilities") with associated categories.
+   - `categorization_keywords.csv` should contain keywords (e.g., "rent", "utilities") with associated categories.
 
 3. **Optional Logging**:
    - Errors are logged in `finance_log.txt` for rows that cannot be categorized.
 
 ## Usage
 
-Run the script using:
+### Categorization
+
+Run the categorization script using:
 
 ```bash
 python finance_categorization.py
+```
+
+### Visualization
+
+Run the visualization script using:
+
+```bash
+python finance_visualize.py
+```
+
+## Notes
+
+- The categorization script processes all CSV files in the `files_to_categorize` directory and outputs categorized files in the `files_categorized` directory.
+- The visualization script generates bar plots for each categorized file, excluding the "Nothing" category, and displays the total amount by category.
