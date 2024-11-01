@@ -21,18 +21,9 @@ DIRECTORY = 'personal-finance/files_to_categorize'
 KEYWORD_FILE = 'personal-finance/categorization_keywords.csv'
 OUTPUT_DIRECTORY = 'personal-finance/files_categorized'
 
-class FinanceCategorizer:
-    def __init__(self, directory, keyword_file, output_directory, save_monthly=True, save_weekly=False, save_entire=True):
-        """
-        Initialize the FinanceCategorizer with directory paths and save options.
-        """
-        self.directory = directory
+class KeywordLoader:
+    def __init__(self, keyword_file):
         self.keyword_file = keyword_file
-        self.output_directory = output_directory
-        self.save_monthly = save_monthly
-        self.save_weekly = save_weekly
-        self.save_entire = save_entire
-        self.keyword_mapping = self.load_keyword_mapping()
 
     def load_keyword_mapping(self):
         """
@@ -48,6 +39,10 @@ class FinanceCategorizer:
             print(f"Error loading keyword mapping: {str(e)}")
             return None
 
+class DataLoader:
+    def __init__(self, directory):
+        self.directory = directory
+
     def get_file_origin(self, basename):
         """
         Extract the origin of the file from its basename.
@@ -55,40 +50,6 @@ class FinanceCategorizer:
         parts = basename.split(' ')
         origin = [part[:-4] if part.lower().endswith('.csv') else part for part in parts if part not in ['-', 'Data', 'Export']]
         return ' '.join(origin)
-
-    def match_keyword(self, text):
-        """
-        Match a text against the keyword mapping to find a category.
-        """
-        if text and text.lower() != 'nan':
-            for keyword, category in self.keyword_mapping.items():
-                if keyword.lower() in text.lower():
-                    return category
-        return None
-
-    def categorize_row(self, row):
-        """
-        Categorize a single row based on its description, name, or transfers.
-        """
-        try:
-            for field in ['Description', 'Name', 'Transfers']:
-                category = self.match_keyword(str(row.get(field, '')).lower())
-                if category:
-                    return category
-            return 'Uncategorized'
-        except Exception as e:
-            print(f"Error categorizing row: {row}\nError: {str(e)}")
-            return 'Error'
-
-    def finance_categorization(self, all_expenses):
-        """
-        Apply categorization to all expenses.
-        """
-        all_expenses['Category'] = all_expenses.apply(self.categorize_row, axis=1)
-        error_rows = all_expenses[all_expenses['Category'] == 'Error']
-        if not error_rows.empty:
-            print(f"There were {len(error_rows)} rows that couldn't be categorized.")
-        return all_expenses
 
     def load_and_preprocess_data(self):
         """
@@ -124,6 +85,45 @@ class FinanceCategorizer:
         all_expenses.loc[savings_mask, 'Category'] = 'Savings'
         return all_expenses
 
+class Categorizer:
+    def __init__(self, keyword_mapping):
+        self.keyword_mapping = keyword_mapping
+
+    def match_keyword(self, text):
+        """
+        Match a text against the keyword mapping to find a category.
+        """
+        if text and text.lower() != 'nan':
+            for keyword, category in self.keyword_mapping.items():
+                if keyword.lower() in text.lower():
+                    return category
+        return None
+
+    def categorize_row(self, row):
+        """
+        Categorize a single row based on its description, name, or transfers.
+        """
+        try:
+            for field in ['Description', 'Name', 'Transfers']:
+                category = self.match_keyword(str(row.get(field, '')).lower())
+                if category:
+                    return category
+            return 'Uncategorized'
+        except Exception as e:
+            print(f"Error categorizing row: {row}\nError: {str(e)}")
+            return 'Error'
+
+    def finance_categorization(self, all_expenses):
+        """
+        Apply categorization to all expenses.
+        """
+        all_expenses['Category'] = all_expenses.apply(self.categorize_row, axis=1)
+        error_rows = all_expenses[all_expenses['Category'] == 'Error']
+        if not error_rows.empty:
+            print(f"There were {len(error_rows)} rows that couldn't be categorized.")
+        return all_expenses
+
+class ReportPreparer:
     def prepare_output(self, all_expenses):
         """
         Prepare the output data for saving.
@@ -132,6 +132,13 @@ class FinanceCategorizer:
         detailed_expenses = all_expenses[output_columns].sort_values(by=['Date', 'Category'])
         detailed_expenses['Amount'] = detailed_expenses['Amount'].map(lambda x: f"{x:.2f}")
         return detailed_expenses
+
+class ResultSaver:
+    def __init__(self, output_directory, save_monthly, save_weekly, save_entire):
+        self.output_directory = output_directory
+        self.save_monthly = save_monthly
+        self.save_weekly = save_weekly
+        self.save_entire = save_entire
 
     def save_results(self, detailed_expenses):
         """
@@ -213,17 +220,28 @@ class FinanceCategorizer:
             weekly_summary.to_csv(weekly_summary_filename, index=False)
             print(f"Weekly summary for {week_start_date} has been saved to {weekly_summary_filename}")
 
+class FinanceCategorizer:
+    def __init__(self, directory, keyword_file, output_directory, save_monthly=True, save_weekly=False, save_entire=True):
+        """
+        Initialize the FinanceCategorizer with directory paths and save options.
+        """
+        self.data_loader = DataLoader(directory)
+        self.keyword_loader = KeywordLoader(keyword_file)
+        self.keyword_mapping = self.keyword_loader.load_keyword_mapping()
+        self.categorizer = Categorizer(self.keyword_mapping)
+        self.report_preparer = ReportPreparer()
+        self.result_saver = ResultSaver(output_directory, save_monthly, save_weekly, save_entire)
+
     def run(self):
         """
         Execute the finance categorization process.
         """
-        all_expenses = self.load_and_preprocess_data()
+        all_expenses = self.data_loader.load_and_preprocess_data()
         if all_expenses is None or self.keyword_mapping is None:
             return
-        all_expenses = self.finance_categorization(all_expenses)
-        detailed_expenses = self.prepare_output(all_expenses)
-        self.save_results(detailed_expenses)
-
+        all_expenses = self.categorizer.finance_categorization(all_expenses)
+        detailed_expenses = self.report_preparer.prepare_output(all_expenses)
+        self.result_saver.save_results(detailed_expenses)
 
 if __name__ == "__main__":
     print("Starting the finance categorization script...")
