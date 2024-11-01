@@ -14,10 +14,25 @@ import logging
 from glob import glob
 import pandas as pd
 
+# Global flags for saving options
+SAVE_MONTHLY = True
+SAVE_WEEKLY = False
+SAVE_ENTIRE = True
+
+# Global constants for file paths
+DIRECTORY = 'personal-finance/finance_files'
+KEYWORD_FILE = 'personal-finance/keyword_mapping.csv'
 
 def load_keyword_mapping(file_path):
-    df = pd.read_csv(file_path)
-    return dict(zip(df['Keyword'].astype(str).str.lower(), df['Category']))
+    try:
+        df = pd.read_csv(file_path)
+        if df.empty:
+            print("Keyword mapping file is empty.")
+            return None
+        return dict(zip(df['Keyword'].astype(str).str.lower(), df['Category']))
+    except Exception as e:
+        print(f"Error loading keyword mapping: {str(e)}")
+        return None
 
 
 def get_file_origin(basename):
@@ -84,8 +99,8 @@ def categorize_row(row, keyword_mapping):
 
 
 def categorize_expenses(all_expenses, keyword_mapping):
-
-    all_expenses['Category'] = all_expenses.apply(categorize_row, axis=1)
+    # Use a lambda function to pass the keyword_mapping to categorize_row
+    all_expenses['Category'] = all_expenses.apply(lambda row: categorize_row(row, keyword_mapping), axis=1)
 
     error_rows = all_expenses[all_expenses['Category'] == 'Error']
     
@@ -162,48 +177,95 @@ def prepare_output(all_expenses):
 
 # Save results to CSV files
 def save_results(detailed_expenses):
-    output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
-    detailed_expenses['Amount'] = pd.to_numeric(detailed_expenses['Amount'], errors='coerce')
-    detailed_expenses.to_csv(output_filename, index=False)
-    print(f"Results have been saved to {output_filename}")
+    if SAVE_ENTIRE:
+        output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
+        detailed_expenses['Amount'] = pd.to_numeric(detailed_expenses['Amount'], errors='coerce')
+        detailed_expenses.to_csv(output_filename, index=False)
+        print(f"Results have been saved to {output_filename}")
 
-    summary = pd.pivot_table(
-        detailed_expenses,
-        values='Amount',
-        index=['Month'],
-        columns=['Category'],
-        aggfunc='sum'
-    ).reset_index().melt(
-        id_vars=['Month'],
-        var_name='Category',
-        value_name='Amount'
-    ).dropna()
+    if SAVE_MONTHLY:
+        detailed_expenses['Month'] = detailed_expenses['Date'].dt.to_period('M')
+        unique_months = detailed_expenses['Month'].unique()
 
-    # Remove the 'Nothing' category from the summary
-    summary = summary[summary['Category'] != 'Nothing']
+        for month in unique_months:
+            monthly_data = detailed_expenses[detailed_expenses['Month'] == month]
+            monthly_summary = pd.pivot_table(
+                monthly_data,
+                values='Amount',
+                index=['Month'],
+                columns=['Category'],
+                aggfunc='sum'
+            ).reset_index().melt(
+                id_vars=['Month'],
+                var_name='Category',
+                value_name='Amount'
+            ).dropna()
 
-    summary['Amount'] = summary['Amount'].map(lambda x: f"{x:.2f}")
-    summary_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_summary.csv"
-    summary.to_csv(summary_filename, index=False)
-    print(f"Summary has been saved to {summary_filename}")
+            monthly_summary = monthly_summary[(monthly_summary['Category'] != 'Nothing') & (monthly_summary['Amount'] != 0)]
+
+            total_amount = monthly_summary['Amount'].astype(float).sum()
+            total_row = pd.DataFrame({'Month': [month], 'Category': ['Total'], 'Amount': [f"{total_amount:.2f}"]})
+            monthly_summary = pd.concat([monthly_summary, total_row], ignore_index=True)
+
+            monthly_summary['Amount'] = pd.to_numeric(monthly_summary['Amount'], errors='coerce')
+            monthly_summary['Amount'] = monthly_summary['Amount'].map(lambda x: f"{x:.2f}")
+            monthly_summary_filename = f"{month}_monthly_summary.csv"
+            monthly_summary.to_csv(monthly_summary_filename, index=False)
+            print(f"Monthly summary for {month} has been saved to {monthly_summary_filename}")
+
+    if SAVE_WEEKLY:
+        detailed_expenses['Week'] = detailed_expenses['Date'].dt.to_period('W').apply(lambda r: r.start_time)
+        unique_weeks = detailed_expenses['Week'].unique()
+
+        for week in unique_weeks:
+            weekly_data = detailed_expenses[detailed_expenses['Week'] == week]
+            weekly_summary = pd.pivot_table(
+                weekly_data,
+                values='Amount',
+                index=['Week'],
+                columns=['Category'],
+                aggfunc='sum'
+            ).reset_index().melt(
+                id_vars=['Week'],
+                var_name='Category',
+                value_name='Amount'
+            ).dropna()
+
+            weekly_summary = weekly_summary[(weekly_summary['Category'] != 'Nothing') & (weekly_summary['Amount'] != 0)]
+
+            # Ensure 'Amount' is a valid float
+            weekly_summary['Amount'] = pd.to_numeric(weekly_summary['Amount'], errors='coerce')
+
+            total_amount = weekly_summary['Amount'].sum()
+            total_row = pd.DataFrame({'Week': [week], 'Category': ['Total'], 'Amount': [f"{total_amount:.2f}"]})
+            weekly_summary = pd.concat([weekly_summary, total_row], ignore_index=True)
+
+            # Convert 'Amount' to numeric before formatting
+            weekly_summary['Amount'] = pd.to_numeric(weekly_summary['Amount'], errors='coerce')
+            weekly_summary['Amount'] = weekly_summary['Amount'].map(lambda x: f"{x:.2f}")
+
+            week_start_date = pd.to_datetime(week).strftime('%Y-%m-%d')
+            weekly_summary_filename = f"{week_start_date}_weekly_summary.csv"
+            weekly_summary.to_csv(weekly_summary_filename, index=False)
+            print(f"Weekly summary for {week_start_date} has been saved to {weekly_summary_filename}")
 
 
 def main():
-    directory = 'finance_files'
-    keyword_file = 'keyword_mapping.csv'
-
-    all_expenses = load_and_preprocess_data(directory, keyword_file)
+    all_expenses = load_and_preprocess_data(DIRECTORY, KEYWORD_FILE)
     
     if all_expenses is None:
-        print("No data found in the CSV files.")
         return
     
-    keyword_mapping = load_keyword_mapping(keyword_file)
+    keyword_mapping = load_keyword_mapping(KEYWORD_FILE)
+    
+    if keyword_mapping is None:
+        return
 
     all_expenses = categorize_expenses(all_expenses, keyword_mapping)
     
     detailed_expenses = prepare_output(all_expenses)
     
+    # Save results based on global flags
     save_results(detailed_expenses)
 
 if __name__ == "__main__":
