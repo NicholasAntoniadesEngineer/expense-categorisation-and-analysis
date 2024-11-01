@@ -21,6 +21,7 @@ SAVE_ENTIRE = True
 # Global constants for file paths
 DIRECTORY = 'personal-finance/files_to_categorize'
 KEYWORD_FILE = 'personal-finance/categorization_keywords.csv'
+OUTPUT_DIRECTORY = 'personal-finance/files_categorized'
 
 def load_keyword_mapping(file_path):
     try:
@@ -177,7 +178,7 @@ def prepare_output(all_expenses):
 # Save results to CSV files
 def save_results(detailed_expenses):
     if SAVE_ENTIRE:
-        output_filename = f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv"
+        output_filename = os.path.join(OUTPUT_DIRECTORY, f"{pd.Timestamp.now().strftime('%Y-%m-%d')}_finance.csv")
         detailed_expenses['Amount'] = pd.to_numeric(detailed_expenses['Amount'], errors='coerce')
         detailed_expenses.to_csv(output_filename, index=False)
         print(f"Results have been saved to {output_filename}")
@@ -208,7 +209,7 @@ def save_results(detailed_expenses):
 
             monthly_summary['Amount'] = pd.to_numeric(monthly_summary['Amount'], errors='coerce')
             monthly_summary['Amount'] = monthly_summary['Amount'].map(lambda x: f"{x:.2f}")
-            monthly_summary_filename = f"{month}_monthly_summary.csv"
+            monthly_summary_filename = os.path.join(OUTPUT_DIRECTORY, f"{month}_monthly_summary.csv")
             monthly_summary.to_csv(monthly_summary_filename, index=False)
             print(f"Monthly summary for {month} has been saved to {monthly_summary_filename}")
 
@@ -244,7 +245,7 @@ def save_results(detailed_expenses):
             weekly_summary['Amount'] = weekly_summary['Amount'].map(lambda x: f"{x:.2f}")
 
             week_start_date = pd.to_datetime(week).strftime('%Y-%m-%d')
-            weekly_summary_filename = f"{week_start_date}_weekly_summary.csv"
+            weekly_summary_filename = os.path.join(OUTPUT_DIRECTORY, f"{week_start_date}_weekly_summary.csv")
             weekly_summary.to_csv(weekly_summary_filename, index=False)
             print(f"Weekly summary for {week_start_date} has been saved to {weekly_summary_filename}")
 
