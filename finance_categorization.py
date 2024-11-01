@@ -13,7 +13,6 @@ import os
 from glob import glob
 import pandas as pd
 
-# User-set variables
 SAVE_MONTHLY = True
 SAVE_WEEKLY = False
 SAVE_ENTIRE = True
