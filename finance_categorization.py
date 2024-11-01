@@ -19,8 +19,8 @@ SAVE_WEEKLY = False
 SAVE_ENTIRE = True
 
 # Global constants for file paths
-DIRECTORY = 'personal-finance/finance_files'
-KEYWORD_FILE = 'personal-finance/keyword_mapping.csv'
+DIRECTORY = 'personal-finance/files_to_categorize'
+KEYWORD_FILE = 'personal-finance/categorization_keywords.csv'
 
 def load_keyword_mapping(file_path):
     try:
@@ -97,7 +97,7 @@ def categorize_row(row, keyword_mapping):
         return 'Error'
 
 
-def categorize_expenses(all_expenses, keyword_mapping):
+def finance_categorization(all_expenses, keyword_mapping):
     # Use a lambda function to pass the keyword_mapping to categorize_row
     all_expenses['Category'] = all_expenses.apply(lambda row: categorize_row(row, keyword_mapping), axis=1)
 
@@ -260,7 +260,7 @@ def main():
     if keyword_mapping is None:
         return
 
-    all_expenses = categorize_expenses(all_expenses, keyword_mapping)
+    all_expenses = finance_categorization(all_expenses, keyword_mapping)
     
     detailed_expenses = prepare_output(all_expenses)
     
