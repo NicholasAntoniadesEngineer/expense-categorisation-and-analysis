@@ -23,6 +23,7 @@ DIRECTORY = 'personal-finance/files_to_categorize'
 KEYWORD_FILE = 'personal-finance/categorization_keywords.csv'
 OUTPUT_DIRECTORY = 'personal-finance/files_categorized'
 
+
 def load_keyword_mapping(file_path):
     try:
         df = pd.read_csv(file_path)
