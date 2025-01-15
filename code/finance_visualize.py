@@ -15,7 +15,7 @@ import seaborn as sns
 import numpy as np
 
 # Constants for file paths
-CATEGORIZED_DIRECTORY = 'personal-finance/files_categorized'
+CATEGORIZED_DIRECTORY = 'expense-categorization-and-analysis/files_categorized'
 
 
 class FinanceVisualizer:

@@ -9,19 +9,19 @@ Author: Nicholas Antoniades
 Date: 2024-10-26
 """
 
-import keyword_loader
-import data_loader
-import categorizer
-import report_preparer
-import result_saver
+from lib import keyword_loader
+from lib import data_loader
+from lib import categorizer
+from lib import report_preparer
+from lib import result_saver
 
 SAVE_MONTHLY = True
 SAVE_WEEKLY = False
 SAVE_ENTIRE = True
 
-DIRECTORY = 'personal-finance/files_to_categorize'
-KEYWORD_FILE = 'personal-finance/categorization_keywords.csv'
-OUTPUT_DIRECTORY = 'personal-finance/files_categorized'
+DIRECTORY = 'expense-categorization-and-analysis/files_to_categorize'
+KEYWORD_FILE = 'expense-categorization-and-analysis/categorization_keywords.csv'
+OUTPUT_DIRECTORY = 'expense-categorization-and-analysis/files_categorized'
 
 class FinanceCategorizer:
     def __init__(self, directory, keyword_file, output_directory, save_monthly=True, save_weekly=False, save_entire=True):
