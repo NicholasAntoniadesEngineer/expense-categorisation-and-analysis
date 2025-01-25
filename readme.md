@@ -1,53 +1,84 @@
-# Finance Categorisation and Visualization Scripts (2024)
+# Expense Categorisation and Analysis (2025)
 
-This project consists of Python scripts designed to categorise expenses based on keywords, remove duplicates, generate categorised summaries, and visualize the categorized data.
+A C++ application for automated expense categorization and financial analysis. This tool processes financial transaction data from CSV files, automatically categorizes expenses using keyword matching, and generates detailed financial reports.
 
 ## Features
 
-- **Expense Categorization**: Matches keywords from the `categorization_keywords.csv` file to categorize transactions.
-- **Data Preprocessing**: Handles missing descriptions, converts American Express transactions to negative values, and merges all files from a directory.
-- **Summarized Output**: Generates monthly and weekly summary reports of total expenses per category and saves categorized details.
-- **Data Visualization**: Visualizes categorized data using bar plots to show total amounts by category.
+- **Transaction Processing**
+  - Supports multiple CSV formats with automatic column detection
+  - Handles multiple currencies (GBP, EUR, USD)
+  - Robust date and amount parsing
+  - Smart transaction categorization using keyword matching
 
-## Prerequisites
+- **Analysis & Reporting**
+  - Monthly and weekly expense summaries
+  - Full dataset exports
+  - Category-based analysis
+  - Support for multiple input sources
 
-- Python 3.x
-- `pandas` library (install via `pip install pandas`)
-- `matplotlib` library (install via `pip install matplotlib`)
-- `seaborn` library (install via `pip install seaborn`)
-- `numpy` library (install via `pip install numpy`)
+- **User Interface**
+  - Modern Qt-based GUI
+  - Directory selection for input/output
+  - Configurable export options
+  - Command-line interface available
 
-## Setup
+## Project Structure
 
-1. **Directory Structure**:
-   - Place all finance CSV files in a directory named `files_to_categorize`.
-   - Include a `categorization_keywords.csv` file with two columns: `Keyword` and `Category`.
+```
+.
+├── code/                # Source code
+│   ├── app/             # Main application
+│   ├── lib/             # Core libraries
+│   │   ├── finance/     # Finance processing logic
+│   │   └── gui/         # Qt GUI components
+│   ├── resources/       # Application resources
+│   └── build/           # Build artifacts
+├── config/              # Configuration files
+├── input_files/         # Input transaction files
+├── output_files/        # Generated reports
+└── scripts/             # Build and run scripts
+```
 
-2. **Configure Keyword Mapping**:
-   - `categorization_keywords.csv` should contain keywords (e.g., "rent", "utilities") with associated categories.
+## Dependencies
 
-3. **Optional Logging**:
-   - Errors are logged in `finance_log.txt` for rows that cannot be categorized.
+- C++17 or later
+- Qt Framework
+- CMake (3.x or later)
+
+## Building
+
+```bash
+# Clone the repository
+git clone [repository-url]
+cd expense-categorisation-and-analysis-cpp
+
+# Build the project
+./scripts/build.sh
+
+# Run the application
+./scripts/run.sh
+```
 
 ## Usage
 
-### Categorization
+1. Place your transaction CSV files in the `input_files` directory
+2. Configure categorization keywords in `config/categorisation_keywords.csv`
+3. Run the application and select:
+   - Input directory (containing CSV files)
+   - Output directory (for reports)
+   - Export options (monthly/weekly summaries, full dataset)
 
-Run the categorization script using:
+## Transaction Categorization
 
-```bash
-python finance_categorization.py
-```
+The application uses keyword-based matching to categorize transactions. Categories include:
+- Activities
+- Credit Card
+- Entertainment
+- Groceries
+- Shopping
+- Subscriptions
+- Transportation
+- Utilities
+- And more...
 
-### Visualization
-
-Run the visualization script using:
-
-```bash
-python finance_visualize.py
-```
-
-## Notes
-
-- The categorization script processes all CSV files in the `files_to_categorize` directory and outputs categorized files in the `files_categorized` directory.
-- The visualization script generates bar plots for each categorized file, excluding the "Nothing" category, and displays the total amount by category.
+Keywords can be configured in `config/categorisation_keywords.csv`.

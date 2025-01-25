@@ -1,0 +1,23 @@
+# Build directory
+build/*
+
+# categorised files directory
+files_categorised/*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Code build directory
+code/build/ 
