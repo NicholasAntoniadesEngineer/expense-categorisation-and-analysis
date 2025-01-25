@@ -1,6 +1,6 @@
 # Expense Categorisation and Analysis (2025)
 
-A C++ application for automated expense categorization and financial analysis. This tool processes financial transaction data from CSV files, automatically categorizes expenses using keyword matching, and generates detailed financial reports.
+A C++ application for automated expense categorisation and financial analysis. This tool processes financial transaction data from CSV files, automatically categorises expenses using keyword matching, and generates detailed financial reports.
 
 ## Features
 
@@ -8,7 +8,7 @@ A C++ application for automated expense categorization and financial analysis. T
   - Supports multiple CSV formats with automatic column detection
   - Handles multiple currencies (GBP, EUR, USD)
   - Robust date and amount parsing
-  - Smart transaction categorization using keyword matching
+  - Smart transaction categorisation using keyword matching
 
 - **Analysis & Reporting**
   - Monthly and weekly expense summaries
@@ -62,15 +62,15 @@ cd expense-categorisation-and-analysis-cpp
 ## Usage
 
 1. Place your transaction CSV files in the `input_files` directory
-2. Configure categorization keywords in `config/categorisation_keywords.csv`
+2. Configure categorisation keywords in `config/categorisation_keywords.csv`
 3. Run the application and select:
    - Input directory (containing CSV files)
    - Output directory (for reports)
    - Export options (monthly/weekly summaries, full dataset)
 
-## Transaction Categorization
+## Transaction Categorisation
 
-The application uses keyword-based matching to categorize transactions. Categories include:
+The application uses keyword-based matching to categorise transactions. Categories include:
 - Activities
 - Credit Card
 - Entertainment
