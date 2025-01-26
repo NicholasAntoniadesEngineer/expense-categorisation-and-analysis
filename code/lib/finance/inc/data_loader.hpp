@@ -1,25 +1,19 @@
-#pragma once  // Modern header guard, prevents multiple inclusions
+#pragma once
 
-// Standard C++ library includes
-#include <string>    // For std::string
-#include <vector>    // For std::vector (dynamic array)
-#include <memory>    // For smart pointers (not used here but good practice)
-#include <chrono>    // For time-related functionality
+#include <string>    
+#include <vector>   
+#include <memory>  
+#include <chrono>   
 
-// All code is wrapped in a namespace to prevent naming conflicts
 namespace finance {
 
-// Main class for loading and preprocessing financial data from CSV files
 class DataLoader {
 public:
-    // Constructor - takes directory containing CSV files
     explicit DataLoader(const std::string& directory);
 
-    // Load and preprocess all expense data from CSV files
     std::vector<Expense> loadAndPreprocessData();
 
 private:
-    // Extract meaningful origin name from filename
     std::string getFileOrigin(const std::string& basename);
     
     // Process a single CSV file
@@ -30,7 +24,6 @@ private:
                          const CSVColumns& cols,
                          const std::string& file_origin);
 
-    // Directory containing CSV files
     std::string directory_;
 };
 

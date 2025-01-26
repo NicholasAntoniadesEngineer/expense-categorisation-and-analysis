@@ -1,26 +1,24 @@
-#include "finance_types.hpp"  // Include this first to define the types
+#include "finance_types.hpp" 
 #include "data_loader.hpp"
 #include "csv_parser.hpp"
 #include "transaction_parser.hpp"
-#include <filesystem>   // Modern C++ filesystem operations
-#include <fstream>      // File stream operations
-#include <sstream>      // String stream operations
-#include <iostream>     // Console I/O
-#include <algorithm>    // STL algorithms
-#include <iomanip>      // I/O manipulation (for date formatting)
-#include <regex>        // Regular expressions
-#include <numeric>      // For std::accumulate
+#include <filesystem>   
+#include <fstream>      
+#include <sstream>      
+#include <iostream>    
+#include <algorithm>   
+#include <iomanip>     
+#include <regex>        
+#include <numeric>      
 
 namespace finance {
 
-// Alias for the filesystem namespace (C++17 feature)
 namespace fs = std::filesystem;
 
 // Constructor implementation
 DataLoader::DataLoader(const std::string& directory)
-    : directory_(directory) {}  // Member initializer list
+    : directory_(directory) {}  list
 
-// Extract meaningful origin name from filename
 std::string DataLoader::getFileOrigin(const std::string& basename) {
     std::istringstream iss(basename);
     std::string part;
