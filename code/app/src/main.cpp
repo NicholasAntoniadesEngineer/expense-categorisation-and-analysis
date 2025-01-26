@@ -48,28 +48,24 @@ const char* const AppConfig::FONT_FAMILY = "SF Pro Display";
  * @return true if initialization successful, false otherwise
  */
 bool initializeAppearance() noexcept {
-    try {
-        // Set application style
-        QStyle* style = QStyleFactory::create(AppConfig::STYLE_NAME);
-        if (!style) {
-            return false;
-        }
-        QApplication::setStyle(style);
-
-        // Set application font
-        QFont appFont(AppConfig::FONT_FAMILY, AppConfig::DEFAULT_FONT_SIZE);
-        QApplication::setFont(appFont);
-        
-        // Set application icon
-        QIcon appIcon(":/icons/app_icon.png");
-        if (!appIcon.isNull()) {
-            QApplication::setWindowIcon(appIcon);
-        }
-        
-        return true;
-    } catch (...) {
+    // Set application style
+    QStyle* style = QStyleFactory::create(AppConfig::STYLE_NAME);
+    if (!style) {
         return false;
     }
+    QApplication::setStyle(style);
+
+    // Set application font
+    QFont appFont(AppConfig::FONT_FAMILY, AppConfig::DEFAULT_FONT_SIZE);
+    QApplication::setFont(appFont);
+    
+    // Set application icon
+    QIcon appIcon(":/icons/app_icon.png");
+    if (!appIcon.isNull()) {
+        QApplication::setWindowIcon(appIcon);
+    }
+    
+    return true;
 }
 
 /**
@@ -77,16 +73,12 @@ bool initializeAppearance() noexcept {
  * @return true if initialization successful, false otherwise
  */
 bool initializeApplicationInfo() noexcept {
-    try {
-        QApplication::setApplicationName(AppConfig::APP_NAME);
-        QApplication::setOrganizationName(AppConfig::ORG_NAME);
-        QApplication::setOrganizationDomain(AppConfig::ORG_DOMAIN);
-        QApplication::setApplicationVersion(AppConfig::APP_VERSION);
-        QApplication::setApplicationDisplayName(AppConfig::APP_NAME);
-        return true;
-    } catch (...) {
-        return false;
-    }
+    QApplication::setApplicationName(AppConfig::APP_NAME);
+    QApplication::setOrganizationName(AppConfig::ORG_NAME);
+    QApplication::setOrganizationDomain(AppConfig::ORG_DOMAIN);
+    QApplication::setApplicationVersion(AppConfig::APP_VERSION);
+    QApplication::setApplicationDisplayName(AppConfig::APP_NAME);
+    return true;
 }
 
 /**
@@ -95,15 +87,11 @@ bool initializeApplicationInfo() noexcept {
  * @return true if setup successful, false otherwise
  */
 bool setupMainWindow(FinanceCategorisationWindow& window) noexcept {
-    try {
-        window.setWindowTitle(AppConfig::APP_NAME);
-        window.resize(AppConfig::DEFAULT_WINDOW_WIDTH, 
-                     AppConfig::DEFAULT_WINDOW_HEIGHT);
-        window.show();
-        return true;
-    } catch (...) {
-        return false;
-    }
+    window.setWindowTitle(AppConfig::APP_NAME);
+    window.resize(AppConfig::DEFAULT_WINDOW_WIDTH, 
+                 AppConfig::DEFAULT_WINDOW_HEIGHT);
+    window.show();
+    return true;
 }
 
 /**
@@ -126,35 +114,22 @@ void showErrorMessage(const QString& message) noexcept {
  * @return EXIT_SUCCESS on successful execution, EXIT_FAILURE otherwise
  */
 int main(int argc, char *argv[]) {
-    try {
-        QApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-        // Initialize application components
-        if (!FinanceManager::initializeApplicationInfo()) {
-            FinanceManager::showErrorMessage("Failed to initialize application information");
-            return EXIT_FAILURE;
-        }
-
-        if (!FinanceManager::initializeAppearance()) {
-            FinanceManager::showErrorMessage("Failed to initialize application appearance");
-            return EXIT_FAILURE;
-        }
-
-        // Create and setup main window
-        FinanceManager::FinanceCategorisationWindow window;
-        if (!FinanceManager::setupMainWindow(window)) {
-            FinanceManager::showErrorMessage("Failed to setup main window");
-            return EXIT_FAILURE;
-        }
-
-        // Start the application event loop
-        return app.exec();
-
-    } catch (const std::exception& e) {
-        FinanceManager::showErrorMessage(QString("Fatal error: %1").arg(e.what()));
-        return EXIT_FAILURE;
-    } catch (...) {
-        FinanceManager::showErrorMessage("An unexpected error occurred");
+    // Initialize application components
+    if (!FinanceManager::initializeApplicationInfo() || 
+        !FinanceManager::initializeAppearance()) {
+        FinanceManager::showErrorMessage("Failed to initialize application");
         return EXIT_FAILURE;
     }
+
+    // Create and setup main window
+    FinanceManager::FinanceCategorisationWindow window;
+    if (!FinanceManager::setupMainWindow(window)) {
+        FinanceManager::showErrorMessage("Failed to setup main window");
+        return EXIT_FAILURE;
+    }
+
+    // Start the application event loop
+    return app.exec();
 } 
