@@ -1,4 +1,4 @@
-#include "main_window.hpp"
+#include "finance_categorisation_window.hpp"
 #include "finance_processor.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
@@ -9,12 +9,14 @@
 #include <QApplication>
 #include <QStyle>
 
-MainWindow::MainWindow(QWidget *parent)
+namespace FinanceManager {
+
+FinanceCategorisationWindow::FinanceCategorisationWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi();
     createConnections();
-    setWindowTitle("Finance Categorisation");
+    setWindowTitle(QApplication::applicationDisplayName());
     
     // Set window icon - try multiple approaches
     QIcon appIcon(":/icons/app_icon.png");
@@ -43,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 }
 
-void MainWindow::setupUi()
+void FinanceCategorisationWindow::setupUi()
 {
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -118,15 +120,15 @@ void MainWindow::setupUi()
     exportFullDatasetCheck->setChecked(true);
 }
 
-void MainWindow::createConnections()
+void FinanceCategorisationWindow::createConnections()
 {
-    connect(inputBrowseButton, &QPushButton::clicked, this, &MainWindow::browseInputDirectory);
-    connect(outputBrowseButton, &QPushButton::clicked, this, &MainWindow::browseOutputDirectory);
-    connect(keywordBrowseButton, &QPushButton::clicked, this, &MainWindow::browseKeywordFile);
-    connect(processButton, &QPushButton::clicked, this, &MainWindow::processFiles);
+    connect(inputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseInputDirectory);
+    connect(outputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseOutputDirectory);
+    connect(keywordBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseKeywordFile);
+    connect(processButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::processFiles);
 }
 
-void MainWindow::browseInputDirectory()
+void FinanceCategorisationWindow::browseInputDirectory()
 {
     QString dir = QFileDialog::getExistingDirectory(this, "Select Input Directory",
                                                   inputDirEdit->text(),
@@ -137,7 +139,7 @@ void MainWindow::browseInputDirectory()
     }
 }
 
-void MainWindow::browseOutputDirectory()
+void FinanceCategorisationWindow::browseOutputDirectory()
 {
     QString dir = QFileDialog::getExistingDirectory(this, "Select Output Directory",
                                                   outputDirEdit->text(),
@@ -148,7 +150,7 @@ void MainWindow::browseOutputDirectory()
     }
 }
 
-void MainWindow::browseKeywordFile()
+void FinanceCategorisationWindow::browseKeywordFile()
 {
     QString file = QFileDialog::getOpenFileName(this, "Select Keyword File",
                                               keywordFileEdit->text(),
@@ -159,7 +161,7 @@ void MainWindow::browseKeywordFile()
     }
 }
 
-void MainWindow::processFiles()
+void FinanceCategorisationWindow::processFiles()
 {
     try {
         QString inputDir = inputDirEdit->text();
@@ -187,4 +189,6 @@ void MainWindow::processFiles()
     } catch (const std::exception& e) {
         QMessageBox::critical(this, "Error", QString("Processing failed: %1").arg(e.what()));
     }
-} 
+}
+
+}  // namespace FinanceManager 

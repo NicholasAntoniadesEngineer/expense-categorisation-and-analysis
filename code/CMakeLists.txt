@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(finance_categorisation)
+project(FinanceManager)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -39,7 +39,7 @@ set(SOURCES
     lib/finance/src/data_exporter.cpp
     lib/finance/src/csv_parser.cpp
     lib/finance/src/transaction_parser.cpp
-    lib/gui/src/main_window.cpp
+    lib/gui/src/finance_categorisation_window.cpp
     ${RESOURCES}
 )
 
@@ -53,32 +53,32 @@ set(HEADERS
     lib/finance/inc/report_generator.hpp
     lib/finance/inc/data_exporter.hpp
     lib/finance/inc/csv_parser.hpp
-    lib/gui/inc/main_window.hpp
+    lib/gui/inc/finance_categorisation_window.hpp
 )
 
 # Create executable
-add_executable(finance_categorisation ${APP_TYPE} ${SOURCES} ${HEADERS})
+add_executable(FinanceManager ${APP_TYPE} ${SOURCES} ${HEADERS})
 
 # Add include directories
-target_include_directories(finance_categorisation PRIVATE
+target_include_directories(FinanceManager PRIVATE
     lib/finance/inc
     lib/gui/inc
 )
 
 # Link Qt libraries
-target_link_libraries(finance_categorisation PRIVATE
+target_link_libraries(FinanceManager PRIVATE
     Qt6::Widgets
 )
 
 # Set warning flags
 if(MSVC)
-    target_compile_options(finance_categorisation PRIVATE /W4)
+    target_compile_options(FinanceManager PRIVATE /W4)
 else()
-    target_compile_options(finance_categorisation PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(FinanceManager PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # Install targets
-install(TARGETS finance_categorisation
+install(TARGETS FinanceManager
     RUNTIME DESTINATION bin
     BUNDLE DESTINATION .
 ) 

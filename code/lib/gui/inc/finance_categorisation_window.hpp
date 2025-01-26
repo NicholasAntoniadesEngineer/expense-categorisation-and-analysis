@@ -9,12 +9,14 @@
 #include <QString>
 #include <QCheckBox>
 
-class MainWindow : public QMainWindow {
+namespace FinanceManager {
+
+class FinanceCategorisationWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow() = default;
+    explicit FinanceCategorisationWindow(QWidget *parent = nullptr);
+    ~FinanceCategorisationWindow() = default;
 
 private slots:
     void browseInputDirectory();
@@ -45,4 +47,6 @@ private:
     QString inputDirectory;
     QString outputDirectory;
     QString keywordFile;
-}; 
+};
+
+}  // namespace FinanceManager 

@@ -2,19 +2,16 @@
 
 set -e
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
-CODE_DIR="$PROJECT_ROOT/code"
-BUILD_DIR="$CODE_DIR/build"
+# Core paths
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BUILD_DIR="$PROJECT_ROOT/code/build"
 
 echo "Cleaning project..."
 echo "  - Build directory: $BUILD_DIR"
 echo "  - Generated files in files_categorised/"
 
-if [ -d "$BUILD_DIR" ]; then
-    echo "Removing build directory..."
-    rm -rf "$BUILD_DIR"
-fi
+# Remove build directory
+rm -rf "$BUILD_DIR"
 
 CATEGORISED_DIR="$PROJECT_ROOT/files_categorised"
 if [ -d "$CATEGORISED_DIR" ]; then
