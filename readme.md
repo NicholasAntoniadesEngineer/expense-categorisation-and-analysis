@@ -1,6 +1,6 @@
 # Expense Categorisation and Analysis (2025)
 
-A C++ application for automated expense categorisation and financial analysis. This tool processes financial transaction data from CSV files, automatically categorises expenses using keyword matching, and generates detailed financial reports.
+An application for automated expense categorisation and financial analysis. This tool processes financial transaction data from CSV files, automatically categorises expenses using keyword matching, and generates detailed financial reports.
 
 ## Features
 
