@@ -10,6 +10,7 @@
 #include <iomanip>     
 #include <regex>        
 #include <numeric>      
+
 namespace finance {
 
 namespace fs = std::filesystem;
