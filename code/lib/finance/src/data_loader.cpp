@@ -17,7 +17,9 @@ namespace fs = std::filesystem;
 
 // Constructor implementation
 DataLoader::DataLoader(const std::string& directory)
-    : directory_(directory) {}  list
+    : directory_(directory) 
+{
+}
 
 std::string DataLoader::getFileOrigin(const std::string& basename) {
     std::istringstream iss(basename);
