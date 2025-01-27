@@ -95,6 +95,14 @@ private:
     void setupPlotWindow(QChart* chart, const QString& title);
     void setupCategoryPanel(QMainWindow* plotWindow, const QStringList& categories, const QMap<QString, QLineSeries*>& series);
     void plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle);
+    void viewAllTransactions();
+
+    // Window tracking
+    QMainWindow* weeklySummaryWindow = nullptr;
+    QMainWindow* monthlySummaryWindow = nullptr;
+    QMainWindow* allTransactionsWindow = nullptr;
+    QMainWindow* weeklyPlotWindow = nullptr;
+    QMainWindow* monthlyPlotWindow = nullptr;
 
     AppConfig& config;
 

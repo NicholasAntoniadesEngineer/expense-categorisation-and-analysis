@@ -214,250 +214,9 @@ void FinanceCategorisationWindow::setupUi() {
     setupDefaultStates();
 
     // Connect summary buttons
-    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, [this]() {
-        QString outputDir = outputDirEdit->text();
-        if (outputDir.isEmpty()) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
-            return;
-        }
-
-        QString filePath = QDir(outputDir).filePath("weekly_summary.csv");
-        if (!QFile::exists(filePath)) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Weekly summary file not found");
-            return;
-        }
-
-        QMainWindow *window = new QMainWindow(this);
-        window->setWindowTitle("Weekly Summary");
-        window->resize(1000, 600);
-
-        QTableWidget *table = new QTableWidget(window);
-        table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-        window->setCentralWidget(table);
-
-        QFile file(filePath);
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream in(&file);
-            
-            // Read header
-            QString header = in.readLine();
-            QStringList headers = header.split(',');
-            table->setColumnCount(headers.size());
-            table->setHorizontalHeaderLabels(headers);
-            
-            // Calculate window width based on number of columns
-            // 200px for category column + 120px per value column + 20px padding
-            int windowWidth = 200 + (120 * (headers.size() - 1)) + 20;
-            window->resize(windowWidth, 600);
-            
-            // Read data
-            QVector<QStringList> rows;
-            while (!in.atEnd()) {
-                QString line = in.readLine();
-                rows.append(line.split(','));
-            }
-            
-            table->setRowCount(rows.size());
-            
-            // Populate table
-            for (int i = 0; i < rows.size(); ++i) {
-                const QStringList &row = rows[i];
-                for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                    QTableWidgetItem *item = new QTableWidgetItem();
-                    if (j == 0) {  // Category column
-                        item->setText(row[j]);
-                        item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                    } else {  // Value columns
-                        double value = row[j].toDouble();
-                        item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                        item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                    }
-                    table->setItem(i, j, item);
-                }
-            }
-            
-            // Auto-adjust all column widths equally
-            for (int i = 0; i < headers.size(); ++i) {
-                table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-            }
-            
-            // Style the table
-            table->setAlternatingRowColors(true);
-            table->setStyleSheet(
-                "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-                "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-                "QTableWidget::item { padding: 4px; color: black; }"
-                "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-            );
-            
-            file.close();
-        }
-
-        window->show();
-    });
-
-    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, [this]() {
-        QString outputDir = outputDirEdit->text();
-        if (outputDir.isEmpty()) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
-            return;
-        }
-
-        QString filePath = QDir(outputDir).filePath("monthly_summary.csv");
-        if (!QFile::exists(filePath)) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Monthly summary file not found");
-            return;
-        }
-
-        QMainWindow *window = new QMainWindow(this);
-        window->setWindowTitle("Monthly Summary");
-        window->resize(1000, 600);
-
-        QTableWidget *table = new QTableWidget(window);
-        table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-        window->setCentralWidget(table);
-
-        QFile file(filePath);
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream in(&file);
-            
-            // Read header
-            QString header = in.readLine();
-            QStringList headers = header.split(',');
-            table->setColumnCount(headers.size());
-            table->setHorizontalHeaderLabels(headers);
-            
-            // Calculate window width based on number of columns
-            // 200px for category column + 120px per value column + 20px padding
-            int windowWidth = 200 + (120 * (headers.size() - 1)) + 20;
-            window->resize(windowWidth, 600);
-            
-            // Read data
-            QVector<QStringList> rows;
-            while (!in.atEnd()) {
-                QString line = in.readLine();
-                rows.append(line.split(','));
-            }
-            
-            table->setRowCount(rows.size());
-            
-            // Populate table
-            for (int i = 0; i < rows.size(); ++i) {
-                const QStringList &row = rows[i];
-                for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                    QTableWidgetItem *item = new QTableWidgetItem();
-                    if (j == 0) {  // Category column
-                        item->setText(row[j]);
-                        item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                    } else {  // Value columns
-                        double value = row[j].toDouble();
-                        item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                        item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                    }
-                    table->setItem(i, j, item);
-                }
-            }
-            
-            // Auto-adjust all column widths equally
-            for (int i = 0; i < headers.size(); ++i) {
-                table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-            }
-            
-            // Style the table
-            table->setAlternatingRowColors(true);
-            table->setStyleSheet(
-                "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-                "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-                "QTableWidget::item { padding: 4px; color: black; }"
-                "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-            );
-            
-            file.close();
-        }
-
-        window->show();
-    });
-
-    // Connect all transactions button
-    connect(viewAllTransactionsButton, &QPushButton::clicked, this, [this]() {
-        QString outputDir = outputDirEdit->text();
-        if (outputDir.isEmpty()) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
-            return;
-        }
-
-        QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
-        if (!QFile::exists(filePath)) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Categorised transactions file not found");
-            return;
-        }
-
-        QMainWindow *window = new QMainWindow(this);
-        window->setWindowTitle("All Categorised Transactions");
-        window->resize(1200, 800);  // Larger window for more data
-
-        QTableWidget *table = new QTableWidget(window);
-        table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-        window->setCentralWidget(table);
-
-        QFile file(filePath);
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream in(&file);
-            
-            // Read header
-            QString header = in.readLine();
-            QStringList headers = header.split(',');
-            table->setColumnCount(headers.size());
-            table->setHorizontalHeaderLabels(headers);
-            
-            // Read data
-            QVector<QStringList> rows;
-            while (!in.atEnd()) {
-                QString line = in.readLine();
-                rows.append(line.split(','));
-            }
-            
-            table->setRowCount(rows.size());
-            
-            // Populate table
-            for (int i = 0; i < rows.size(); ++i) {
-                const QStringList &row = rows[i];
-                for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                    QTableWidgetItem *item = new QTableWidgetItem();
-                    if (j == 4) {  // Amount column
-                        double value = row[j].toDouble();
-                        item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                        item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                    } else {
-                        item->setText(row[j]);
-                        item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                    }
-                    table->setItem(i, j, item);
-                }
-            }
-            
-            // Auto-adjust all column widths equally
-            for (int i = 0; i < headers.size(); ++i) {
-                table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-            }
-            
-            // Style the table
-            table->setAlternatingRowColors(true);
-            table->setStyleSheet(
-                "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-                "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-                "QTableWidget::item { padding: 4px; color: black; }"
-                "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-            );
-            
-            // Enable sorting
-            table->setSortingEnabled(true);
-            
-            file.close();
-        }
-
-        window->show();
-    });
+    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotWeeklySummary);
+    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotMonthlySummary);
+    connect(viewAllTransactionsButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewAllTransactions);
 }
 
 void FinanceCategorisationWindow::setupDefaultPaths() {
@@ -558,10 +317,34 @@ void FinanceCategorisationWindow::processFiles() {
 }
 
 void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& title) {
+    // Check if we already have a window for this type of plot
+    QMainWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
+    
+    if (plotWindow) {
+        // If window exists, update its content
+        QChartView* existingChartView = qobject_cast<QChartView*>(plotWindow->centralWidget());
+        if (existingChartView) {
+            existingChartView->setChart(chart);
+            plotWindow->activateWindow();
+            plotWindow->raise();
+            return;
+        }
+    }
+
+    // Create new window if it doesn't exist
+    plotWindow = new QMainWindow(this);
+    plotWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(plotWindow, &QMainWindow::destroyed, this, [this, title]() {
+        if (title.contains("Weekly")) {
+            weeklyPlotWindow = nullptr;
+        } else {
+            monthlyPlotWindow = nullptr;
+        }
+    });
+
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
     
-    QMainWindow *plotWindow = new QMainWindow(this);
     plotWindow->setCentralWidget(chartView);
     plotWindow->resize(1000, 600);
     plotWindow->setWindowTitle(title);
@@ -823,11 +606,111 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
 }
 
 void FinanceCategorisationWindow::plotWeeklySummary() {
+    if (weeklyPlotWindow) {
+        weeklyPlotWindow->activateWindow();
+        weeklyPlotWindow->raise();
+        return;
+    }
     plotData("weekly_summary.csv", "Weekly Expense Summary Over Time", "Week Number");
 }
 
 void FinanceCategorisationWindow::plotMonthlySummary() {
+    if (monthlyPlotWindow) {
+        monthlyPlotWindow->activateWindow();
+        monthlyPlotWindow->raise();
+        return;
+    }
     plotData("monthly_summary.csv", "Monthly Expense Summary Over Time", "Month Number");
+}
+
+void FinanceCategorisationWindow::viewAllTransactions() {
+    QString outputDir = outputDirEdit->text();
+    if (outputDir.isEmpty()) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        return;
+    }
+
+    QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
+    if (!QFile::exists(filePath)) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Categorised transactions file not found");
+        return;
+    }
+
+    if (allTransactionsWindow) {
+        allTransactionsWindow->activateWindow();
+        allTransactionsWindow->raise();
+        return;
+    }
+
+    allTransactionsWindow = new QMainWindow(this);
+    allTransactionsWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(allTransactionsWindow, &QMainWindow::destroyed, this, [this]() {
+        allTransactionsWindow = nullptr;
+    });
+    allTransactionsWindow->setWindowTitle("All Categorised Transactions");
+    allTransactionsWindow->resize(1200, 800);
+
+    QTableWidget *table = new QTableWidget(allTransactionsWindow);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
+    allTransactionsWindow->setCentralWidget(table);
+
+    QFile file(filePath);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        
+        // Read header
+        QString header = in.readLine();
+        QStringList headers = header.split(',');
+        table->setColumnCount(headers.size());
+        table->setHorizontalHeaderLabels(headers);
+        
+        // Read data
+        QVector<QStringList> rows;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            rows.append(line.split(','));
+        }
+        
+        table->setRowCount(rows.size());
+        
+        // Populate table
+        for (int i = 0; i < rows.size(); ++i) {
+            const QStringList &row = rows[i];
+            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
+                QTableWidgetItem *item = new QTableWidgetItem();
+                if (j == 4) {  // Amount column
+                    double value = row[j].toDouble();
+                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
+                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                } else {
+                    item->setText(row[j]);
+                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                }
+                table->setItem(i, j, item);
+            }
+        }
+        
+        // Auto-adjust all column widths equally
+        for (int i = 0; i < headers.size(); ++i) {
+            table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+        }
+        
+        // Style the table
+        table->setAlternatingRowColors(true);
+        table->setStyleSheet(
+            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
+            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
+            "QTableWidget::item { padding: 4px; color: black; }"
+            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
+        );
+        
+        // Enable sorting
+        table->setSortingEnabled(true);
+        
+        file.close();
+    }
+
+    allTransactionsWindow->show();
 }
 
 // Utility Functions
