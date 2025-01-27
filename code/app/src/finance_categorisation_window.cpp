@@ -551,10 +551,10 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
 
         // Create and setup axes
         QValueAxis *axisY = new QValueAxis();
-        double maxRounded = std::ceil(maxValue / 300.0) * 300;
-        double minRounded = std::min(0.0, std::floor(minValue / 300.0) * 300);
+        double maxRounded = std::ceil(maxValue / 400.0) * 400;
+        double minRounded = std::min(0.0, std::floor(minValue / 400.0) * 400);
         axisY->setRange(minRounded, maxRounded);
-        axisY->setTickCount((maxRounded - minRounded) / 300 + 1);
+        axisY->setTickCount((maxRounded - minRounded) / 400 + 1);
         axisY->setLabelFormat("%d");
         axisY->setTitleText("Amount (£)");
         axisY->setGridLineVisible(true);
