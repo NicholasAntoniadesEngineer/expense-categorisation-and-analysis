@@ -1,50 +1,57 @@
+/**
+ * @file finance_categorisation_window.cpp
+ * @brief Implementation of the Finance Manager main window
+ * @author Nicholas Antoniades
+ * @date 2024-01-24
+ * 
+ * This file implements the main GUI window functionality for the
+ * Finance Manager application, handling user interactions and file processing.
+ */
+
 #include "finance_categorisation_window.hpp"
 #include "finance_processor.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QDir>
-#include <QIcon>
 #include <QDebug>
 #include <QApplication>
-#include <QStyle>
 
 namespace FinanceManager {
 
+/**
+ * @brief Window configuration constants
+ */
+struct WindowConfig {
+    static const char* const INPUT_GROUP_TITLE;
+    static const char* const OUTPUT_GROUP_TITLE;
+    static const char* const KEYWORD_GROUP_TITLE;
+    static const char* const EXPORT_GROUP_TITLE;
+    static const char* const BROWSE_BUTTON_TEXT;
+    static const char* const PROCESS_BUTTON_TEXT;
+};
+
+const char* const WindowConfig::INPUT_GROUP_TITLE = "Input Directory";
+const char* const WindowConfig::OUTPUT_GROUP_TITLE = "Output Directory";
+const char* const WindowConfig::KEYWORD_GROUP_TITLE = "Keyword File";
+const char* const WindowConfig::EXPORT_GROUP_TITLE = "Export Options";
+const char* const WindowConfig::BROWSE_BUTTON_TEXT = "Browse";
+const char* const WindowConfig::PROCESS_BUTTON_TEXT = "Process Files";
+
+/**
+ * @brief Constructs the main window and initializes UI components
+ * @param parent Parent widget (optional)
+ */
 FinanceCategorisationWindow::FinanceCategorisationWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi();
     createConnections();
-    setWindowTitle(QApplication::applicationDisplayName());
-    
-    // Set window icon - try multiple approaches
-    QIcon appIcon(":/icons/app_icon.png");
-    if (appIcon.isNull()) {
-        qDebug() << "Failed to load application icon from resources";
-        // Try loading with absolute path
-        QString iconPath = QDir(QCoreApplication::applicationDirPath())
-                          .absoluteFilePath("../resources/icons/app_icon.png");
-        appIcon = QIcon(iconPath);
-        if (appIcon.isNull()) {
-            qDebug() << "Failed to load icon from:" << iconPath;
-        }
-    } else {
-        qDebug() << "Successfully loaded application icon from resources";
-    }
-    
-    if (!appIcon.isNull()) {
-        // Set icon in multiple ways
-        setWindowIcon(appIcon);
-        QApplication::setWindowIcon(appIcon);
-        
-#ifdef Q_OS_MAC
-        // macOS specific icon settings
-        QIcon::setThemeName("macos");
-#endif
-    }
 }
 
+/**
+ * @brief Sets up the user interface components and layout
+ */
 void FinanceCategorisationWindow::setupUi()
 {
     centralWidget = new QWidget(this);
@@ -53,34 +60,34 @@ void FinanceCategorisationWindow::setupUi()
     mainLayout = new QVBoxLayout(centralWidget);
     
     // Create input directory group
-    QGroupBox *inputGroup = new QGroupBox("Input Directory", this);
+    QGroupBox *inputGroup = new QGroupBox(WindowConfig::INPUT_GROUP_TITLE, this);
     QHBoxLayout *inputLayout = new QHBoxLayout;
     inputDirEdit = new QLineEdit(this);
-    inputBrowseButton = new QPushButton("Browse", this);
+    inputBrowseButton = new QPushButton(WindowConfig::BROWSE_BUTTON_TEXT, this);
     inputLayout->addWidget(inputDirEdit);
     inputLayout->addWidget(inputBrowseButton);
     inputGroup->setLayout(inputLayout);
     
     // Create output directory group
-    QGroupBox *outputGroup = new QGroupBox("Output Directory", this);
+    QGroupBox *outputGroup = new QGroupBox(WindowConfig::OUTPUT_GROUP_TITLE, this);
     QHBoxLayout *outputLayout = new QHBoxLayout;
     outputDirEdit = new QLineEdit(this);
-    outputBrowseButton = new QPushButton("Browse", this);
+    outputBrowseButton = new QPushButton(WindowConfig::BROWSE_BUTTON_TEXT, this);
     outputLayout->addWidget(outputDirEdit);
     outputLayout->addWidget(outputBrowseButton);
     outputGroup->setLayout(outputLayout);
     
     // Create keyword file group
-    QGroupBox *keywordGroup = new QGroupBox("Keyword File", this);
+    QGroupBox *keywordGroup = new QGroupBox(WindowConfig::KEYWORD_GROUP_TITLE, this);
     QHBoxLayout *keywordLayout = new QHBoxLayout;
     keywordFileEdit = new QLineEdit(this);
-    keywordBrowseButton = new QPushButton("Browse", this);
+    keywordBrowseButton = new QPushButton(WindowConfig::BROWSE_BUTTON_TEXT, this);
     keywordLayout->addWidget(keywordFileEdit);
     keywordLayout->addWidget(keywordBrowseButton);
     keywordGroup->setLayout(keywordLayout);
     
     // Create export options group
-    QGroupBox *exportGroup = new QGroupBox("Export Options", this);
+    QGroupBox *exportGroup = new QGroupBox(WindowConfig::EXPORT_GROUP_TITLE, this);
     QVBoxLayout *exportLayout = new QVBoxLayout;
     exportMonthlySummaryCheck = new QCheckBox("Export Monthly Summary", this);
     exportWeeklySummaryCheck = new QCheckBox("Export Weekly Summary", this);
@@ -91,7 +98,7 @@ void FinanceCategorisationWindow::setupUi()
     exportGroup->setLayout(exportLayout);
     
     // Create process button
-    processButton = new QPushButton("Process Files", this);
+    processButton = new QPushButton(WindowConfig::PROCESS_BUTTON_TEXT, this);
     
     // Add all widgets to main layout
     mainLayout->addWidget(inputGroup);
@@ -120,6 +127,9 @@ void FinanceCategorisationWindow::setupUi()
     exportFullDatasetCheck->setChecked(true);
 }
 
+/**
+ * @brief Creates signal/slot connections for UI components
+ */
 void FinanceCategorisationWindow::createConnections()
 {
     connect(inputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseInputDirectory);
@@ -128,6 +138,9 @@ void FinanceCategorisationWindow::createConnections()
     connect(processButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::processFiles);
 }
 
+/**
+ * @brief Opens a directory dialog for selecting the input directory
+ */
 void FinanceCategorisationWindow::browseInputDirectory()
 {
     QString dir = QFileDialog::getExistingDirectory(this, "Select Input Directory",
@@ -139,6 +152,9 @@ void FinanceCategorisationWindow::browseInputDirectory()
     }
 }
 
+/**
+ * @brief Opens a directory dialog for selecting the output directory
+ */
 void FinanceCategorisationWindow::browseOutputDirectory()
 {
     QString dir = QFileDialog::getExistingDirectory(this, "Select Output Directory",
@@ -150,6 +166,9 @@ void FinanceCategorisationWindow::browseOutputDirectory()
     }
 }
 
+/**
+ * @brief Opens a file dialog for selecting the keyword mapping file
+ */
 void FinanceCategorisationWindow::browseKeywordFile()
 {
     QString file = QFileDialog::getOpenFileName(this, "Select Keyword File",
@@ -161,6 +180,13 @@ void FinanceCategorisationWindow::browseKeywordFile()
     }
 }
 
+/**
+ * @brief Processes the input files using the selected options
+ * 
+ * Validates input fields and initiates the file processing using
+ * the FinanceProcessor class. Displays appropriate success/error
+ * messages to the user.
+ */
 void FinanceCategorisationWindow::processFiles()
 {
     try {

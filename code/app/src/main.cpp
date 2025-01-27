@@ -22,41 +22,20 @@
 namespace FinanceManager {
 
 /**
- * @brief Application configuration constants
- */
-struct AppConfig {
-    static constexpr int DEFAULT_WINDOW_WIDTH = 600;
-    static constexpr int DEFAULT_WINDOW_HEIGHT = 400;
-    static constexpr int DEFAULT_FONT_SIZE = 12;
-    static const char* const APP_NAME;
-    static const char* const ORG_NAME;
-    static const char* const ORG_DOMAIN;
-    static const char* const APP_VERSION;
-    static const char* const STYLE_NAME;
-    static const char* const FONT_FAMILY;
-};
-
-const char* const AppConfig::APP_NAME = "Finance Manager";
-const char* const AppConfig::ORG_NAME = "Finance";
-const char* const AppConfig::ORG_DOMAIN = "finance.manager";
-const char* const AppConfig::APP_VERSION = "1.0.0";
-const char* const AppConfig::STYLE_NAME = "fusion";
-const char* const AppConfig::FONT_FAMILY = "SF Pro Display";
-
-/**
  * @brief Initialize application appearance settings
+ * @param config Application configuration
  * @return true if initialization successful, false otherwise
  */
-bool initializeAppearance() noexcept {
+bool initializeAppearance(const AppConfig& config) noexcept {
     // Set application style
-    QStyle* style = QStyleFactory::create(AppConfig::STYLE_NAME);
+    QStyle* style = QStyleFactory::create(config.style_name);
     if (!style) {
         return false;
     }
     QApplication::setStyle(style);
 
     // Set application font
-    QFont appFont(AppConfig::FONT_FAMILY, AppConfig::DEFAULT_FONT_SIZE);
+    QFont appFont(config.font_family, config.default_font_size);
     QApplication::setFont(appFont);
     
     // Set application icon
@@ -70,26 +49,27 @@ bool initializeAppearance() noexcept {
 
 /**
  * @brief Initialize application metadata and information
+ * @param config Application configuration
  * @return true if initialization successful, false otherwise
  */
-bool initializeApplicationInfo() noexcept {
-    QApplication::setApplicationName(AppConfig::APP_NAME);
-    QApplication::setOrganizationName(AppConfig::ORG_NAME);
-    QApplication::setOrganizationDomain(AppConfig::ORG_DOMAIN);
-    QApplication::setApplicationVersion(AppConfig::APP_VERSION);
-    QApplication::setApplicationDisplayName(AppConfig::APP_NAME);
+bool initializeApplicationInfo(const AppConfig& config) noexcept {
+    QApplication::setApplicationName(config.app_name);
+    QApplication::setOrganizationName(config.org_name);
+    QApplication::setOrganizationDomain(config.org_domain);
+    QApplication::setApplicationVersion(config.app_version);
+    QApplication::setApplicationDisplayName(config.app_name);
     return true;
 }
 
 /**
  * @brief Configure and display the main application window
  * @param window Reference to the main window instance
+ * @param config Application configuration
  * @return true if setup successful, false otherwise
  */
-bool setupMainWindow(FinanceCategorisationWindow& window) noexcept {
-    window.setWindowTitle(AppConfig::APP_NAME);
-    window.resize(AppConfig::DEFAULT_WINDOW_WIDTH, 
-                 AppConfig::DEFAULT_WINDOW_HEIGHT);
+bool setupMainWindow(FinanceCategorisationWindow& window, const AppConfig& config) noexcept {
+    window.setWindowTitle(config.app_name);
+    window.resize(config.default_window_width, config.default_window_height);
     window.show();
     return true;
 }
@@ -97,12 +77,10 @@ bool setupMainWindow(FinanceCategorisationWindow& window) noexcept {
 /**
  * @brief Display an error message to the user
  * @param message The error message to display
+ * @param config Application configuration
  */
-void showErrorMessage(const QString& message) noexcept {
-    QMessageBox::critical(nullptr, 
-                         AppConfig::APP_NAME, 
-                         message,
-                         QMessageBox::Ok);
+void showErrorMessage(const QString& message, const AppConfig& config) noexcept {
+    QMessageBox::critical(nullptr, config.app_name, message, QMessageBox::Ok);
 }
 
 }  // namespace FinanceManager
@@ -116,17 +94,30 @@ void showErrorMessage(const QString& message) noexcept {
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+    // Initialize application configuration
+    const FinanceManager::AppConfig config{
+        .app_name = "Finance Manager",
+        .org_name = "Finance",
+        .org_domain = "finance.manager",
+        .app_version = "1.0.0",
+        .style_name = "fusion",
+        .font_family = "SF Pro Display",
+        .default_window_width = 600,
+        .default_window_height = 400,
+        .default_font_size = 12
+    };
+
     // Initialize application components
-    if (!FinanceManager::initializeApplicationInfo() || 
-        !FinanceManager::initializeAppearance()) {
-        FinanceManager::showErrorMessage("Failed to initialize application");
+    if (!FinanceManager::initializeApplicationInfo(config) || 
+        !FinanceManager::initializeAppearance(config)) {
+        FinanceManager::showErrorMessage("Failed to initialize application", config);
         return EXIT_FAILURE;
     }
 
     // Create and setup main window
     FinanceManager::FinanceCategorisationWindow window;
-    if (!FinanceManager::setupMainWindow(window)) {
-        FinanceManager::showErrorMessage("Failed to setup main window");
+    if (!FinanceManager::setupMainWindow(window, config)) {
+        FinanceManager::showErrorMessage("Failed to setup main window", config);
         return EXIT_FAILURE;
     }
 
