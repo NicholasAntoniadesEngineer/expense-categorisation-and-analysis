@@ -100,7 +100,8 @@ bool FinanceCategorisationWindow::initializeAppearance() noexcept {
     }
     QApplication::setStyle(style);
 
-    QFont appFont(config.font_family, config.default_font_size);
+    // Use ".AppleSystemUIFont" which is guaranteed to be available on macOS
+    QFont appFont(".AppleSystemUIFont", config.default_font_size);
     QApplication::setFont(appFont);
     
     QIcon appIcon(":/icons/app_icon.png");
@@ -436,89 +437,66 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
         // Create a map to store category-wise series
         QMap<QString, QLineSeries*> categorySeries;
 
-        // First pass: collect all categories and create series
-        for (const QString &file : files) {
-            QFile csvFile(dir.filePath(file));
-            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
-                continue;
+        // Read the single summary file
+        QFile csvFile(dir.filePath(files.first()));
+        if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
 
-            QTextStream in(&csvFile);
-            QString header = in.readLine(); // Skip header
+        QTextStream in(&csvFile);
+        
+        // Read header to get dates
+        QString header = in.readLine();
+        QStringList dates = header.split(',');
+        dates.removeFirst(); // Remove "Category" column header
+        
+        // Read each line (category)
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            QStringList fields = line.split(',');
+            if (fields.size() >= 2) {
+                QString category = fields[0];
+                QLineSeries *series = new QLineSeries();
+                series->setName(category);
+                
+                // Assign a unique color from a predefined palette
+                static const QColor colors[] = {
+                    QColor("#1f77b4"), // Blue
+                    QColor("#ff7f0e"), // Orange
+                    QColor("#2ca02c"), // Green
+                    QColor("#d62728"), // Red
+                    QColor("#9467bd"), // Purple
+                    QColor("#8c564b"), // Brown
+                    QColor("#e377c2"), // Pink
+                    QColor("#7f7f7f"), // Gray
+                    QColor("#bcbd22"), // Yellow-green
+                    QColor("#17becf")  // Cyan
+                };
+                static int colorIndex = 0;
+                
+                QPen pen = series->pen();
+                pen.setColor(colors[colorIndex % 10]);
+                pen.setWidth(1);  // Make lines thicker
+                series->setPen(pen);
+                colorIndex++;
 
-            while (!in.atEnd()) {
-                QString line = in.readLine();
-                QStringList fields = line.split(',');
-                if (fields.size() >= 2) {
-                    QString category = fields[0];
-                    if (!categorySeries.contains(category)) {
-                        QLineSeries *series = new QLineSeries();
-                        series->setName(category);
-                        
-                        // Assign a unique color from a predefined palette
-                        static const QColor colors[] = {
-                            QColor("#1f77b4"), // Blue
-                            QColor("#ff7f0e"), // Orange
-                            QColor("#2ca02c"), // Green
-                            QColor("#d62728"), // Red
-                            QColor("#9467bd"), // Purple
-                            QColor("#8c564b"), // Brown
-                            QColor("#e377c2"), // Pink
-                            QColor("#7f7f7f"), // Gray
-                            QColor("#bcbd22"), // Yellow-green
-                            QColor("#17becf")  // Cyan
-                        };
-                        static int colorIndex = 0;
-                        
-                        QPen pen = series->pen();
-                        pen.setColor(colors[colorIndex % 10]);
-                        pen.setWidth(1);
-                        series->setPen(pen);
-                        colorIndex++;
+                // Make points visible and set their size
+                series->setPointsVisible(true);
+                series->setMarkerSize(2);  // Make points larger
+                series->setPointLabelsVisible(false);
 
-                        // Make points visible and set their size
-                        series->setPointsVisible(true);
-                        series->setMarkerSize(2);
-                        series->setPointLabelsVisible(false);
-
-                        categorySeries[category] = series;
-                    }
+                // Add data points
+                for (int i = 1; i < fields.size(); ++i) {
+                    double value = fields[i].toDouble();
+                    series->append(i, value);
+                    maxValue = qMax(maxValue, value);
+                    minValue = qMin(minValue, value);
                 }
+
+                categorySeries[category] = series;
+                chart->addSeries(series);
             }
-            csvFile.close();
         }
-
-        // Second pass: populate data points
-        int index = 1;  // Start from 1
-        for (const QString &file : files) {
-            QFile csvFile(dir.filePath(file));
-            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
-                continue;
-
-            QTextStream in(&csvFile);
-            QString header = in.readLine(); // Skip header
-
-            while (!in.atEnd()) {
-                QString line = in.readLine();
-                QStringList fields = line.split(',');
-                if (fields.size() >= 2) {
-                    QString category = fields[0];
-                    double value = fields[1].toDouble();
-                    
-                    if (categorySeries.contains(category)) {
-                        categorySeries[category]->append(index, value);
-                        maxValue = qMax(maxValue, value);
-                        minValue = qMin(minValue, value);
-                    }
-                }
-            }
-            index++;
-            csvFile.close();
-        }
-
-        // Add all series to the chart
-        for (auto series : categorySeries) {
-            chart->addSeries(series);
-        }
+        csvFile.close();
 
         // Create and setup axes
         QValueAxis *axisY = new QValueAxis();
@@ -531,18 +509,38 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
         axisY->setGridLineVisible(true);
         chart->addAxis(axisY, Qt::AlignLeft);
 
-        QValueAxis *axisX = new QValueAxis();
-        axisX->setRange(1, index - 1);  // Start from 1
+        // Create custom x-axis with date labels
+        QCategoryAxis *axisX = new QCategoryAxis();
+        axisX->setRange(1, dates.size());
         axisX->setTitleText(xAxisTitle);
-        axisX->setLabelFormat("%d");
-        axisX->setTickCount(index - 1);
         axisX->setGridLineVisible(true);
+        
+        // Add date labels to x-axis
+        for (int i = 0; i < dates.size(); ++i) {
+            axisX->append(dates[i], i + 1);
+        }
+        axisX->setLabelsPosition(QCategoryAxis::AxisLabelsPositionOnValue);
+        axisX->setLabelsAngle(-65);  // Angle the date labels for better readability
         chart->addAxis(axisX, Qt::AlignBottom);
 
         // Attach axes to all series
         for (auto series : categorySeries) {
             series->attachAxis(axisX);
             series->attachAxis(axisY);
+            
+            // Connect hover signals for tooltips
+            connect(series, &QLineSeries::hovered, this, [series, dates](const QPointF &point, bool state) {
+                if (state) {
+                    int index = qRound(point.x()) - 1;
+                    if (index >= 0 && index < dates.size()) {
+                        QToolTip::showText(QCursor::pos(), 
+                            QString("%1\n%2: £%3")
+                                .arg(dates[index])
+                                .arg(series->name())
+                                .arg(point.y(), 0, 'f', 2));
+                    }
+                }
+            });
         }
 
         chart->legend()->setVisible(true);
@@ -557,11 +555,11 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
 }
 
 void FinanceCategorisationWindow::plotWeeklySummary() {
-    plotData("*weekly*.csv", "Weekly Expense Summary Over Time", "Week Number");
+    plotData("weekly_summary.csv", "Weekly Expense Summary Over Time", "Week Number");
 }
 
 void FinanceCategorisationWindow::plotMonthlySummary() {
-    plotData("*monthly*.csv", "Monthly Expense Summary Over Time", "Month Number");
+    plotData("monthly_summary.csv", "Monthly Expense Summary Over Time", "Month Number");
 }
 
 // Utility Functions
