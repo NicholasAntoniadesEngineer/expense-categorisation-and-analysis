@@ -543,8 +543,8 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
             });
         }
 
-        chart->legend()->setVisible(true);
-        chart->legend()->setAlignment(Qt::AlignRight);
+        // Hide the legend since we have the category panel
+        chart->legend()->setVisible(false);
 
         setupPlotWindow(chart, title);
 
