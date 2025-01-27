@@ -22,8 +22,34 @@
 #include <QFont>
 #include <QtCharts>
 #include <QToolTip>
+#include <QLabel>
 
 namespace FinanceManager {
+
+// Add this class definition at the top of the file, after the includes
+class MouseEventFilter : public QObject {
+public:
+    MouseEventFilter(QChart* chart, QLabel* label) 
+        : QObject(chart), m_chart(chart), m_label(label) {}
+
+protected:
+    bool eventFilter(QObject* obj, QEvent* event) override {
+        if (event->type() == QEvent::MouseMove) {
+            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+            QPoint point = mouseEvent->pos();
+            // Convert pixel coordinates to chart coordinates
+            QPointF chartPoint = m_chart->mapToValue(point);
+            m_label->setText(QString("X: %1, Y: £%2")
+                .arg(chartPoint.x(), 0, 'f', 1)
+                .arg(chartPoint.y(), 0, 'f', 2));
+        }
+        return QObject::eventFilter(obj, event);
+    }
+
+private:
+    QChart* m_chart;
+    QLabel* m_label;
+};
 
 // Constructor and Initialization
 FinanceCategorisationWindow::FinanceCategorisationWindow(AppConfig& config, QWidget *parent)
@@ -268,8 +294,18 @@ void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& 
     
     QMainWindow *plotWindow = new QMainWindow(this);
     plotWindow->setCentralWidget(chartView);
-    plotWindow->resize(1000, 600);  // Made wider to accommodate category panel
+    plotWindow->resize(1000, 600);
     plotWindow->setWindowTitle(title);
+
+    // Create coordinate label
+    QLabel* coordLabel = new QLabel(plotWindow);
+    coordLabel->setAlignment(Qt::AlignLeft);
+    coordLabel->setStyleSheet("QLabel { color: black; background-color: rgba(255, 255, 255, 0.8); padding: 5px; border-radius: 3px; margin: 5px; font-weight: bold; }");
+    plotWindow->statusBar()->addWidget(coordLabel);
+
+    // Connect mouse tracking
+    chartView->setMouseTracking(true);
+    chartView->viewport()->installEventFilter(new MouseEventFilter(chart, coordLabel));
 
     // Get list of categories from chart series
     QStringList categories;
@@ -441,25 +477,14 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
                         
                         QPen pen = series->pen();
                         pen.setColor(colors[colorIndex % 10]);
-                        pen.setWidth(2);
+                        pen.setWidth(1);
                         series->setPen(pen);
                         colorIndex++;
 
-                        // Make points larger and visible
+                        // Make points visible and set their size
                         series->setPointsVisible(true);
+                        series->setMarkerSize(2);  // Set point size
                         series->setPointLabelsVisible(false);
-                        
-                        // Connect hover signals for tooltips
-                        connect(series, &QLineSeries::hovered, this, [this](const QPointF &point, bool state) {
-                            QLineSeries* series = qobject_cast<QLineSeries*>(sender());
-                            if (series) {
-                                // Show/hide single point label
-                                series->setPointLabelsVisible(state);
-                                if (state) {
-                                    series->setPointLabelsFormat(QString::number(point.y(), 'f', 2));
-                                }
-                            }
-                        });
 
                         categorySeries[category] = series;
                     }
@@ -603,25 +628,14 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
                         
                         QPen pen = series->pen();
                         pen.setColor(colors[colorIndex % 10]);
-                        pen.setWidth(2);
+                        pen.setWidth(1);
                         series->setPen(pen);
                         colorIndex++;
 
-                        // Make points larger and visible
+                        // Make points visible and set their size
                         series->setPointsVisible(true);
+                        series->setMarkerSize(2);  // Set point size
                         series->setPointLabelsVisible(false);
-                        
-                        // Connect hover signals for tooltips
-                        connect(series, &QLineSeries::hovered, this, [this](const QPointF &point, bool state) {
-                            QLineSeries* series = qobject_cast<QLineSeries*>(sender());
-                            if (series) {
-                                // Show/hide single point label
-                                series->setPointLabelsVisible(state);
-                                if (state) {
-                                    series->setPointLabelsFormat(QString::number(point.y(), 'f', 2));
-                                }
-                            }
-                        });
 
                         categorySeries[category] = series;
                     }
