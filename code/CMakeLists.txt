@@ -16,7 +16,7 @@ else()
 endif()
 
 # Find Qt6
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Charts)
 
 # Enable automoc for Qt
 set(CMAKE_AUTOMOC ON)
@@ -68,6 +68,7 @@ target_include_directories(FinanceManager PRIVATE
 # Link Qt libraries
 target_link_libraries(FinanceManager PRIVATE
     Qt6::Widgets
+    Qt6::Charts
 )
 
 # Set warning flags

@@ -15,6 +15,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QCheckBox>
+#include <QtCharts>
 
 namespace FinanceManager {
 
@@ -52,6 +53,8 @@ struct AppConfig {
         const char* SUCCESS_TITLE;
         const char* FIELDS_REQUIRED_ERROR;
         const char* PROCESS_SUCCESS;
+        const char* PLOT_WEEKLY_TEXT;
+        const char* PLOT_MONTHLY_TEXT;
     } strings;
 };
 
@@ -79,6 +82,8 @@ private slots:
     void browseOutputDirectory();
     void browseKeywordFile();
     void processFiles();
+    void plotWeeklySummary();
+    void plotMonthlySummary();
 
 private:
     // UI Setup
@@ -86,6 +91,7 @@ private:
     void setupDefaultPaths();
     void setupDefaultStates();
     void createConnections();
+    void setupPlotWindow(QChart* chart, const QString& title);
 
     AppConfig& config;
 
@@ -100,6 +106,8 @@ private:
     QPushButton *outputBrowseButton;
     QPushButton *keywordBrowseButton;
     QPushButton *processButton;
+    QPushButton *plotWeeklyButton;
+    QPushButton *plotMonthlyButton;
 
     QCheckBox *exportMonthlySummaryCheck;
     QCheckBox *exportWeeklySummaryCheck;

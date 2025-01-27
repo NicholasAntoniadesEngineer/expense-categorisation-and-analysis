@@ -20,6 +20,7 @@
 #include <QStyleFactory>
 #include <QIcon>
 #include <QFont>
+#include <QtCharts>
 
 namespace FinanceManager {
 
@@ -46,7 +47,9 @@ FinanceCategorisationWindow::FinanceCategorisationWindow(AppConfig& config, QWid
         .ERROR_TITLE = "Error",
         .SUCCESS_TITLE = "Success",
         .FIELDS_REQUIRED_ERROR = "All fields must be filled",
-        .PROCESS_SUCCESS = "Files processed successfully!"
+        .PROCESS_SUCCESS = "Files processed successfully!",
+        .PLOT_WEEKLY_TEXT = "Plot Weekly Summary",
+        .PLOT_MONTHLY_TEXT = "Plot Monthly Summary"
     };
 
     setupUi();
@@ -136,12 +139,24 @@ void FinanceCategorisationWindow::setupUi() {
     // Create process button
     processButton = new QPushButton(config.strings.PROCESS_BUTTON_TEXT, this);
     
+    // Create plot buttons
+    plotWeeklyButton = new QPushButton(config.strings.PLOT_WEEKLY_TEXT, this);
+    plotMonthlyButton = new QPushButton(config.strings.PLOT_MONTHLY_TEXT, this);
+    
+    // Create visualization group
+    QGroupBox *visualizationGroup = new QGroupBox("Visualization", this);
+    QHBoxLayout *visualizationLayout = new QHBoxLayout;
+    visualizationLayout->addWidget(plotWeeklyButton);
+    visualizationLayout->addWidget(plotMonthlyButton);
+    visualizationGroup->setLayout(visualizationLayout);
+    
     // Add all widgets to main layout
     mainLayout->addWidget(inputGroup);
     mainLayout->addWidget(outputGroup);
     mainLayout->addWidget(keywordGroup);
     mainLayout->addWidget(exportGroup);
     mainLayout->addWidget(processButton);
+    mainLayout->addWidget(visualizationGroup);
     mainLayout->addStretch();
     
     // Set default paths and states
@@ -173,6 +188,8 @@ void FinanceCategorisationWindow::createConnections() {
     connect(outputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseOutputDirectory);
     connect(keywordBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseKeywordFile);
     connect(processButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::processFiles);
+    connect(plotWeeklyButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotWeeklySummary);
+    connect(plotMonthlyButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotMonthlySummary);
 }
 
 // Event Handlers
@@ -241,6 +258,265 @@ void FinanceCategorisationWindow::processFiles() {
     } catch (const std::exception& e) {
         QMessageBox::critical(this, config.strings.ERROR_TITLE, 
                             QString("Processing failed: %1").arg(e.what()));
+    }
+}
+
+void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& title) {
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+    
+    QMainWindow *plotWindow = new QMainWindow(this);
+    plotWindow->setCentralWidget(chartView);
+    plotWindow->resize(800, 600);
+    plotWindow->setWindowTitle(title);
+    plotWindow->show();
+}
+
+void FinanceCategorisationWindow::plotWeeklySummary() {
+    try {
+        QString outputDir = outputDirEdit->text();
+        if (outputDir.isEmpty()) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+            return;
+        }
+
+        QDir dir(outputDir);
+        QStringList weeklyFiles = dir.entryList(QStringList() << "*weekly*.csv", QDir::Files);
+        
+        if (weeklyFiles.isEmpty()) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "No weekly summary files found");
+            return;
+        }
+
+        QChart *chart = new QChart();
+        chart->setTitle("Weekly Expense Summary Over Time");
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Track overall min/max values for axis scaling
+        double maxValue = 0;
+        double minValue = std::numeric_limits<double>::max();
+
+        // Create a map to store category-wise series
+        QMap<QString, QLineSeries*> categorySeries;
+
+        // First pass: collect all categories and create series
+        for (const QString &file : weeklyFiles) {
+            QFile csvFile(dir.filePath(file));
+            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
+                continue;
+
+            QTextStream in(&csvFile);
+            QString header = in.readLine(); // Skip header
+
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList fields = line.split(',');
+                if (fields.size() >= 2) {
+                    QString category = fields[0];
+                    if (!categorySeries.contains(category)) {
+                        QLineSeries *series = new QLineSeries();
+                        series->setName(category);
+                        categorySeries[category] = series;
+                    }
+                }
+            }
+            csvFile.close();
+        }
+
+        // Second pass: populate data points
+        int weekIndex = 0;
+        for (const QString &file : weeklyFiles) {
+            QFile csvFile(dir.filePath(file));
+            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
+                continue;
+
+            QTextStream in(&csvFile);
+            QString header = in.readLine(); // Skip header
+
+            // Extract week number from filename (assuming format contains week information)
+            QString weekLabel = file.section('_', -2, -2); // Adjust based on your filename format
+
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList fields = line.split(',');
+                if (fields.size() >= 2) {
+                    QString category = fields[0];
+                    double value = fields[1].toDouble();
+                    
+                    if (categorySeries.contains(category)) {
+                        categorySeries[category]->append(weekIndex, value);
+                        maxValue = qMax(maxValue, value);
+                        minValue = qMin(minValue, value);
+                    }
+                }
+            }
+            weekIndex++;
+            csvFile.close();
+        }
+
+        // Add all series to the chart
+        for (auto series : categorySeries) {
+            chart->addSeries(series);
+        }
+
+        // Create and setup axes
+        QValueAxis *axisY = new QValueAxis();
+        // Round max value up to nearest 500
+        double maxRounded = std::ceil(maxValue / 500.0) * 500;
+        // Round min value down to nearest 500, but ensure we include 0
+        double minRounded = std::min(0.0, std::floor(minValue / 500.0) * 500);
+        axisY->setRange(minRounded, maxRounded);
+        axisY->setTickCount((maxRounded - minRounded) / 500 + 1); // Set tick for every 500 units
+        axisY->setLabelFormat("%.0f");
+        axisY->setTitleText("Amount (£)");
+        axisY->setGridLineVisible(true);
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        QValueAxis *axisX = new QValueAxis();
+        axisX->setRange(0, weekIndex - 1);
+        axisX->setTitleText("Week Number");
+        axisX->setLabelFormat("%d");
+        axisX->setGridLineVisible(true);
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        // Attach axes to all series
+        for (auto series : categorySeries) {
+            series->attachAxis(axisX);
+            series->attachAxis(axisY);
+        }
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignRight);
+
+        setupPlotWindow(chart, "Weekly Expense Trends");
+
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, config.strings.ERROR_TITLE, 
+                            QString("Plot generation failed: %1").arg(e.what()));
+    }
+}
+
+void FinanceCategorisationWindow::plotMonthlySummary() {
+    try {
+        QString outputDir = outputDirEdit->text();
+        if (outputDir.isEmpty()) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+            return;
+        }
+
+        QDir dir(outputDir);
+        QStringList monthlyFiles = dir.entryList(QStringList() << "*monthly*.csv", QDir::Files);
+        
+        if (monthlyFiles.isEmpty()) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "No monthly summary files found");
+            return;
+        }
+
+        QChart *chart = new QChart();
+        chart->setTitle("Monthly Expense Summary Over Time");
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+
+        // Track overall min/max values for axis scaling
+        double maxValue = 0;
+        double minValue = std::numeric_limits<double>::max();
+
+        // Create a map to store category-wise series
+        QMap<QString, QLineSeries*> categorySeries;
+
+        // First pass: collect all categories and create series
+        for (const QString &file : monthlyFiles) {
+            QFile csvFile(dir.filePath(file));
+            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
+                continue;
+
+            QTextStream in(&csvFile);
+            QString header = in.readLine(); // Skip header
+
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList fields = line.split(',');
+                if (fields.size() >= 2) {
+                    QString category = fields[0];
+                    if (!categorySeries.contains(category)) {
+                        QLineSeries *series = new QLineSeries();
+                        series->setName(category);
+                        categorySeries[category] = series;
+                    }
+                }
+            }
+            csvFile.close();
+        }
+
+        // Second pass: populate data points
+        int monthIndex = 0;
+        for (const QString &file : monthlyFiles) {
+            QFile csvFile(dir.filePath(file));
+            if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
+                continue;
+
+            QTextStream in(&csvFile);
+            QString header = in.readLine(); // Skip header
+
+            // Extract month from filename (assuming format contains month information)
+            QString monthLabel = file.section('_', -2, -2); // Adjust based on your filename format
+
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                QStringList fields = line.split(',');
+                if (fields.size() >= 2) {
+                    QString category = fields[0];
+                    double value = fields[1].toDouble();
+                    
+                    if (categorySeries.contains(category)) {
+                        categorySeries[category]->append(monthIndex, value);
+                        maxValue = qMax(maxValue, value);
+                        minValue = qMin(minValue, value);
+                    }
+                }
+            }
+            monthIndex++;
+            csvFile.close();
+        }
+
+        // Add all series to the chart
+        for (auto series : categorySeries) {
+            chart->addSeries(series);
+        }
+
+        // Create and setup axes
+        QValueAxis *axisY = new QValueAxis();
+        // Round max value up to nearest 500
+        double maxRounded = std::ceil(maxValue / 500.0) * 500;
+        // Round min value down to nearest 500, but ensure we include 0
+        double minRounded = std::min(0.0, std::floor(minValue / 500.0) * 500);
+        axisY->setRange(minRounded, maxRounded);
+        axisY->setTickCount((maxRounded - minRounded) / 500 + 1); // Set tick for every 500 units
+        axisY->setLabelFormat("%.0f");
+        axisY->setTitleText("Amount (£)");
+        axisY->setGridLineVisible(true);
+        chart->addAxis(axisY, Qt::AlignLeft);
+
+        QValueAxis *axisX = new QValueAxis();
+        axisX->setRange(0, monthIndex - 1);
+        axisX->setTitleText("Month Number");
+        axisX->setLabelFormat("%d");
+        axisX->setGridLineVisible(true);
+        chart->addAxis(axisX, Qt::AlignBottom);
+
+        // Attach axes to all series
+        for (auto series : categorySeries) {
+            series->attachAxis(axisX);
+            series->attachAxis(axisY);
+        }
+
+        chart->legend()->setVisible(true);
+        chart->legend()->setAlignment(Qt::AlignRight);
+
+        setupPlotWindow(chart, "Monthly Expense Trends");
+
+    } catch (const std::exception& e) {
+        QMessageBox::critical(this, config.strings.ERROR_TITLE, 
+                            QString("Plot generation failed: %1").arg(e.what()));
     }
 }
 
