@@ -78,7 +78,6 @@ The application uses keyword-based matching to categorise transactions. Categori
 - Shopping
 - Subscriptions
 - Transportation
-- Utilities
 - And more...
 
 Keywords can be configured in `config/categorisation_keywords.csv`.
