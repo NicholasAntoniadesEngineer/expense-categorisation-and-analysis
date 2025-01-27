@@ -6,6 +6,8 @@
 #include <chrono>
 #include <iomanip>
 #include <sstream>
+#include <set>
+#include <algorithm>
 
 namespace finance {
 
@@ -41,51 +43,65 @@ void DataExporter::exportData(const std::vector<Expense>& expenses) {
 }
 
 void DataExporter::exportMonthlyData(const std::vector<Expense>& expenses) {
-    // Group expenses by month
-    std::map<std::string, std::vector<Expense>> monthly_expenses;
+    // Get all unique categories and months
+    std::set<std::string> categories;
+    std::map<std::string, std::map<std::string, double>> category_month_totals;
+    std::vector<std::string> months;
+    
     for (const auto& expense : expenses) {
-        monthly_expenses[expense.month].push_back(expense);
+        // Use "Uncategorised" for empty categories
+        std::string category = expense.category.empty() ? "Uncategorised" : expense.category;
+        categories.insert(category);
+        
+        // Convert to GBP if necessary
+        double amount_gbp = expense.amount;
+        if (expense.currency == Currency::EUR) {
+            amount_gbp *= 0.86;  // Approximate EUR to GBP conversion
+        } else if (expense.currency == Currency::USD) {
+            amount_gbp *= 0.79;  // Approximate USD to GBP conversion
+        }
+        
+        category_month_totals[category][expense.month] += amount_gbp;
+        
+        // Keep track of months in order of appearance
+        if (std::find(months.begin(), months.end(), expense.month) == months.end()) {
+            months.push_back(expense.month);
+        }
     }
     
-    // Export each month's expenses
-    for (const auto& [month, month_expenses] : monthly_expenses) {
-        std::string filename = month + "_monthly_summary.csv";
-        std::string filepath = fs::path(output_dir_) / filename;
-        
-        std::ofstream file(filepath);
-        if (!file.is_open()) {
-            throw std::runtime_error("Could not create file: " + filepath);
+    // Sort months chronologically
+    std::sort(months.begin(), months.end());
+    
+    // Create the monthly summary file
+    std::string filepath = fs::path(output_dir_) / "monthly_summary.csv";
+    std::ofstream file(filepath);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not create file: " + filepath);
+    }
+    
+    // Write header with months
+    file << "Category";
+    for (const auto& month : months) {
+        file << "," << month;
+    }
+    file << "\n";
+    
+    // Write data for each category
+    for (const auto& category : categories) {
+        file << category;
+        for (const auto& month : months) {
+            double total = category_month_totals[category][month];
+            file << "," << std::fixed << std::setprecision(2) << total;
         }
-        
-        // Write header
-        file << "Category,Total (GBP)\n";
-        
-        // Calculate totals by category
-        std::map<std::string, double> category_totals;
-        for (const auto& expense : month_expenses) {
-            // Convert to GBP if necessary
-            double amount_gbp = expense.amount;
-            if (expense.currency == Currency::EUR) {
-                amount_gbp *= 0.86;  // Approximate EUR to GBP conversion
-            } else if (expense.currency == Currency::USD) {
-                amount_gbp *= 0.79;  // Approximate USD to GBP conversion
-            }
-            
-            // Use "Uncategorised" for empty categories
-            std::string category = expense.category.empty() ? "Uncategorised" : expense.category;
-            category_totals[category] += amount_gbp;
-        }
-        
-        // Write category totals
-        for (const auto& [category, total] : category_totals) {
-            file << category << "," << std::fixed << std::setprecision(2) << total << "\n";
-        }
+        file << "\n";
     }
 }
 
 void DataExporter::exportWeeklyData(const std::vector<Expense>& expenses) {
-    // Group expenses by week
-    std::map<std::string, std::vector<Expense>> weekly_expenses;
+    // Get all unique categories and weeks
+    std::set<std::string> categories;
+    std::map<std::string, std::map<std::string, double>> category_week_totals;
+    std::vector<std::string> weeks;
     
     for (const auto& expense : expenses) {
         // Get the start of the week (Monday) for this expense
@@ -104,54 +120,56 @@ void DataExporter::exportWeeklyData(const std::vector<Expense>& expenses) {
         std::strftime(buffer, sizeof(buffer), "%Y-%m-%d", &tm);
         std::string week_key = buffer;
         
-        weekly_expenses[week_key].push_back(expense);
+        // Use "Uncategorised" for empty categories
+        std::string category = expense.category.empty() ? "Uncategorised" : expense.category;
+        categories.insert(category);
+        
+        // Convert to GBP if necessary
+        double amount_gbp = expense.amount;
+        if (expense.currency == Currency::EUR) {
+            amount_gbp *= 0.86;
+        } else if (expense.currency == Currency::USD) {
+            amount_gbp *= 0.79;
+        }
+        
+        category_week_totals[category][week_key] += amount_gbp;
+        
+        // Keep track of weeks in order of appearance
+        if (std::find(weeks.begin(), weeks.end(), week_key) == weeks.end()) {
+            weeks.push_back(week_key);
+        }
     }
     
-    // Export each week's expenses
-    for (const auto& [week, week_expenses] : weekly_expenses) {
-        std::string filename = week + "_weekly_summary.csv";
-        std::string filepath = fs::path(output_dir_) / filename;
-        
-        std::ofstream file(filepath);
-        if (!file.is_open()) {
-            throw std::runtime_error("Could not create file: " + filepath);
+    // Sort weeks chronologically
+    std::sort(weeks.begin(), weeks.end());
+    
+    // Create the weekly summary file
+    std::string filepath = fs::path(output_dir_) / "weekly_summary.csv";
+    std::ofstream file(filepath);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not create file: " + filepath);
+    }
+    
+    // Write header with weeks
+    file << "Category";
+    for (const auto& week : weeks) {
+        file << "," << week;
+    }
+    file << "\n";
+    
+    // Write data for each category
+    for (const auto& category : categories) {
+        file << category;
+        for (const auto& week : weeks) {
+            double total = category_week_totals[category][week];
+            file << "," << std::fixed << std::setprecision(2) << total;
         }
-        
-        // Write header
-        file << "Category,Total (GBP)\n";
-        
-        // Calculate totals by category
-        std::map<std::string, double> category_totals;
-        for (const auto& expense : week_expenses) {
-            if (expense.currency == Currency::UNKNOWN) continue;
-            
-            // Convert to GBP if necessary
-            double amount_gbp = expense.amount;
-            if (expense.currency == Currency::EUR) {
-                amount_gbp *= 0.86;
-            } else if (expense.currency == Currency::USD) {
-                amount_gbp *= 0.79;
-            }
-            
-            category_totals[expense.category] += amount_gbp;
-        }
-        
-        // Write category totals
-        for (const auto& [category, total] : category_totals) {
-            file << category << "," << std::fixed << std::setprecision(2) << total << "\n";
-        }
+        file << "\n";
     }
 }
 
 void DataExporter::exportEntireData(const std::vector<Expense>& expenses) {
-    // Get current date for filename
-    auto now = std::chrono::system_clock::now();
-    auto time = std::chrono::system_clock::to_time_t(now);
-    std::tm tm = *std::localtime(&time);
-    char date_buffer[11];
-    std::strftime(date_buffer, sizeof(date_buffer), "%Y-%m-%d", &tm);
-    
-    std::string filepath = fs::path(output_dir_) / (std::string(date_buffer) + "_finance.csv");
+    std::string filepath = fs::path(output_dir_) / "categorised_transactions.csv";
     std::ofstream file(filepath);
     
     if (!file.is_open()) {
