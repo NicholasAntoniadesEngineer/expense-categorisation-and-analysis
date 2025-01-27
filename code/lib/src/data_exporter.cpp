@@ -169,14 +169,7 @@ void DataExporter::exportWeeklyData(const std::vector<Expense>& expenses) {
 }
 
 void DataExporter::exportEntireData(const std::vector<Expense>& expenses) {
-    // Get current date for filename
-    auto now = std::chrono::system_clock::now();
-    auto time = std::chrono::system_clock::to_time_t(now);
-    std::tm tm = *std::localtime(&time);
-    char date_buffer[11];
-    std::strftime(date_buffer, sizeof(date_buffer), "%Y-%m-%d", &tm);
-    
-    std::string filepath = fs::path(output_dir_) / (std::string(date_buffer) + "_finance.csv");
+    std::string filepath = fs::path(output_dir_) / "categorised_transactions.csv";
     std::ofstream file(filepath);
     
     if (!file.is_open()) {

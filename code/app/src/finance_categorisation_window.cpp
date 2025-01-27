@@ -190,8 +190,10 @@ void FinanceCategorisationWindow::setupUi() {
     QHBoxLayout *summaryLayout = new QHBoxLayout;
     QPushButton *viewWeeklySummaryButton = new QPushButton("View Weekly Summary", this);
     QPushButton *viewMonthlySummaryButton = new QPushButton("View Monthly Summary", this);
+    QPushButton *viewAllTransactionsButton = new QPushButton("View All Transactions", this);
     summaryLayout->addWidget(viewWeeklySummaryButton);
     summaryLayout->addWidget(viewMonthlySummaryButton);
+    summaryLayout->addWidget(viewAllTransactionsButton);
     summaryGroup->setLayout(summaryLayout);
     
     visualizationLayout->addWidget(plotGroup);
@@ -279,11 +281,6 @@ void FinanceCategorisationWindow::setupUi() {
                 table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
             }
             
-            // Auto-adjust all row heights equally
-            for (int i = 0; i < table->rowCount(); ++i) {
-                table->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
-            }
-            
             // Style the table
             table->setAlternatingRowColors(true);
             table->setStyleSheet(
@@ -292,9 +289,6 @@ void FinanceCategorisationWindow::setupUi() {
                 "QTableWidget::item { padding: 4px; color: black; }"
                 "QTableWidget::item:alternate { background-color: #f9f9f9; }"
             );
-            // Remove stretch last section since we're using Stretch mode for all columns
-            table->horizontalHeader()->setStretchLastSection(false);
-            table->verticalHeader()->setStretchLastSection(false);
             
             file.close();
         }
@@ -369,9 +363,82 @@ void FinanceCategorisationWindow::setupUi() {
                 table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
             }
             
-            // Auto-adjust all row heights equally
-            for (int i = 0; i < table->rowCount(); ++i) {
-                table->verticalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            // Style the table
+            table->setAlternatingRowColors(true);
+            table->setStyleSheet(
+                "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
+                "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
+                "QTableWidget::item { padding: 4px; color: black; }"
+                "QTableWidget::item:alternate { background-color: #f9f9f9; }"
+            );
+            
+            file.close();
+        }
+
+        window->show();
+    });
+
+    // Connect all transactions button
+    connect(viewAllTransactionsButton, &QPushButton::clicked, this, [this]() {
+        QString outputDir = outputDirEdit->text();
+        if (outputDir.isEmpty()) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+            return;
+        }
+
+        QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
+        if (!QFile::exists(filePath)) {
+            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Categorised transactions file not found");
+            return;
+        }
+
+        QMainWindow *window = new QMainWindow(this);
+        window->setWindowTitle("All Categorised Transactions");
+        window->resize(1200, 800);  // Larger window for more data
+
+        QTableWidget *table = new QTableWidget(window);
+        table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
+        window->setCentralWidget(table);
+
+        QFile file(filePath);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream in(&file);
+            
+            // Read header
+            QString header = in.readLine();
+            QStringList headers = header.split(',');
+            table->setColumnCount(headers.size());
+            table->setHorizontalHeaderLabels(headers);
+            
+            // Read data
+            QVector<QStringList> rows;
+            while (!in.atEnd()) {
+                QString line = in.readLine();
+                rows.append(line.split(','));
+            }
+            
+            table->setRowCount(rows.size());
+            
+            // Populate table
+            for (int i = 0; i < rows.size(); ++i) {
+                const QStringList &row = rows[i];
+                for (int j = 0; j < row.size() && j < headers.size(); ++j) {
+                    QTableWidgetItem *item = new QTableWidgetItem();
+                    if (j == 4) {  // Amount column
+                        double value = row[j].toDouble();
+                        item->setText(QString("£%1").arg(value, 0, 'f', 2));
+                        item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                    } else {
+                        item->setText(row[j]);
+                        item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                    }
+                    table->setItem(i, j, item);
+                }
+            }
+            
+            // Auto-adjust all column widths equally
+            for (int i = 0; i < headers.size(); ++i) {
+                table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
             }
             
             // Style the table
@@ -382,9 +449,9 @@ void FinanceCategorisationWindow::setupUi() {
                 "QTableWidget::item { padding: 4px; color: black; }"
                 "QTableWidget::item:alternate { background-color: #f9f9f9; }"
             );
-            // Remove stretch last section since we're using Stretch mode for all columns
-            table->horizontalHeader()->setStretchLastSection(false);
-            table->verticalHeader()->setStretchLastSection(false);
+            
+            // Enable sorting
+            table->setSortingEnabled(true);
             
             file.close();
         }
