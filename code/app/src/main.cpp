@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) {
         .app_version = "0.1.1",
         .style_name = "fusion",
         .font_family = "SF Pro Display",
-        .default_window_width = 600,
-        .default_window_height = 400,
+        .default_window_width = 660,
+        .default_window_height = 440,
         .default_font_size = 12
     };
 

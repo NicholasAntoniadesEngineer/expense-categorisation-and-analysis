@@ -389,28 +389,22 @@ void FinanceCategorisationWindow::setupCategoryPanel(QMainWindow* plotWindow,
 }
 
 void FinanceCategorisationWindow::updateSeriesVisibility(const QString& category, bool visible) {
-    QChart* chart = nullptr;
-    
-    // Find the chart from the active window
+    // Find all plot windows and update the series in each
     for (QWidget* widget : QApplication::topLevelWidgets()) {
         QMainWindow* mainWindow = qobject_cast<QMainWindow*>(widget);
         if (mainWindow && mainWindow != this) {
             QChartView* chartView = qobject_cast<QChartView*>(mainWindow->centralWidget());
             if (chartView) {
-                chart = chartView->chart();
-                break;
+                QChart* chart = chartView->chart();
+                // Update series visibility
+                for (QAbstractSeries* abstractSeries : chart->series()) {
+                    QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
+                    if (lineSeries && lineSeries->name() == category) {
+                        lineSeries->setVisible(visible);
+                        lineSeries->setPointsVisible(visible);
+                    }
+                }
             }
-        }
-    }
-    
-    if (!chart) return;
-    
-    // Update series visibility
-    for (QAbstractSeries* series : chart->series()) {
-        QLineSeries* lineSeries = qobject_cast<QLineSeries*>(series);
-        if (lineSeries && lineSeries->name() == category) {
-            lineSeries->setVisible(visible);
-            break;
         }
     }
 }
@@ -494,7 +488,7 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
         }
 
         // Second pass: populate data points
-        int weekIndex = 0;
+        int weekIndex = 1;  // Start from 1
         for (const QString &file : weeklyFiles) {
             QFile csvFile(dir.filePath(file));
             if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -502,9 +496,6 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
 
             QTextStream in(&csvFile);
             QString header = in.readLine(); // Skip header
-
-            // Extract week number from filename (assuming format contains week information)
-            QString weekLabel = file.section('_', -2, -2); // Adjust based on your filename format
 
             while (!in.atEnd()) {
                 QString line = in.readLine();
@@ -531,21 +522,20 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
 
         // Create and setup axes
         QValueAxis *axisY = new QValueAxis();
-        // Round max value up to nearest 500
         double maxRounded = std::ceil(maxValue / 500.0) * 500;
-        // Round min value down to nearest 500, but ensure we include 0
         double minRounded = std::min(0.0, std::floor(minValue / 500.0) * 500);
         axisY->setRange(minRounded, maxRounded);
-        axisY->setTickCount((maxRounded - minRounded) / 500 + 1); // Set tick for every 500 units
+        axisY->setTickCount((maxRounded - minRounded) / 500 + 1);
         axisY->setLabelFormat("%.0f");
         axisY->setTitleText("Amount (£)");
         axisY->setGridLineVisible(true);
         chart->addAxis(axisY, Qt::AlignLeft);
 
         QValueAxis *axisX = new QValueAxis();
-        axisX->setRange(0, weekIndex - 1);
+        axisX->setRange(1, weekIndex - 1);  // Start from 1
         axisX->setTitleText("Week Number");
         axisX->setLabelFormat("%d");
+        axisX->setTickCount(weekIndex - 1);  // Set tick count to match number of weeks
         axisX->setGridLineVisible(true);
         chart->addAxis(axisX, Qt::AlignBottom);
 
@@ -622,7 +612,8 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
                             QColor("#e377c2"), // Pink
                             QColor("#7f7f7f"), // Gray
                             QColor("#bcbd22"), // Yellow-green
-                            QColor("#17becf")  // Cyan
+                            QColor("#17becf"), // Cyan
+                            QColor("#000000")  // Black
                         };
                         static int colorIndex = 0;
                         
@@ -645,7 +636,7 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
         }
 
         // Second pass: populate data points
-        int monthIndex = 0;
+        int monthIndex = 1;  // Start from 1
         for (const QString &file : monthlyFiles) {
             QFile csvFile(dir.filePath(file));
             if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -653,9 +644,6 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
 
             QTextStream in(&csvFile);
             QString header = in.readLine(); // Skip header
-
-            // Extract month from filename (assuming format contains month information)
-            QString monthLabel = file.section('_', -2, -2); // Adjust based on your filename format
 
             while (!in.atEnd()) {
                 QString line = in.readLine();
@@ -682,21 +670,20 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
 
         // Create and setup axes
         QValueAxis *axisY = new QValueAxis();
-        // Round max value up to nearest 500
         double maxRounded = std::ceil(maxValue / 500.0) * 500;
-        // Round min value down to nearest 500, but ensure we include 0
         double minRounded = std::min(0.0, std::floor(minValue / 500.0) * 500);
         axisY->setRange(minRounded, maxRounded);
-        axisY->setTickCount((maxRounded - minRounded) / 500 + 1); // Set tick for every 500 units
+        axisY->setTickCount((maxRounded - minRounded) / 500 + 1);
         axisY->setLabelFormat("%.0f");
         axisY->setTitleText("Amount (£)");
         axisY->setGridLineVisible(true);
         chart->addAxis(axisY, Qt::AlignLeft);
 
         QValueAxis *axisX = new QValueAxis();
-        axisX->setRange(0, monthIndex - 1);
+        axisX->setRange(1, monthIndex - 1);  // Start from 1
         axisX->setTitleText("Month Number");
         axisX->setLabelFormat("%d");
+        axisX->setTickCount(monthIndex - 1);  // Set tick count to match number of months
         axisX->setGridLineVisible(true);
         chart->addAxis(axisX, Qt::AlignBottom);
 
