@@ -1,11 +1,8 @@
 /**
  * @file finance_categorisation_window.hpp
- * @brief Main window class for the Finance Manager application
+ * @brief Main window for the Finance Manager application
  * @author Nicholas Antoniades
  * @date 2024-01-24
- * 
- * This class implements the main GUI window for the Finance Manager application,
- * providing interfaces for directory selection and processing options.
  */
 
 #pragma once
@@ -23,10 +20,9 @@ namespace FinanceManager {
 
 /**
  * @brief Application configuration settings
- * 
- * Configuration for window appearance and application metadata.
  */
 struct AppConfig {
+    // Application metadata
     const char* app_name;
     const char* org_name;
     const char* org_domain;
@@ -36,34 +32,63 @@ struct AppConfig {
     int default_window_width;
     int default_window_height;
     int default_font_size;
+
+    // UI strings
+    struct UIStrings {
+        const char* INPUT_DIR_TITLE;
+        const char* OUTPUT_DIR_TITLE;
+        const char* KEYWORD_FILE_TITLE;
+        const char* EXPORT_OPTIONS_TITLE;
+        const char* BROWSE_BUTTON_TEXT;
+        const char* PROCESS_BUTTON_TEXT;
+        const char* MONTHLY_SUMMARY_TEXT;
+        const char* WEEKLY_SUMMARY_TEXT;
+        const char* FULL_DATASET_TEXT;
+        const char* SELECT_INPUT_DIR_TEXT;
+        const char* SELECT_OUTPUT_DIR_TEXT;
+        const char* SELECT_KEYWORD_FILE_TEXT;
+        const char* CSV_FILE_FILTER;
+        const char* ERROR_TITLE;
+        const char* SUCCESS_TITLE;
+        const char* FIELDS_REQUIRED_ERROR;
+        const char* PROCESS_SUCCESS;
+    } strings;
 };
 
 /**
- * @brief Main window class for the Finance Manager application
- * 
- * Provides the user interface for selecting input/output directories,
- * keyword files, and processing options for financial data analysis.
+ * @brief Main window for selecting and processing financial data
  */
 class FinanceCategorisationWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit FinanceCategorisationWindow(QWidget *parent = nullptr);
+    explicit FinanceCategorisationWindow(AppConfig& config, QWidget *parent = nullptr);
     ~FinanceCategorisationWindow() = default;
 
+    // Window Setup and Configuration
+    bool initializeAppearance() noexcept;
+    bool initializeApplicationInfo() noexcept;
+    bool setupWindow() noexcept;
+    
+    // Utility Functions
+    static void showErrorMessage(const QString& message, const char* title) noexcept;
+
 private slots:
-    // Directory and file selection dialogs
+    // Event Handlers
     void browseInputDirectory();
     void browseOutputDirectory();
     void browseKeywordFile();
-    
     void processFiles();
 
 private:
+    // UI Setup
     void setupUi();
+    void setupDefaultPaths();
+    void setupDefaultStates();
     void createConnections();
 
-    // UI Components
+    AppConfig& config;
+
     QWidget *centralWidget;
     QVBoxLayout *mainLayout;
     
@@ -80,7 +105,6 @@ private:
     QCheckBox *exportWeeklySummaryCheck;
     QCheckBox *exportFullDatasetCheck;
 
-    // File paths
     QString inputDirectory;
     QString outputDirectory;
     QString keywordFile;
