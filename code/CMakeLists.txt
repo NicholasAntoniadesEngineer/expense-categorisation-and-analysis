@@ -25,35 +25,35 @@ set(CMAKE_AUTOUIC ON)
 
 # Add resource files
 set(RESOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/resources/resources.qrc
+    ${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/resources.qrc
 )
 
 # Add source files
 set(SOURCES
     app/src/main.cpp
-    lib/finance/src/finance_processor.cpp
-    lib/finance/src/keyword_loader.cpp
-    lib/finance/src/data_loader.cpp
-    lib/finance/src/transaction_categorisation.cpp
-    lib/finance/src/report_generator.cpp
-    lib/finance/src/data_exporter.cpp
-    lib/finance/src/csv_parser.cpp
-    lib/finance/src/transaction_parser.cpp
-    lib/gui/src/finance_categorisation_window.cpp
+    lib/src/finance_processor.cpp
+    lib/src/keyword_loader.cpp
+    lib/src/data_loader.cpp
+    lib/src/transaction_categorisation.cpp
+    lib/src/report_generator.cpp
+    lib/src/data_exporter.cpp
+    lib/src/csv_parser.cpp
+    lib/src/transaction_parser.cpp
+    app/src/finance_categorisation_window.cpp
     ${RESOURCES}
 )
 
 # Add header files
 set(HEADERS
-    lib/finance/inc/finance_processor.hpp
-    lib/finance/inc/finance_types.hpp
-    lib/finance/inc/keyword_loader.hpp
-    lib/finance/inc/data_loader.hpp
-    lib/finance/inc/transaction_categorisation.hpp
-    lib/finance/inc/report_generator.hpp
-    lib/finance/inc/data_exporter.hpp
-    lib/finance/inc/csv_parser.hpp
-    lib/gui/inc/finance_categorisation_window.hpp
+    lib/inc/finance_processor.hpp
+    lib/inc/finance_types.hpp
+    lib/inc/keyword_loader.hpp
+    lib/inc/data_loader.hpp
+    lib/inc/transaction_categorisation.hpp
+    lib/inc/report_generator.hpp
+    lib/inc/data_exporter.hpp
+    lib/inc/csv_parser.hpp
+    app/inc/finance_categorisation_window.hpp
 )
 
 # Create executable
@@ -61,8 +61,8 @@ add_executable(FinanceManager ${APP_TYPE} ${SOURCES} ${HEADERS})
 
 # Add include directories
 target_include_directories(FinanceManager PRIVATE
-    lib/finance/inc
-    lib/gui/inc
+    lib/inc
+    app/inc
 )
 
 # Link Qt libraries

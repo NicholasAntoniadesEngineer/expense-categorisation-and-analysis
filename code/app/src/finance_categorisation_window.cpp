@@ -103,7 +103,7 @@ void FinanceCategorisationWindow::setupUi()
     
     // Navigate from source file location to repository root
     QDir appDir(QString::fromUtf8(__FILE__));
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 4; ++i) {
         appDir.cdUp();
     }
     
