@@ -84,6 +84,7 @@ private slots:
     void processFiles();
     void plotWeeklySummary();
     void plotMonthlySummary();
+    void updateSeriesVisibility(const QString& category, bool visible);
 
 private:
     // UI Setup
@@ -92,6 +93,7 @@ private:
     void setupDefaultStates();
     void createConnections();
     void setupPlotWindow(QChart* chart, const QString& title);
+    void setupCategoryPanel(QMainWindow* plotWindow, const QStringList& categories, const QMap<QString, QLineSeries*>& series);
 
     AppConfig& config;
 

@@ -21,6 +21,7 @@
 #include <QIcon>
 #include <QFont>
 #include <QtCharts>
+#include <QToolTip>
 
 namespace FinanceManager {
 
@@ -267,9 +268,115 @@ void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& 
     
     QMainWindow *plotWindow = new QMainWindow(this);
     plotWindow->setCentralWidget(chartView);
-    plotWindow->resize(800, 600);
+    plotWindow->resize(1000, 600);  // Made wider to accommodate category panel
     plotWindow->setWindowTitle(title);
+
+    // Get list of categories from chart series
+    QStringList categories;
+    QMap<QString, QLineSeries*> seriesMap;
+    for (QAbstractSeries* series : chart->series()) {
+        QLineSeries* lineSeries = qobject_cast<QLineSeries*>(series);
+        if (lineSeries) {
+            categories << lineSeries->name();
+            seriesMap[lineSeries->name()] = lineSeries;
+        }
+    }
+
+    // Setup category panel
+    setupCategoryPanel(plotWindow, categories, seriesMap);
+    
     plotWindow->show();
+}
+
+void FinanceCategorisationWindow::setupCategoryPanel(QMainWindow* plotWindow, 
+    const QStringList& categories, const QMap<QString, QLineSeries*>& series) {
+    
+    // Create dock widget for categories
+    QDockWidget* dock = new QDockWidget("Categories", plotWindow);
+    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    
+    // Create widget to hold checkboxes
+    QWidget* categoryWidget = new QWidget(dock);
+    QVBoxLayout* layout = new QVBoxLayout(categoryWidget);
+    
+    // Add "Select All" checkbox
+    QCheckBox* selectAllBox = new QCheckBox("Select All", categoryWidget);
+    selectAllBox->setChecked(true);
+    layout->addWidget(selectAllBox);
+    
+    // Add line separator
+    QFrame* line = new QFrame(categoryWidget);
+    line->setFrameShape(QFrame::HLine);
+    line->setFrameShadow(QFrame::Sunken);
+    layout->addWidget(line);
+    
+    // Create map to store checkboxes
+    QMap<QString, QCheckBox*> categoryBoxes;
+    
+    // Add checkbox for each category
+    for (const QString& category : categories) {
+        QCheckBox* box = new QCheckBox(category, categoryWidget);
+        box->setChecked(true);
+        
+        // Get the color of the corresponding series
+        QLineSeries* lineSeries = series[category];
+        if (lineSeries) {
+            QColor color = lineSeries->pen().color();
+            
+            // Create colored square icon
+            QPixmap pixmap(16, 16);
+            pixmap.fill(color);
+            box->setIcon(QIcon(pixmap));
+        }
+        
+        layout->addWidget(box);
+        categoryBoxes[category] = box;
+        
+        // Connect checkbox to visibility update
+        connect(box, &QCheckBox::toggled, this, [this, category](bool checked) {
+            updateSeriesVisibility(category, checked);
+        });
+    }
+    
+    // Connect select all checkbox
+    connect(selectAllBox, &QCheckBox::toggled, this, [categoryBoxes](bool checked) {
+        for (QCheckBox* box : categoryBoxes) {
+            box->setChecked(checked);
+        }
+    });
+    
+    layout->addStretch();
+    categoryWidget->setLayout(layout);
+    
+    dock->setWidget(categoryWidget);
+    plotWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
+}
+
+void FinanceCategorisationWindow::updateSeriesVisibility(const QString& category, bool visible) {
+    QChart* chart = nullptr;
+    
+    // Find the chart from the active window
+    for (QWidget* widget : QApplication::topLevelWidgets()) {
+        QMainWindow* mainWindow = qobject_cast<QMainWindow*>(widget);
+        if (mainWindow && mainWindow != this) {
+            QChartView* chartView = qobject_cast<QChartView*>(mainWindow->centralWidget());
+            if (chartView) {
+                chart = chartView->chart();
+                break;
+            }
+        }
+    }
+    
+    if (!chart) return;
+    
+    // Update series visibility
+    for (QAbstractSeries* series : chart->series()) {
+        QLineSeries* lineSeries = qobject_cast<QLineSeries*>(series);
+        if (lineSeries && lineSeries->name() == category) {
+            lineSeries->setVisible(visible);
+            break;
+        }
+    }
 }
 
 void FinanceCategorisationWindow::plotWeeklySummary() {
@@ -316,6 +423,44 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
                     if (!categorySeries.contains(category)) {
                         QLineSeries *series = new QLineSeries();
                         series->setName(category);
+                        
+                        // Assign a unique color from a predefined palette
+                        static const QColor colors[] = {
+                            QColor("#1f77b4"), // Blue
+                            QColor("#ff7f0e"), // Orange
+                            QColor("#2ca02c"), // Green
+                            QColor("#d62728"), // Red
+                            QColor("#9467bd"), // Purple
+                            QColor("#8c564b"), // Brown
+                            QColor("#e377c2"), // Pink
+                            QColor("#7f7f7f"), // Gray
+                            QColor("#bcbd22"), // Yellow-green
+                            QColor("#17becf")  // Cyan
+                        };
+                        static int colorIndex = 0;
+                        
+                        QPen pen = series->pen();
+                        pen.setColor(colors[colorIndex % 10]);
+                        pen.setWidth(2);
+                        series->setPen(pen);
+                        colorIndex++;
+
+                        // Make points larger and visible
+                        series->setPointsVisible(true);
+                        series->setPointLabelsVisible(false);
+                        
+                        // Connect hover signals for tooltips
+                        connect(series, &QLineSeries::hovered, this, [this](const QPointF &point, bool state) {
+                            QLineSeries* series = qobject_cast<QLineSeries*>(sender());
+                            if (series) {
+                                // Show/hide single point label
+                                series->setPointLabelsVisible(state);
+                                if (state) {
+                                    series->setPointLabelsFormat(QString::number(point.y(), 'f', 2));
+                                }
+                            }
+                        });
+
                         categorySeries[category] = series;
                     }
                 }
@@ -440,6 +585,44 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
                     if (!categorySeries.contains(category)) {
                         QLineSeries *series = new QLineSeries();
                         series->setName(category);
+                        
+                        // Assign a unique color from a predefined palette
+                        static const QColor colors[] = {
+                            QColor("#1f77b4"), // Blue
+                            QColor("#ff7f0e"), // Orange
+                            QColor("#2ca02c"), // Green
+                            QColor("#d62728"), // Red
+                            QColor("#9467bd"), // Purple
+                            QColor("#8c564b"), // Brown
+                            QColor("#e377c2"), // Pink
+                            QColor("#7f7f7f"), // Gray
+                            QColor("#bcbd22"), // Yellow-green
+                            QColor("#17becf")  // Cyan
+                        };
+                        static int colorIndex = 0;
+                        
+                        QPen pen = series->pen();
+                        pen.setColor(colors[colorIndex % 10]);
+                        pen.setWidth(2);
+                        series->setPen(pen);
+                        colorIndex++;
+
+                        // Make points larger and visible
+                        series->setPointsVisible(true);
+                        series->setPointLabelsVisible(false);
+                        
+                        // Connect hover signals for tooltips
+                        connect(series, &QLineSeries::hovered, this, [this](const QPointF &point, bool state) {
+                            QLineSeries* series = qobject_cast<QLineSeries*>(sender());
+                            if (series) {
+                                // Show/hide single point label
+                                series->setPointLabelsVisible(state);
+                                if (state) {
+                                    series->setPointLabelsFormat(QString::number(point.y(), 'f', 2));
+                                }
+                            }
+                        });
+
                         categorySeries[category] = series;
                     }
                 }
