@@ -30,7 +30,7 @@ PlotWindow::PlotWindow(const QString& title, QWidget* parent)
 {
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(title);
-    resize(1000, 600);
+    resize(1200, 800);
     createCoordinateLabel();
 }
 

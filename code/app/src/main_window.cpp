@@ -116,13 +116,16 @@ void MainWindow::setupUi() {
     
     // Create action buttons using UIManager
     processButton = UIManager::createActionButton(config.strings.PROCESS_BUTTON_TEXT, this);
+    processButton->setFixedSize(600, 30); 
+    
     plotWeeklyButton = UIManager::createActionButton(config.strings.PLOT_WEEKLY_TEXT, this);
     plotMonthlyButton = UIManager::createActionButton(config.strings.PLOT_MONTHLY_TEXT, this);
     
     // Add process button to layout
     QHBoxLayout* buttonLayout = new QHBoxLayout;
+    buttonLayout->addStretch(1);  
     buttonLayout->addWidget(processButton);
-    buttonLayout->addStretch();
+    buttonLayout->addStretch(1);  
     mainLayout->addLayout(buttonLayout);
     mainLayout->addStretch();
     
@@ -168,7 +171,7 @@ void MainWindow::setupDefaultPaths() {
 
 void MainWindow::setupDefaultStates() {
     exportMonthlySummaryCheck->setChecked(true);
-    exportWeeklySummaryCheck->setChecked(false);
+    exportWeeklySummaryCheck->setChecked(true);
     exportFullDatasetCheck->setChecked(true);
 }
 

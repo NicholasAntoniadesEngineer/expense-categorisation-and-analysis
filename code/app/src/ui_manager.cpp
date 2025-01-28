@@ -96,12 +96,12 @@ UIManager::ExportGroup UIManager::createExportGroup(const QString& title,
     group.group = new QGroupBox(title, parent);
     QVBoxLayout* layout = new QVBoxLayout;
     
-    group.monthlyCheck = new QCheckBox(config.strings.MONTHLY_SUMMARY_TEXT, parent);
     group.weeklyCheck = new QCheckBox(config.strings.WEEKLY_SUMMARY_TEXT, parent);
+    group.monthlyCheck = new QCheckBox(config.strings.MONTHLY_SUMMARY_TEXT, parent);
     group.fullDatasetCheck = new QCheckBox(config.strings.FULL_DATASET_TEXT, parent);
     
-    layout->addWidget(group.monthlyCheck);
     layout->addWidget(group.weeklyCheck);
+    layout->addWidget(group.monthlyCheck);
     layout->addWidget(group.fullDatasetCheck);
     
     group.group->setLayout(layout);
