@@ -43,14 +43,14 @@ void VisualizationManager::plotMonthlySummary(Windows& windows,
 void VisualizationManager::viewAllTransactions(Windows& windows,
                                              const QString& outputDir,
                                              QWidget* parent) {
-    TableManager::TableConfig config{
+    TableWindow::TableConfig config{
         .title = "All Categorised Transactions",
         .fileName = "categorised_transactions.csv",
         .width = 1200,
         .height = 800
     };
     
-    windows.allTransactionsWindow = TableManager::showTableFromFile(
+    windows.allTransactionsWindow = TableWindow::showTableFromFile(
         windows.allTransactionsWindow, outputDir, config, parent);
 
     if (windows.allTransactionsWindow) {
@@ -61,14 +61,14 @@ void VisualizationManager::viewAllTransactions(Windows& windows,
 void VisualizationManager::viewWeeklySummary(Windows& windows,
                                            const QString& outputDir,
                                            QWidget* parent) {
-    TableManager::TableConfig config{
+    TableWindow::TableConfig config{
         .title = "Weekly Summary",
         .fileName = "weekly_summary.csv",
         .width = 1000,
         .height = 600
     };
     
-    windows.weeklySummaryWindow = TableManager::showTableFromFile(
+    windows.weeklySummaryWindow = TableWindow::showTableFromFile(
         windows.weeklySummaryWindow, outputDir, config, parent);
 
     if (windows.weeklySummaryWindow) {
@@ -79,14 +79,14 @@ void VisualizationManager::viewWeeklySummary(Windows& windows,
 void VisualizationManager::viewMonthlySummary(Windows& windows,
                                             const QString& outputDir,
                                             QWidget* parent) {
-    TableManager::TableConfig config{
+    TableWindow::TableConfig config{
         .title = "Monthly Summary",
         .fileName = "monthly_summary.csv",
         .width = 1000,
         .height = 600
     };
     
-    windows.monthlySummaryWindow = TableManager::showTableFromFile(
+    windows.monthlySummaryWindow = TableWindow::showTableFromFile(
         windows.monthlySummaryWindow, outputDir, config, parent);
 
     if (windows.monthlySummaryWindow) {

@@ -46,7 +46,6 @@ set(SOURCES
     app/src/chart_manager.cpp
     app/src/window_manager.cpp
     app/src/plot_manager.cpp
-    app/src/table_manager.cpp
     app/src/ui_manager.cpp
     app/src/visualization_manager.cpp
     app/src/file_dialog_manager.cpp
@@ -70,7 +69,6 @@ set(HEADERS
     app/inc/chart_manager.hpp
     app/inc/window_manager.hpp
     app/inc/plot_manager.hpp
-    app/inc/table_manager.hpp
     app/inc/ui_manager.hpp
     app/inc/visualization_manager.hpp
     app/inc/file_dialog_manager.hpp

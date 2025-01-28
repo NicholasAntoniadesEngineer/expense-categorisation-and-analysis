@@ -7,7 +7,6 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include "plot_manager.hpp"
-#include "table_manager.hpp"
 #include "table_window.hpp"
 
 namespace FinanceManager {

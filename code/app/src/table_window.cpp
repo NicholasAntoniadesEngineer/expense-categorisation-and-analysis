@@ -10,103 +10,166 @@
 #include <QTextStream>
 #include <QHeaderView>
 #include <QScrollBar>
+#include <QDir>
+#include <QMessageBox>
 
 namespace FinanceManager {
 
 TableWindow::TableWindow(const QString& title, QWidget* parent)
     : QMainWindow(parent)
+    , table(new QTableWidget(this))
 {
-    setAttribute(Qt::WA_DeleteOnClose);
     setWindowTitle(title);
     setupTable();
-}
-
-void TableWindow::setupTable() {
-    table = new QTableWidget(this);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-    table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-    table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    setCentralWidget(table);
     styleTable();
 }
 
-void TableWindow::styleTable() {
+void TableWindow::setupTable() {
+    setCentralWidget(table);
     table->setAlternatingRowColors(true);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->verticalHeader()->setVisible(false);
+}
+
+void TableWindow::styleTable() {
     table->setStyleSheet(
-        "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-        "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-        "QTableWidget::item { padding: 4px; color: black; }"
-        "QTableWidget::item:alternate { background-color: #f9f9f9; }"
+        "QTableWidget {"
+        "    background-color: white;"
+        "    alternate-background-color: #f6f8fa;"
+        "    selection-background-color: #0366d6;"
+        "    selection-color: white;"
+        "    color: #24292e;"  // Default text color
+        "}"
+        "QTableWidget::item {"
+        "    color: #24292e;"  // Text color for items
+        "    padding: 4px;"
+        "}"
+        "QHeaderView::section {"
+        "    background-color: #24292e;"
+        "    color: white;"
+        "    padding: 5px;"
+        "    border: none;"
+        "}"
+        // Scrollbar styling
+        "QScrollBar:vertical {"
+        "    background-color: #24292e;"
+        "    width: 12px;"
+        "    margin: 0px;"
+        "}"
+        "QScrollBar::handle:vertical {"
+        "    background-color: #6e7681;"  // Light gray for the handle
+        "    min-height: 20px;"
+        "    border-radius: 6px;"
+        "}"
+        "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {"
+        "    height: 0px;"
+        "}"
+        "QScrollBar:horizontal {"
+        "    background-color: #24292e;"
+        "    height: 12px;"
+        "    margin: 0px;"
+        "}"
+        "QScrollBar::handle:horizontal {"
+        "    background-color: #6e7681;"  // Light gray for the handle
+        "    min-width: 20px;"
+        "    border-radius: 6px;"
+        "}"
+        "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {"
+        "    width: 0px;"
+        "}"
+        "QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {"
+        "    background-color: #8b949e;"  // Lighter gray on hover
+        "}"
     );
-}
-
-void TableWindow::calculateWindowSize(int rowCount, int columnCount) {
-    const int totalWidth = (columnCount * DEFAULT_COLUMN_WIDTH) + 
-                          table->verticalHeader()->width() + 
-                          table->verticalScrollBar()->sizeHint().width() + 4;
-    
-    const int totalHeight = (rowCount * table->rowHeight(0)) + 
-                           table->horizontalHeader()->height() +
-                           table->horizontalScrollBar()->sizeHint().height() + 4;
-    
-    setMaximumSize(totalWidth, totalHeight);
-}
-
-void TableWindow::setInitialSize(int width, int height) {
-    resize(qMin(width, maximumWidth()), qMin(height, maximumHeight()));
 }
 
 void TableWindow::loadFromCSV(const QString& filePath) {
     QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Error", "Could not open file: " + filePath);
         return;
+    }
 
     QTextStream in(&file);
+    QString headerLine = in.readLine();
+    QStringList headers = headerLine.split(',');
     
-    // Read header
-    QString header = in.readLine();
-    QStringList headers = header.split(',');
     table->setColumnCount(headers.size());
     table->setHorizontalHeaderLabels(headers);
     
-    // Read data
-    QVector<QStringList> rows;
+    int row = 0;
     while (!in.atEnd()) {
         QString line = in.readLine();
-        rows.append(line.split(','));
-    }
-    
-    table->setRowCount(rows.size());
-    
-    // Populate table
-    for (int i = 0; i < rows.size(); ++i) {
-        const QStringList &row = rows[i];
-        for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-            QTableWidgetItem *item = new QTableWidgetItem();
-            if (j == 0) {  // Category column
-                item->setText(row[j]);
-                item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-            } else {  // Value columns
-                double value = row[j].toDouble();
-                item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-            }
-            table->setItem(i, j, item);
+        QStringList fields = line.split(',');
+        
+        table->insertRow(row);
+        for (int col = 0; col < fields.size(); ++col) {
+            QTableWidgetItem* item = new QTableWidgetItem(fields[col]);
+            table->setItem(row, col, item);
         }
+        ++row;
     }
     
-    // Set column widths
-    for (int i = 0; i < headers.size(); ++i) {
-        table->setColumnWidth(i, DEFAULT_COLUMN_WIDTH);
+    calculateWindowSize(row, headers.size());
+}
+
+void TableWindow::calculateWindowSize(int rowCount, int columnCount) {
+    int totalWidth = columnCount * DEFAULT_COLUMN_WIDTH;
+    int totalHeight = rowCount * 30 + 100;  // 30 pixels per row + header height
+    
+    // Set reasonable maximum dimensions
+    totalWidth = qMin(totalWidth, 1200);
+    totalHeight = qMin(totalHeight, 800);
+    
+    resize(totalWidth, totalHeight);
+}
+
+void TableWindow::setInitialSize(int width, int height) {
+    resize(width, height);
+}
+
+// Static manager methods
+TableWindow* TableWindow::showTableFromFile(TableWindow*& currentWindow,
+                                          const QString& outputDir,
+                                          const TableConfig& config,
+                                          QWidget* parent) {
+    QString filePath;
+    if (!validateTableData(parent, outputDir, config.fileName, config.title, filePath)) {
+        return nullptr;
     }
-    
-    // Enable sorting
-    table->setSortingEnabled(true);
-    
-    // Calculate and set window size
-    calculateWindowSize(rows.size(), headers.size());
-    
-    file.close();
+
+    if (currentWindow) {
+        currentWindow->activateWindow();
+        currentWindow->raise();
+        return currentWindow;
+    }
+
+    currentWindow = new TableWindow(config.title, parent);
+    currentWindow->setAttribute(Qt::WA_DeleteOnClose);
+    currentWindow->setInitialSize(config.width, config.height);
+    currentWindow->loadFromCSV(filePath);
+    currentWindow->show();
+
+    return currentWindow;
+}
+
+bool TableWindow::validateTableData(QWidget* parent,
+                                  const QString& outputDir,
+                                  const QString& fileName,
+                                  const QString& title,
+                                  QString& filePath) {
+    filePath = QDir(outputDir).filePath(fileName);
+    if (!QFile::exists(filePath)) {
+        QMessageBox::warning(parent, "Error",
+                           QString("Cannot show %1: File not found at %2")
+                               .arg(title)
+                               .arg(filePath));
+        return false;
+    }
+    return true;
 }
 
 } // namespace FinanceManager 

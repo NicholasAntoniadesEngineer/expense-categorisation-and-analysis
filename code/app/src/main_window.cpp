@@ -13,7 +13,7 @@
 #include "chart_manager.hpp"
 #include "window_manager.hpp"
 #include "plot_manager.hpp"
-#include "table_manager.hpp"
+#include "table_window.hpp"
 #include <functional>
 #include "ui_manager.hpp"
 #include "file_dialog_manager.hpp"
