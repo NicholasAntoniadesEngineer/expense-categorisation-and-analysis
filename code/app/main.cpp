@@ -18,10 +18,8 @@ using namespace FinanceManager;
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    // Initialize application configuration
     AppConfig config = AppConfig::getDefaultConfig();
 
-    // Create and initialize main window
     MainWindow mainWindow(config);
     
     if (!mainWindow.initializeApplicationInfo() || !mainWindow.initializeAppearance()) {
@@ -40,6 +38,5 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    // Start the application event loop
     return app.exec();
 } 

@@ -64,23 +64,6 @@ bool UIManager::setupStyle(const AppConfig& config) noexcept {
     }
     QApplication::setStyle(style);
     
-    // Apply dark theme palette
-    QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(60, 60, 60));           
-    darkPalette.setColor(QPalette::WindowText, QColor(230, 230, 230));      
-    darkPalette.setColor(QPalette::Base, QColor(70, 70, 70));             
-    darkPalette.setColor(QPalette::AlternateBase, QColor(65, 65, 65));
-    darkPalette.setColor(QPalette::ToolTipBase, QColor(70, 70, 70));
-    darkPalette.setColor(QPalette::ToolTipText, QColor(230, 230, 230));
-    darkPalette.setColor(QPalette::Text, QColor(230, 230, 230));
-    darkPalette.setColor(QPalette::Button, QColor(80, 80, 80));           
-    darkPalette.setColor(QPalette::ButtonText, QColor(230, 230, 230));
-    darkPalette.setColor(QPalette::Link, QColor(180, 180, 180));           
-    darkPalette.setColor(QPalette::Highlight, QColor(180, 180, 180));
-    darkPalette.setColor(QPalette::HighlightedText, QColor(255, 255, 255));
-
-    QApplication::setPalette(darkPalette);
-    
     QString styleSheet = R"(
         QMainWindow {
             background-color: #3C3C3C;

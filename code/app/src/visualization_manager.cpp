@@ -101,16 +101,13 @@ void VisualizationManager::updateSeriesVisibility(Windows& windows,
     PlotManager::updateSeriesVisibility(windows.monthlyPlotWindow, category, visible);
 }
 
-// UI Group Creation Methods
 QGroupBox* VisualizationManager::createVisualizationGroup(QWidget* parent, VisualizationButtons& buttons) {
     QGroupBox* visualizationGroup = new QGroupBox("Visualization", parent);
     QVBoxLayout* visualizationLayout = new QVBoxLayout;
     
-    // Create and add plot group
     QGroupBox* plotGroup = createPlotGroup(parent, buttons.plotWeeklyButton, buttons.plotMonthlyButton);
     visualizationLayout->addWidget(plotGroup);
     
-    // Create and add summary group
     QGroupBox* summaryGroup = createSummaryGroup(parent,
                                                buttons.viewWeeklySummaryButton,
                                                buttons.viewMonthlySummaryButton,
