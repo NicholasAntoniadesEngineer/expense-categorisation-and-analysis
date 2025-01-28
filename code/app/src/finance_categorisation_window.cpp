@@ -214,8 +214,8 @@ void FinanceCategorisationWindow::setupUi() {
     setupDefaultStates();
 
     // Connect summary buttons
-    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotWeeklySummary);
-    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotMonthlySummary);
+    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewWeeklySummary);
+    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewMonthlySummary);
     connect(viewAllTransactionsButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewAllTransactions);
 }
 
@@ -690,10 +690,15 @@ void FinanceCategorisationWindow::viewAllTransactions() {
             }
         }
         
-        // Auto-adjust all column widths equally
+        // Set fixed width for all columns based on a reasonable date width
+        const int columnWidth = 120; // Width that comfortably fits a date
         for (int i = 0; i < headers.size(); ++i) {
-            table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+            table->setColumnWidth(i, columnWidth);
         }
+        
+        // Enable horizontal scrolling
+        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         
         // Style the table
         table->setAlternatingRowColors(true);
@@ -711,6 +716,190 @@ void FinanceCategorisationWindow::viewAllTransactions() {
     }
 
     allTransactionsWindow->show();
+}
+
+void FinanceCategorisationWindow::viewWeeklySummary() {
+    QString outputDir = outputDirEdit->text();
+    if (outputDir.isEmpty()) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        return;
+    }
+
+    QString filePath = QDir(outputDir).filePath("weekly_summary.csv");
+    if (!QFile::exists(filePath)) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Weekly summary file not found");
+        return;
+    }
+
+    if (weeklySummaryWindow) {
+        weeklySummaryWindow->activateWindow();
+        weeklySummaryWindow->raise();
+        return;
+    }
+
+    weeklySummaryWindow = new QMainWindow(this);
+    weeklySummaryWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(weeklySummaryWindow, &QMainWindow::destroyed, this, [this]() {
+        weeklySummaryWindow = nullptr;
+    });
+    weeklySummaryWindow->setWindowTitle("Weekly Summary");
+    weeklySummaryWindow->resize(1000, 600);
+
+    QTableWidget *table = new QTableWidget(weeklySummaryWindow);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
+    weeklySummaryWindow->setCentralWidget(table);
+
+    QFile file(filePath);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        
+        // Read header
+        QString header = in.readLine();
+        QStringList headers = header.split(',');
+        table->setColumnCount(headers.size());
+        table->setHorizontalHeaderLabels(headers);
+        
+        // Read data
+        QVector<QStringList> rows;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            rows.append(line.split(','));
+        }
+        
+        table->setRowCount(rows.size());
+        
+        // Populate table
+        for (int i = 0; i < rows.size(); ++i) {
+            const QStringList &row = rows[i];
+            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
+                QTableWidgetItem *item = new QTableWidgetItem();
+                if (j == 0) {  // Category column
+                    item->setText(row[j]);
+                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                } else {  // Value columns
+                    double value = row[j].toDouble();
+                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
+                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                }
+                table->setItem(i, j, item);
+            }
+        }
+        
+        // Set fixed width for all columns based on a reasonable date width
+        const int columnWidth = 120; // Width that comfortably fits a date
+        for (int i = 0; i < headers.size(); ++i) {
+            table->setColumnWidth(i, columnWidth);
+        }
+        
+        // Enable horizontal scrolling
+        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        
+        // Style the table
+        table->setAlternatingRowColors(true);
+        table->setStyleSheet(
+            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
+            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
+            "QTableWidget::item { padding: 4px; color: black; }"
+            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
+        );
+        
+        file.close();
+    }
+
+    weeklySummaryWindow->show();
+}
+
+void FinanceCategorisationWindow::viewMonthlySummary() {
+    QString outputDir = outputDirEdit->text();
+    if (outputDir.isEmpty()) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        return;
+    }
+
+    QString filePath = QDir(outputDir).filePath("monthly_summary.csv");
+    if (!QFile::exists(filePath)) {
+        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Monthly summary file not found");
+        return;
+    }
+
+    if (monthlySummaryWindow) {
+        monthlySummaryWindow->activateWindow();
+        monthlySummaryWindow->raise();
+        return;
+    }
+
+    monthlySummaryWindow = new QMainWindow(this);
+    monthlySummaryWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(monthlySummaryWindow, &QMainWindow::destroyed, this, [this]() {
+        monthlySummaryWindow = nullptr;
+    });
+    monthlySummaryWindow->setWindowTitle("Monthly Summary");
+    monthlySummaryWindow->resize(1000, 600);
+
+    QTableWidget *table = new QTableWidget(monthlySummaryWindow);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
+    monthlySummaryWindow->setCentralWidget(table);
+
+    QFile file(filePath);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        
+        // Read header
+        QString header = in.readLine();
+        QStringList headers = header.split(',');
+        table->setColumnCount(headers.size());
+        table->setHorizontalHeaderLabels(headers);
+        
+        // Read data
+        QVector<QStringList> rows;
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            rows.append(line.split(','));
+        }
+        
+        table->setRowCount(rows.size());
+        
+        // Populate table
+        for (int i = 0; i < rows.size(); ++i) {
+            const QStringList &row = rows[i];
+            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
+                QTableWidgetItem *item = new QTableWidgetItem();
+                if (j == 0) {  // Category column
+                    item->setText(row[j]);
+                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+                } else {  // Value columns
+                    double value = row[j].toDouble();
+                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
+                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                }
+                table->setItem(i, j, item);
+            }
+        }
+        
+        // Set fixed width for all columns based on a reasonable date width
+        const int columnWidth = 120; // Width that comfortably fits a date
+        for (int i = 0; i < headers.size(); ++i) {
+            table->setColumnWidth(i, columnWidth);
+        }
+        
+        // Enable horizontal scrolling
+        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        
+        // Style the table
+        table->setAlternatingRowColors(true);
+        table->setStyleSheet(
+            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
+            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
+            "QTableWidget::item { padding: 4px; color: black; }"
+            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
+        );
+        
+        file.close();
+    }
+
+    monthlySummaryWindow->show();
 }
 
 // Utility Functions
