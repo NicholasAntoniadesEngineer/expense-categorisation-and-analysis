@@ -1,13 +1,13 @@
 # Finance Categorisation and Visualization Scripts (2024)
 
-This project consists of Python scripts designed to categorise expenses based on keywords, remove duplicates, generate categorised summaries, and visualize the categorized data.
+This project consists of Python scripts designed to categorise expenses based on keywords, remove duplicates, generate categorised summaries, and visualise the categorized data.
 
 ## Features
 
 - **Expense Categorization**: Matches keywords from the `categorization_keywords.csv` file to categorize transactions.
 - **Data Preprocessing**: Handles missing descriptions, converts American Express transactions to negative values, and merges all files from a directory.
 - **Summarized Output**: Generates monthly and weekly summary reports of total expenses per category and saves categorized details.
-- **Data Visualization**: Visualizes categorized data using bar plots to show total amounts by category.
+- **Data Visualization**: visualises categorized data using bar plots to show total amounts by category.
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ python finance_categorization.py
 Run the visualization script using:
 
 ```bash
-python finance_visualize.py
+python finance_visualise.py
 ```
 
 ## Notes

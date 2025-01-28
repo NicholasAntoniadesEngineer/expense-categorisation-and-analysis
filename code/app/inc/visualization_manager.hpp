@@ -2,6 +2,10 @@
 
 #include <QString>
 #include <QWidget>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include "plot_manager.hpp"
 #include "table_manager.hpp"
 #include "table_window.hpp"
@@ -18,6 +22,15 @@ public:
         TableWindow* monthlySummaryWindow = nullptr;
     };
 
+    struct VisualizationButtons {
+        QPushButton* plotWeeklyButton;
+        QPushButton* plotMonthlyButton;
+        QPushButton* viewWeeklySummaryButton;
+        QPushButton* viewMonthlySummaryButton;
+        QPushButton* viewAllTransactionsButton;
+    };
+
+    // Window management methods
     static void plotData(Windows& windows, 
                         const QString& outputDir,
                         const QString& filePattern, 
@@ -49,6 +62,9 @@ public:
                                      const QString& category,
                                      bool visible);
 
+    // UI group creation methods
+    static QGroupBox* createVisualizationGroup(QWidget* parent, VisualizationButtons& buttons);
+
 private:
     template<typename T>
     static void setupWindowDestroyHandler(Windows& windows, T*& window) {
@@ -57,6 +73,15 @@ private:
             window = nullptr;
         });
     }
+
+    static QGroupBox* createPlotGroup(QWidget* parent, 
+                                    QPushButton* plotWeeklyButton, 
+                                    QPushButton* plotMonthlyButton);
+
+    static QGroupBox* createSummaryGroup(QWidget* parent, 
+                                       QPushButton* viewWeeklySummaryButton,
+                                       QPushButton* viewMonthlySummaryButton,
+                                       QPushButton* viewAllTransactionsButton);
 };
 
 } // namespace FinanceManager 

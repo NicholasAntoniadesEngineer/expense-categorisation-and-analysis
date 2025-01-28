@@ -14,24 +14,10 @@
 #include "window_manager.hpp"
 #include "plot_manager.hpp"
 #include "table_manager.hpp"
-#include <QMessageBox>
-#include <QGridLayout>
-#include <QGroupBox>
-#include <QDir>
-#include <QDebug>
-#include <QApplication>
-#include <QStyle>
-#include <QStyleFactory>
-#include <QIcon>
-#include <QFont>
-#include <QtCharts>
-#include <QToolTip>
-#include <QLabel>
-#include <QTextEdit>
-#include <QTableWidget>
-#include <QHeaderView>
 #include <functional>
 #include "ui_manager.hpp"
+#include "file_dialog_manager.hpp"
+#include "visualization_manager.hpp"
 
 namespace FinanceManager {
 
@@ -133,42 +119,25 @@ void MainWindow::setupUi() {
     plotWeeklyButton = UIManager::createActionButton(config.strings.PLOT_WEEKLY_TEXT, this);
     plotMonthlyButton = UIManager::createActionButton(config.strings.PLOT_MONTHLY_TEXT, this);
     
-    // Add buttons to layout
+    // Add process button to layout
     QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addWidget(processButton);
-    buttonLayout->addWidget(plotWeeklyButton);
-    buttonLayout->addWidget(plotMonthlyButton);
     buttonLayout->addStretch();
-    
     mainLayout->addLayout(buttonLayout);
     mainLayout->addStretch();
     
-    // Create visualization group
-    QGroupBox* visualizationGroup = new QGroupBox("Visualization", this);
-    QVBoxLayout* visualizationLayout = new QVBoxLayout;
+    // Create visualization buttons
+    VisualizationManager::VisualizationButtons visualizationButtons{
+        .plotWeeklyButton = plotWeeklyButton,
+        .plotMonthlyButton = plotMonthlyButton,
+        .viewWeeklySummaryButton = new QPushButton("View Weekly Summary", this),
+        .viewMonthlySummaryButton = new QPushButton("View Monthly Summary", this),
+        .viewAllTransactionsButton = new QPushButton("View All Transactions", this)
+    };
     
-    // Create subgroup for plots
-    QGroupBox* plotGroup = new QGroupBox("Plots", this);
-    QHBoxLayout* plotLayout = new QHBoxLayout;
-    plotLayout->addWidget(plotWeeklyButton);
-    plotLayout->addWidget(plotMonthlyButton);
-    plotGroup->setLayout(plotLayout);
-    
-    // Create subgroup for summaries
-    QGroupBox* summaryGroup = new QGroupBox("View Summaries", this);
-    QHBoxLayout* summaryLayout = new QHBoxLayout;
-    QPushButton* viewWeeklySummaryButton = new QPushButton("View Weekly Summary", this);
-    QPushButton* viewMonthlySummaryButton = new QPushButton("View Monthly Summary", this);
-    QPushButton* viewAllTransactionsButton = new QPushButton("View All Transactions", this);
-    summaryLayout->addWidget(viewWeeklySummaryButton);
-    summaryLayout->addWidget(viewMonthlySummaryButton);
-    summaryLayout->addWidget(viewAllTransactionsButton);
-    summaryGroup->setLayout(summaryLayout);
-    
-    visualizationLayout->addWidget(plotGroup);
-    visualizationLayout->addWidget(summaryGroup);
-    visualizationGroup->setLayout(visualizationLayout);
-    
+    // Create visualization group using VisualizationManager
+    QGroupBox* visualizationGroup = VisualizationManager::createVisualizationGroup(
+        this, visualizationButtons);
     mainLayout->addWidget(visualizationGroup);
     
     // Set default paths and states
@@ -176,9 +145,12 @@ void MainWindow::setupUi() {
     setupDefaultStates();
 
     // Connect summary buttons
-    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &MainWindow::viewWeeklySummary);
-    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &MainWindow::viewMonthlySummary);
-    connect(viewAllTransactionsButton, &QPushButton::clicked, this, &MainWindow::viewAllTransactions);
+    connect(visualizationButtons.viewWeeklySummaryButton, &QPushButton::clicked, 
+            this, &MainWindow::viewWeeklySummary);
+    connect(visualizationButtons.viewMonthlySummaryButton, &QPushButton::clicked, 
+            this, &MainWindow::viewMonthlySummary);
+    connect(visualizationButtons.viewAllTransactionsButton, &QPushButton::clicked, 
+            this, &MainWindow::viewAllTransactions);
 }
 
 void MainWindow::setupDefaultPaths() {
@@ -211,45 +183,33 @@ void MainWindow::createConnections() {
 
 // Event Handlers
 void MainWindow::browseInputDirectory() {
-    UIManager::FileDialogConfig dialogConfig;
-    dialogConfig.title = config.strings.SELECT_INPUT_DIR_TEXT;
-    dialogConfig.currentPath = inputDirEdit->text();
-    dialogConfig.filter = "";
-    dialogConfig.isDirectory = true;
-    
-    QString dir = UIManager::showFileDialog(this, dialogConfig);
-    if (!dir.isEmpty()) {
-        inputDirEdit->setText(dir);
-        inputDirectory = dir;
-    }
+    FileDialogManager::browseForDirectory(
+        this,
+        config.strings.SELECT_INPUT_DIR_TEXT,
+        inputDirEdit->text(),
+        inputDirectory,
+        inputDirEdit
+    );
 }
 
 void MainWindow::browseOutputDirectory() {
-    UIManager::FileDialogConfig dialogConfig;
-    dialogConfig.title = config.strings.SELECT_OUTPUT_DIR_TEXT;
-    dialogConfig.currentPath = outputDirEdit->text();
-    dialogConfig.filter = "";
-    dialogConfig.isDirectory = true;
-    
-    QString dir = UIManager::showFileDialog(this, dialogConfig);
-    if (!dir.isEmpty()) {
-        outputDirEdit->setText(dir);
-        outputDirectory = dir;
-    }
+    FileDialogManager::browseForDirectory(
+        this,
+        config.strings.SELECT_OUTPUT_DIR_TEXT,
+        outputDirEdit->text(),
+        outputDirectory,
+        outputDirEdit
+    );
 }
 
 void MainWindow::browseKeywordFile() {
-    UIManager::FileDialogConfig dialogConfig;
-    dialogConfig.title = config.strings.SELECT_KEYWORD_FILE_TEXT;
-    dialogConfig.currentPath = keywordFileEdit->text();
-    dialogConfig.filter = config.strings.CSV_FILE_FILTER;
-    dialogConfig.isDirectory = false;
-    
-    QString file = UIManager::showFileDialog(this, dialogConfig);
-    if (!file.isEmpty()) {
-        keywordFileEdit->setText(file);
-        keywordFile = file;
-    }
+    FileDialogManager::browseForFile(
+        this,
+        config.strings.SELECT_KEYWORD_FILE_TEXT,
+        keywordFileEdit->text(),
+        config.strings.CSV_FILE_FILTER,
+        keywordFileEdit
+    );
 }
 
 void MainWindow::processFiles() {

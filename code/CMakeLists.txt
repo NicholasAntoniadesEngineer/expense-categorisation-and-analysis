@@ -49,6 +49,7 @@ set(SOURCES
     app/src/table_manager.cpp
     app/src/ui_manager.cpp
     app/src/visualization_manager.cpp
+    app/src/file_dialog_manager.cpp
     ${RESOURCES}
 )
 
@@ -72,6 +73,7 @@ set(HEADERS
     app/inc/table_manager.hpp
     app/inc/ui_manager.hpp
     app/inc/visualization_manager.hpp
+    app/inc/file_dialog_manager.hpp
 )
 
 # Create executable
