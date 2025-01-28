@@ -712,6 +712,18 @@ void FinanceCategorisationWindow::viewAllTransactions() {
         // Enable sorting
         table->setSortingEnabled(true);
         
+        // Calculate maximum window size based on content
+        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
+                             table->verticalScrollBar()->sizeHint().width() + 4; // Add some padding
+        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
+                              table->horizontalScrollBar()->sizeHint().height() + 4;
+        
+        // Set maximum size constraints
+        allTransactionsWindow->setMaximumSize(totalWidth, totalHeight);
+        
+        // Set initial size to be reasonable but not larger than maximum
+        allTransactionsWindow->resize(qMin(1200, totalWidth), qMin(800, totalHeight));
+        
         file.close();
     }
 
@@ -804,6 +816,18 @@ void FinanceCategorisationWindow::viewWeeklySummary() {
             "QTableWidget::item:alternate { background-color: #f9f9f9; }"
         );
         
+        // Calculate maximum window size based on content
+        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
+                             table->verticalScrollBar()->sizeHint().width() + 4;
+        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
+                              table->horizontalScrollBar()->sizeHint().height() + 4;
+        
+        // Set maximum size constraints
+        weeklySummaryWindow->setMaximumSize(totalWidth, totalHeight);
+        
+        // Set initial size to be reasonable but not larger than maximum
+        weeklySummaryWindow->resize(qMin(1000, totalWidth), qMin(600, totalHeight));
+        
         file.close();
     }
 
@@ -895,6 +919,18 @@ void FinanceCategorisationWindow::viewMonthlySummary() {
             "QTableWidget::item { padding: 4px; color: black; }"
             "QTableWidget::item:alternate { background-color: #f9f9f9; }"
         );
+        
+        // Calculate maximum window size based on content
+        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
+                             table->verticalScrollBar()->sizeHint().width() + 4;
+        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
+                              table->horizontalScrollBar()->sizeHint().height() + 4;
+        
+        // Set maximum size constraints
+        monthlySummaryWindow->setMaximumSize(totalWidth, totalHeight);
+        
+        // Set initial size to be reasonable but not larger than maximum
+        monthlySummaryWindow->resize(qMin(1000, totalWidth), qMin(600, totalHeight));
         
         file.close();
     }
