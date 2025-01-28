@@ -12,6 +12,7 @@
 #include "finance_processor.hpp"
 #include "chart_manager.hpp"
 #include "window_manager.hpp"
+#include "plot_manager.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -295,52 +296,13 @@ void MainWindow::processFiles() {
 }
 
 void MainWindow::plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle) {
-    try {
-        QString outputDir = outputDirEdit->text();
-        if (outputDir.isEmpty()) {
-            QMessageBox::warning(this, "Error", "Output directory must be specified");
-            return;
-        }
-
-        QDir dir(outputDir);
-        QStringList files = dir.entryList(QStringList() << filePattern, QDir::Files);
-        
-        if (files.isEmpty()) {
-            QMessageBox::warning(this, "Error", QString("No %1 files found").arg(title.toLower()));
-            return;
-        }
-
-        QString filePath = dir.filePath(files.first());
-        double maxValue, minValue;
-        QMap<QString, QLineSeries*> categorySeries;
-        
-        QChart* chart = ChartManager::createSummaryChart(
-            filePath, title, xAxisTitle,
-            maxValue, minValue, categorySeries
-        );
-
-        // Create or update plot window
-        PlotWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
-        
-        if (!plotWindow) {
-            plotWindow = new PlotWindow(title, this);
-            connect(plotWindow, &PlotWindow::categoryVisibilityChanged,
-                    this, &MainWindow::updateSeriesVisibility);
-            connect(plotWindow, &QObject::destroyed, [&plotWindow]() {
-                plotWindow = nullptr;
-            });
-        }
-        
-        plotWindow->setChart(chart);
-        plotWindow->setupCategoryPanel(categorySeries.keys(), categorySeries);
-        plotWindow->show();
-        plotWindow->raise();
-        plotWindow->activateWindow();
-
-    } catch (const std::exception& e) {
-        QMessageBox::critical(this, "Error", 
-                            QString("Plot generation failed: %1").arg(e.what()));
-    }
+    QString outputDir = outputDirEdit->text();
+    PlotWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
+    
+    PlotManager::createPlotFromFile(plotWindow, outputDir, filePattern, title, xAxisTitle, this,
+        [this](const QString& category, bool visible) {
+            updateSeriesVisibility(category, visible);
+        });
 }
 
 void MainWindow::plotWeeklySummary() {
@@ -434,34 +396,8 @@ void MainWindow::viewMonthlySummary() {
 }
 
 void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {
-    // Update series visibility in all plot windows
-    if (weeklyPlotWindow) {
-        QChartView* chartView = qobject_cast<QChartView*>(weeklyPlotWindow->centralWidget());
-        if (chartView) {
-            QChart* chart = chartView->chart();
-            for (QAbstractSeries* abstractSeries : chart->series()) {
-                QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
-                if (lineSeries && lineSeries->name() == category) {
-                    lineSeries->setVisible(visible);
-                    lineSeries->setPointsVisible(visible);
-                }
-            }
-        }
-    }
-    
-    if (monthlyPlotWindow) {
-        QChartView* chartView = qobject_cast<QChartView*>(monthlyPlotWindow->centralWidget());
-        if (chartView) {
-            QChart* chart = chartView->chart();
-            for (QAbstractSeries* abstractSeries : chart->series()) {
-                QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
-                if (lineSeries && lineSeries->name() == category) {
-                    lineSeries->setVisible(visible);
-                    lineSeries->setPointsVisible(visible);
-                }
-            }
-        }
-    }
+    PlotManager::updateSeriesVisibility(weeklyPlotWindow, category, visible);
+    PlotManager::updateSeriesVisibility(monthlyPlotWindow, category, visible);
 }
 
 // Utility Functions

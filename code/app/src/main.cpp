@@ -22,9 +22,9 @@ int main(int argc, char *argv[]) {
     AppConfig config = AppConfig::getDefaultConfig();
 
     // Create and initialize main window
-    MainWindow window(config);
+    MainWindow mainWindow(config);
     
-    if (!window.initializeApplicationInfo() || !window.initializeAppearance()) {
+    if (!mainWindow.initializeApplicationInfo() || !mainWindow.initializeAppearance()) {
         MainWindow::showErrorMessage(
             "Failed to initialize application", 
             config.app_name
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    if (!window.setupWindow()) {
+    if (!mainWindow.setupWindow()) {
         MainWindow::showErrorMessage(
             "Failed to setup main window",
             config.app_name
