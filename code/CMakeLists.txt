@@ -16,7 +16,7 @@ else()
 endif()
 
 # Find Qt6
-find_package(Qt6 REQUIRED COMPONENTS Widgets Charts)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Charts)
 
 # Enable automoc for Qt
 set(CMAKE_AUTOMOC ON)
@@ -30,7 +30,7 @@ set(RESOURCES
 
 # Add source files
 set(SOURCES
-    app/src/main.cpp
+    app/main.cpp
     lib/src/finance_processor.cpp
     lib/src/keyword_loader.cpp
     lib/src/data_loader.cpp
@@ -82,10 +82,14 @@ target_include_directories(FinanceManager PRIVATE
     lib/inc
     app/inc
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${Qt6Core_INCLUDE_DIRS}
+    ${Qt6Widgets_INCLUDE_DIRS}
+    ${Qt6Charts_INCLUDE_DIRS}
 )
 
 # Link Qt libraries
 target_link_libraries(FinanceManager PRIVATE
+    Qt6::Core
     Qt6::Widgets
     Qt6::Charts
 )
