@@ -1,7 +1,7 @@
 """
-personal-finance/finance_visualize.py
+personal-finance/finance_visualise.py
 
-This script visualizes financial data from categorized CSV files. It generates bar plots
+This script visualises financial data from categorized CSV files. It generates bar plots
 showing the total amount by category for each file.
 
 Author: Nicholas Antoniades
@@ -18,10 +18,10 @@ import numpy as np
 CATEGORIZED_DIRECTORY = 'expense-categorization-and-analysis/files_categorized'
 
 
-class FinanceVisualizer:
+class Financevisualiser:
     def __init__(self, file_path):
         """
-        Initialize the FinanceVisualizer with the path to a categorized CSV file.
+        Initialize the Financevisualiser with the path to a categorized CSV file.
         """
         self.file_path = file_path
         self.file_name = os.path.basename(file_path)
@@ -32,9 +32,9 @@ class FinanceVisualizer:
         """
         return pd.read_csv(self.file_path)
 
-    def visualize_data(self, data):
+    def visualise_data(self, data):
         """
-        Visualize the financial data by creating a bar plot of total amounts by category.
+        visualise the financial data by creating a bar plot of total amounts by category.
         """
         # Ensure 'Amount' is numeric
         data['Amount'] = pd.to_numeric(data['Amount'], errors='coerce')
@@ -100,7 +100,7 @@ class FinanceVisualizer:
         Execute the visualization process for the CSV file.
         """
         categorized_data = self.load_categorized_data()
-        self.visualize_data(categorized_data)
+        self.visualise_data(categorized_data)
 
 
 if __name__ == "__main__":
@@ -112,5 +112,5 @@ if __name__ == "__main__":
     else:
         for file in csv_files:
             file_path = os.path.join(CATEGORIZED_DIRECTORY, file)
-            visualizer = FinanceVisualizer(file_path=file_path)
-            visualizer.run()
+            visualiser = Financevisualiser(file_path=file_path)
+            visualiser.run()

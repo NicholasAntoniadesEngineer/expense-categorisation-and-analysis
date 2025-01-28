@@ -39,7 +39,16 @@ set(SOURCES
     lib/src/data_exporter.cpp
     lib/src/csv_parser.cpp
     lib/src/transaction_parser.cpp
-    app/src/finance_categorisation_window.cpp
+    app/src/main_window.cpp
+    app/src/app_config.cpp
+    app/src/plot_window.cpp
+    app/src/table_window.cpp
+    app/src/chart_manager.cpp
+    app/src/window_manager.cpp
+    app/src/plot_manager.cpp
+    app/src/ui_manager.cpp
+    app/src/visualization_manager.cpp
+    app/src/file_dialog_manager.cpp
     ${RESOURCES}
 )
 
@@ -53,7 +62,16 @@ set(HEADERS
     lib/inc/report_generator.hpp
     lib/inc/data_exporter.hpp
     lib/inc/csv_parser.hpp
-    app/inc/finance_categorisation_window.hpp
+    app/inc/app_config.hpp
+    app/inc/main_window.hpp
+    app/inc/plot_window.hpp
+    app/inc/table_window.hpp
+    app/inc/chart_manager.hpp
+    app/inc/window_manager.hpp
+    app/inc/plot_manager.hpp
+    app/inc/ui_manager.hpp
+    app/inc/visualization_manager.hpp
+    app/inc/file_dialog_manager.hpp
 )
 
 # Create executable
@@ -63,6 +81,7 @@ add_executable(FinanceManager ${APP_TYPE} ${SOURCES} ${HEADERS})
 target_include_directories(FinanceManager PRIVATE
     lib/inc
     app/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # Link Qt libraries
