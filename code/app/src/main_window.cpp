@@ -11,6 +11,7 @@
 #include "main_window.hpp"
 #include "finance_processor.hpp"
 #include "chart_manager.hpp"
+#include "window_manager.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -27,6 +28,7 @@
 #include <QTextEdit>
 #include <QTableWidget>
 #include <QHeaderView>
+#include <functional>
 
 namespace FinanceManager {
 
@@ -361,86 +363,74 @@ void MainWindow::plotMonthlySummary() {
 
 void MainWindow::viewAllTransactions() {
     QString outputDir = outputDirEdit->text();
-    if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, "Error", "Output directory must be specified");
+    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
-    if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, "Error", "Categorised transactions file not found");
+    if (!WindowManager::checkFileExists(this, filePath, "Categorised transactions")) {
         return;
     }
 
-    if (allTransactionsWindow) {
-        allTransactionsWindow->activateWindow();
-        allTransactionsWindow->raise();
-        return;
-    }
+    allTransactionsWindow = WindowManager::showWindow(allTransactionsWindow, 
+        "All Categorised Transactions", this, 
+        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
+            window->loadFromCSV(filePath);
+            window->setInitialSize(1200, 800);
+            window->setAttribute(Qt::WA_DeleteOnClose);
+        }));
 
-    allTransactionsWindow = new TableWindow("All Categorised Transactions", this);
     connect(allTransactionsWindow, &QObject::destroyed, this, [this]() {
         allTransactionsWindow = nullptr;
     });
-    allTransactionsWindow->loadFromCSV(filePath);
-    allTransactionsWindow->setInitialSize(1200, 800);
-    allTransactionsWindow->show();
 }
 
 void MainWindow::viewWeeklySummary() {
     QString outputDir = outputDirEdit->text();
-    if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, "Error", "Output directory must be specified");
+    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("weekly_summary.csv");
-    if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, "Error", "Weekly summary file not found");
+    if (!WindowManager::checkFileExists(this, filePath, "Weekly summary")) {
         return;
     }
 
-    if (weeklySummaryWindow) {
-        weeklySummaryWindow->activateWindow();
-        weeklySummaryWindow->raise();
-        return;
-    }
+    weeklySummaryWindow = WindowManager::showWindow(weeklySummaryWindow, 
+        "Weekly Summary", this, 
+        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
+            window->loadFromCSV(filePath);
+            window->setInitialSize(1000, 600);
+            window->setAttribute(Qt::WA_DeleteOnClose);
+        }));
 
-    weeklySummaryWindow = new TableWindow("Weekly Summary", this);
     connect(weeklySummaryWindow, &QObject::destroyed, this, [this]() {
         weeklySummaryWindow = nullptr;
     });
-    weeklySummaryWindow->loadFromCSV(filePath);
-    weeklySummaryWindow->setInitialSize(1000, 600);
-    weeklySummaryWindow->show();
 }
 
 void MainWindow::viewMonthlySummary() {
     QString outputDir = outputDirEdit->text();
-    if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, "Error", "Output directory must be specified");
+    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("monthly_summary.csv");
-    if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, "Error", "Monthly summary file not found");
+    if (!WindowManager::checkFileExists(this, filePath, "Monthly summary")) {
         return;
     }
 
-    if (monthlySummaryWindow) {
-        monthlySummaryWindow->activateWindow();
-        monthlySummaryWindow->raise();
-        return;
-    }
+    monthlySummaryWindow = WindowManager::showWindow(monthlySummaryWindow, 
+        "Monthly Summary", this, 
+        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
+            window->loadFromCSV(filePath);
+            window->setInitialSize(1000, 600);
+            window->setAttribute(Qt::WA_DeleteOnClose);
+        }));
 
-    monthlySummaryWindow = new TableWindow("Monthly Summary", this);
     connect(monthlySummaryWindow, &QObject::destroyed, this, [this]() {
         monthlySummaryWindow = nullptr;
     });
-    monthlySummaryWindow->loadFromCSV(filePath);
-    monthlySummaryWindow->setInitialSize(1000, 600);
-    monthlySummaryWindow->show();
 }
 
 void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {
