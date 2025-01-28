@@ -110,6 +110,11 @@ bool UIManager::setupStyle(const AppConfig& config) noexcept {
             padding: 6px 12px;
             min-width: 80px;
         }
+        QPushButton#processButton {
+            width: 600px;
+            min-width: 600px;
+            max-width: 600px;
+        }
         QPushButton:hover {
             background-color: #5E5E5E;
             border: 1px solid #707070;
@@ -214,7 +219,9 @@ UIManager::ExportGroup UIManager::createExportGroup(const QString& title,
 
 QPushButton* UIManager::createActionButton(const QString& text, QWidget* parent) {
     QPushButton* button = new QPushButton(text, parent);
-    button->setMinimumWidth(100);  // Ensure reasonable minimum width
+    if (text == "Process Files") {  // Using string literal instead of config
+        button->setObjectName("processButton");
+    }
     return button;
 }
 
