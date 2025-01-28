@@ -31,6 +31,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <functional>
+#include "ui_manager.hpp"
 
 namespace FinanceManager {
 
@@ -68,38 +69,15 @@ MainWindow::MainWindow(AppConfig& config, QWidget *parent)
 
 // Window Setup and Configuration
 bool MainWindow::initializeApplicationInfo() noexcept {
-    QApplication::setApplicationName(config.app_name);
-    QApplication::setOrganizationName(config.org_name);
-    QApplication::setOrganizationDomain(config.org_domain);
-    QApplication::setApplicationVersion(config.app_version);
-    QApplication::setApplicationDisplayName(config.app_name);
-    return true;
+    return UIManager::initializeApplicationInfo(config);
 }
 
 bool MainWindow::initializeAppearance() noexcept {
-    QStyle* style = QStyleFactory::create(config.style_name);
-    if (!style) {
-        return false;
-    }
-    QApplication::setStyle(style);
-
-    // Use ".AppleSystemUIFont" which is guaranteed to be available on macOS
-    QFont appFont(".AppleSystemUIFont", config.default_font_size);
-    QApplication::setFont(appFont);
-    
-    QIcon appIcon(":/icons/app_icon.png");
-    if (!appIcon.isNull()) {
-        QApplication::setWindowIcon(appIcon);
-    }
-    
-    return true;
+    return UIManager::initializeAppearance(config);
 }
 
 bool MainWindow::setupWindow() noexcept {
-    setWindowTitle(config.app_name);
-    resize(config.default_window_width, config.default_window_height);
-    show();
-    return true;
+    return UIManager::setupMainWindow(this, config);
 }
 
 // UI Setup
@@ -109,68 +87,79 @@ void MainWindow::setupUi() {
     
     mainLayout = new QVBoxLayout(centralWidget);
     
-    // Create input directory group
-    QGroupBox *inputGroup = new QGroupBox(config.strings.INPUT_DIR_TITLE, this);
-    QHBoxLayout *inputLayout = new QHBoxLayout;
-    inputDirEdit = new QLineEdit(this);
-    inputBrowseButton = new QPushButton(config.strings.BROWSE_BUTTON_TEXT, this);
-    inputLayout->addWidget(inputDirEdit);
-    inputLayout->addWidget(inputBrowseButton);
-    inputGroup->setLayout(inputLayout);
+    // Create input directory group using UIManager
+    auto inputGroup = UIManager::createDirectoryGroup(
+        config.strings.INPUT_DIR_TITLE,
+        config.strings.BROWSE_BUTTON_TEXT,
+        this
+    );
+    inputDirEdit = inputGroup.pathEdit;
+    inputBrowseButton = inputGroup.browseButton;
+    mainLayout->addWidget(inputGroup.group);
     
-    // Create output directory group
-    QGroupBox *outputGroup = new QGroupBox(config.strings.OUTPUT_DIR_TITLE, this);
-    QHBoxLayout *outputLayout = new QHBoxLayout;
-    outputDirEdit = new QLineEdit(this);
-    outputBrowseButton = new QPushButton(config.strings.BROWSE_BUTTON_TEXT, this);
-    outputLayout->addWidget(outputDirEdit);
-    outputLayout->addWidget(outputBrowseButton);
-    outputGroup->setLayout(outputLayout);
+    // Create output directory group using UIManager
+    auto outputGroup = UIManager::createDirectoryGroup(
+        config.strings.OUTPUT_DIR_TITLE,
+        config.strings.BROWSE_BUTTON_TEXT,
+        this
+    );
+    outputDirEdit = outputGroup.pathEdit;
+    outputBrowseButton = outputGroup.browseButton;
+    mainLayout->addWidget(outputGroup.group);
     
-    // Create keyword file group
-    QGroupBox *keywordGroup = new QGroupBox(config.strings.KEYWORD_FILE_TITLE, this);
-    QHBoxLayout *keywordLayout = new QHBoxLayout;
-    keywordFileEdit = new QLineEdit(this);
-    keywordBrowseButton = new QPushButton(config.strings.BROWSE_BUTTON_TEXT, this);
-    keywordLayout->addWidget(keywordFileEdit);
-    keywordLayout->addWidget(keywordBrowseButton);
-    keywordGroup->setLayout(keywordLayout);
+    // Create keyword file group using UIManager
+    auto keywordGroup = UIManager::createDirectoryGroup(
+        config.strings.KEYWORD_FILE_TITLE,
+        config.strings.BROWSE_BUTTON_TEXT,
+        this
+    );
+    keywordFileEdit = keywordGroup.pathEdit;
+    keywordBrowseButton = keywordGroup.browseButton;
+    mainLayout->addWidget(keywordGroup.group);
     
-    // Create export options group
-    QGroupBox *exportGroup = new QGroupBox(config.strings.EXPORT_OPTIONS_TITLE, this);
-    QVBoxLayout *exportLayout = new QVBoxLayout;
-    exportMonthlySummaryCheck = new QCheckBox(config.strings.MONTHLY_SUMMARY_TEXT, this);
-    exportWeeklySummaryCheck = new QCheckBox(config.strings.WEEKLY_SUMMARY_TEXT, this);
-    exportFullDatasetCheck = new QCheckBox(config.strings.FULL_DATASET_TEXT, this);
-    exportLayout->addWidget(exportMonthlySummaryCheck);
-    exportLayout->addWidget(exportWeeklySummaryCheck);
-    exportLayout->addWidget(exportFullDatasetCheck);
-    exportGroup->setLayout(exportLayout);
+    // Create export options group using UIManager
+    auto exportGroup = UIManager::createExportGroup(
+        config.strings.EXPORT_OPTIONS_TITLE,
+        config,
+        this
+    );
+    exportMonthlySummaryCheck = exportGroup.monthlyCheck;
+    exportWeeklySummaryCheck = exportGroup.weeklyCheck;
+    exportFullDatasetCheck = exportGroup.fullDatasetCheck;
+    mainLayout->addWidget(exportGroup.group);
     
-    // Create process button
-    processButton = new QPushButton(config.strings.PROCESS_BUTTON_TEXT, this);
+    // Create action buttons using UIManager
+    processButton = UIManager::createActionButton(config.strings.PROCESS_BUTTON_TEXT, this);
+    plotWeeklyButton = UIManager::createActionButton(config.strings.PLOT_WEEKLY_TEXT, this);
+    plotMonthlyButton = UIManager::createActionButton(config.strings.PLOT_MONTHLY_TEXT, this);
     
-    // Create plot buttons
-    plotWeeklyButton = new QPushButton(config.strings.PLOT_WEEKLY_TEXT, this);
-    plotMonthlyButton = new QPushButton(config.strings.PLOT_MONTHLY_TEXT, this);
+    // Add buttons to layout
+    QHBoxLayout* buttonLayout = new QHBoxLayout;
+    buttonLayout->addWidget(processButton);
+    buttonLayout->addWidget(plotWeeklyButton);
+    buttonLayout->addWidget(plotMonthlyButton);
+    buttonLayout->addStretch();
+    
+    mainLayout->addLayout(buttonLayout);
+    mainLayout->addStretch();
     
     // Create visualization group
-    QGroupBox *visualizationGroup = new QGroupBox("Visualization", this);
-    QVBoxLayout *visualizationLayout = new QVBoxLayout;
+    QGroupBox* visualizationGroup = new QGroupBox("Visualization", this);
+    QVBoxLayout* visualizationLayout = new QVBoxLayout;
     
     // Create subgroup for plots
-    QGroupBox *plotGroup = new QGroupBox("Plots", this);
-    QHBoxLayout *plotLayout = new QHBoxLayout;
+    QGroupBox* plotGroup = new QGroupBox("Plots", this);
+    QHBoxLayout* plotLayout = new QHBoxLayout;
     plotLayout->addWidget(plotWeeklyButton);
     plotLayout->addWidget(plotMonthlyButton);
     plotGroup->setLayout(plotLayout);
     
     // Create subgroup for summaries
-    QGroupBox *summaryGroup = new QGroupBox("View Summaries", this);
-    QHBoxLayout *summaryLayout = new QHBoxLayout;
-    QPushButton *viewWeeklySummaryButton = new QPushButton("View Weekly Summary", this);
-    QPushButton *viewMonthlySummaryButton = new QPushButton("View Monthly Summary", this);
-    QPushButton *viewAllTransactionsButton = new QPushButton("View All Transactions", this);
+    QGroupBox* summaryGroup = new QGroupBox("View Summaries", this);
+    QHBoxLayout* summaryLayout = new QHBoxLayout;
+    QPushButton* viewWeeklySummaryButton = new QPushButton("View Weekly Summary", this);
+    QPushButton* viewMonthlySummaryButton = new QPushButton("View Monthly Summary", this);
+    QPushButton* viewAllTransactionsButton = new QPushButton("View All Transactions", this);
     summaryLayout->addWidget(viewWeeklySummaryButton);
     summaryLayout->addWidget(viewMonthlySummaryButton);
     summaryLayout->addWidget(viewAllTransactionsButton);
@@ -180,14 +169,7 @@ void MainWindow::setupUi() {
     visualizationLayout->addWidget(summaryGroup);
     visualizationGroup->setLayout(visualizationLayout);
     
-    // Add all widgets to main layout
-    mainLayout->addWidget(inputGroup);
-    mainLayout->addWidget(outputGroup);
-    mainLayout->addWidget(keywordGroup);
-    mainLayout->addWidget(exportGroup);
-    mainLayout->addWidget(processButton);
     mainLayout->addWidget(visualizationGroup);
-    mainLayout->addStretch();
     
     // Set default paths and states
     setupDefaultPaths();
@@ -229,12 +211,13 @@ void MainWindow::createConnections() {
 
 // Event Handlers
 void MainWindow::browseInputDirectory() {
-    QString dir = QFileDialog::getExistingDirectory(
-        this, config.strings.SELECT_INPUT_DIR_TEXT,
-        inputDirEdit->text(),
-        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks
-    );
+    UIManager::FileDialogConfig dialogConfig;
+    dialogConfig.title = config.strings.SELECT_INPUT_DIR_TEXT;
+    dialogConfig.currentPath = inputDirEdit->text();
+    dialogConfig.filter = "";
+    dialogConfig.isDirectory = true;
     
+    QString dir = UIManager::showFileDialog(this, dialogConfig);
     if (!dir.isEmpty()) {
         inputDirEdit->setText(dir);
         inputDirectory = dir;
@@ -242,12 +225,13 @@ void MainWindow::browseInputDirectory() {
 }
 
 void MainWindow::browseOutputDirectory() {
-    QString dir = QFileDialog::getExistingDirectory(
-        this, config.strings.SELECT_OUTPUT_DIR_TEXT,
-        outputDirEdit->text(),
-        QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks
-    );
+    UIManager::FileDialogConfig dialogConfig;
+    dialogConfig.title = config.strings.SELECT_OUTPUT_DIR_TEXT;
+    dialogConfig.currentPath = outputDirEdit->text();
+    dialogConfig.filter = "";
+    dialogConfig.isDirectory = true;
     
+    QString dir = UIManager::showFileDialog(this, dialogConfig);
     if (!dir.isEmpty()) {
         outputDirEdit->setText(dir);
         outputDirectory = dir;
@@ -255,12 +239,13 @@ void MainWindow::browseOutputDirectory() {
 }
 
 void MainWindow::browseKeywordFile() {
-    QString file = QFileDialog::getOpenFileName(
-        this, config.strings.SELECT_KEYWORD_FILE_TEXT,
-        keywordFileEdit->text(),
-        config.strings.CSV_FILE_FILTER
-    );
+    UIManager::FileDialogConfig dialogConfig;
+    dialogConfig.title = config.strings.SELECT_KEYWORD_FILE_TEXT;
+    dialogConfig.currentPath = keywordFileEdit->text();
+    dialogConfig.filter = config.strings.CSV_FILE_FILTER;
+    dialogConfig.isDirectory = false;
     
+    QString file = UIManager::showFileDialog(this, dialogConfig);
     if (!file.isEmpty()) {
         keywordFileEdit->setText(file);
         keywordFile = file;
