@@ -13,6 +13,7 @@
 #include "chart_manager.hpp"
 #include "window_manager.hpp"
 #include "plot_manager.hpp"
+#include "table_manager.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -325,74 +326,59 @@ void MainWindow::plotMonthlySummary() {
 
 void MainWindow::viewAllTransactions() {
     QString outputDir = outputDirEdit->text();
-    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
-        return;
+    TableManager::TableConfig config{
+        .title = "All Categorised Transactions",
+        .fileName = "categorised_transactions.csv",
+        .width = 1200,
+        .height = 800
+    };
+    
+    allTransactionsWindow = TableManager::showTableFromFile(
+        allTransactionsWindow, outputDir, config, this);
+
+    if (allTransactionsWindow) {
+        connect(allTransactionsWindow, &QObject::destroyed, this, [this]() {
+            allTransactionsWindow = nullptr;
+        });
     }
-
-    QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
-    if (!WindowManager::checkFileExists(this, filePath, "Categorised transactions")) {
-        return;
-    }
-
-    allTransactionsWindow = WindowManager::showWindow(allTransactionsWindow, 
-        "All Categorised Transactions", this, 
-        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
-            window->loadFromCSV(filePath);
-            window->setInitialSize(1200, 800);
-            window->setAttribute(Qt::WA_DeleteOnClose);
-        }));
-
-    connect(allTransactionsWindow, &QObject::destroyed, this, [this]() {
-        allTransactionsWindow = nullptr;
-    });
 }
 
 void MainWindow::viewWeeklySummary() {
     QString outputDir = outputDirEdit->text();
-    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
-        return;
+    TableManager::TableConfig config{
+        .title = "Weekly Summary",
+        .fileName = "weekly_summary.csv",
+        .width = 1000,
+        .height = 600
+    };
+    
+    weeklySummaryWindow = TableManager::showTableFromFile(
+        weeklySummaryWindow, outputDir, config, this);
+
+    if (weeklySummaryWindow) {
+        connect(weeklySummaryWindow, &QObject::destroyed, this, [this]() {
+            weeklySummaryWindow = nullptr;
+        });
     }
-
-    QString filePath = QDir(outputDir).filePath("weekly_summary.csv");
-    if (!WindowManager::checkFileExists(this, filePath, "Weekly summary")) {
-        return;
-    }
-
-    weeklySummaryWindow = WindowManager::showWindow(weeklySummaryWindow, 
-        "Weekly Summary", this, 
-        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
-            window->loadFromCSV(filePath);
-            window->setInitialSize(1000, 600);
-            window->setAttribute(Qt::WA_DeleteOnClose);
-        }));
-
-    connect(weeklySummaryWindow, &QObject::destroyed, this, [this]() {
-        weeklySummaryWindow = nullptr;
-    });
 }
 
 void MainWindow::viewMonthlySummary() {
     QString outputDir = outputDirEdit->text();
-    if (!WindowManager::checkOutputDirectory(this, outputDir)) {
-        return;
+    TableManager::TableConfig config{
+        .title = "Monthly Summary",
+        .fileName = "monthly_summary.csv",
+        .width = 1000,
+        .height = 600
+    };
+    
+    monthlySummaryWindow = TableManager::showTableFromFile(
+        monthlySummaryWindow, outputDir, config, this);
+
+    if (monthlySummaryWindow) {
+        connect(monthlySummaryWindow, &QObject::destroyed, this, [this]() {
+            monthlySummaryWindow = nullptr;
+        });
     }
-
-    QString filePath = QDir(outputDir).filePath("monthly_summary.csv");
-    if (!WindowManager::checkFileExists(this, filePath, "Monthly summary")) {
-        return;
-    }
-
-    monthlySummaryWindow = WindowManager::showWindow(monthlySummaryWindow, 
-        "Monthly Summary", this, 
-        std::function<void(TableWindow*)>([filePath](TableWindow* window) {
-            window->loadFromCSV(filePath);
-            window->setInitialSize(1000, 600);
-            window->setAttribute(Qt::WA_DeleteOnClose);
-        }));
-
-    connect(monthlySummaryWindow, &QObject::destroyed, this, [this]() {
-        monthlySummaryWindow = nullptr;
-    });
 }
 
 void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {

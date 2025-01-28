@@ -46,6 +46,7 @@ set(SOURCES
     app/src/chart_manager.cpp
     app/src/window_manager.cpp
     app/src/plot_manager.cpp
+    app/src/table_manager.cpp
     ${RESOURCES}
 )
 
@@ -66,6 +67,7 @@ set(HEADERS
     app/inc/chart_manager.hpp
     app/inc/window_manager.hpp
     app/inc/plot_manager.hpp
+    app/inc/table_manager.hpp
 )
 
 # Create executable
@@ -75,6 +77,7 @@ add_executable(FinanceManager ${APP_TYPE} ${SOURCES} ${HEADERS})
 target_include_directories(FinanceManager PRIVATE
     lib/inc
     app/inc
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # Link Qt libraries
