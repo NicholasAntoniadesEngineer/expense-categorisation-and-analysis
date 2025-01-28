@@ -10,6 +10,7 @@
 
 #include "main_window.hpp"
 #include "finance_processor.hpp"
+#include "chart_manager.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
 #include <QGroupBox>
@@ -307,110 +308,14 @@ void MainWindow::plotData(const QString& filePattern, const QString& title, cons
             return;
         }
 
-        QChart *chart = new QChart();
-        chart->setTitle(title);
-        chart->setAnimationOptions(QChart::SeriesAnimations);
-
-        // Track overall min/max values for axis scaling
-        double maxValue = 0;
-        double minValue = std::numeric_limits<double>::max();
-
-        // Create a map to store category-wise series
+        QString filePath = dir.filePath(files.first());
+        double maxValue, minValue;
         QMap<QString, QLineSeries*> categorySeries;
-
-        // Read the single summary file
-        QFile csvFile(dir.filePath(files.first()));
-        if (!csvFile.open(QIODevice::ReadOnly | QIODevice::Text))
-            return;
-
-        QTextStream in(&csvFile);
         
-        // Read header to get dates
-        QString header = in.readLine();
-        QStringList dates = header.split(',');
-        dates.removeFirst(); // Remove "Category" column header
-        
-        // Read each line (category)
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            QStringList fields = line.split(',');
-            if (fields.size() >= 2) {
-                QString category = fields[0];
-                QLineSeries *series = new QLineSeries();
-                series->setName(category);
-                
-                // Assign a unique color from a predefined palette
-                static const QColor colors[] = {
-                    QColor("#1f77b4"), // Blue
-                    QColor("#ff7f0e"), // Orange
-                    QColor("#2ca02c"), // Green
-                    QColor("#d62728"), // Red
-                    QColor("#9467bd"), // Purple
-                    QColor("#8c564b"), // Brown
-                    QColor("#e377c2"), // Pink
-                    QColor("#7f7f7f"), // Gray
-                    QColor("#bcbd22"), // Yellow-green
-                    QColor("#17becf")  // Cyan
-                };
-                static int colorIndex = 0;
-                
-                QPen pen = series->pen();
-                pen.setColor(colors[colorIndex % 10]);
-                pen.setWidth(1);
-                series->setPen(pen);
-                colorIndex++;
-
-                series->setPointsVisible(true);
-                series->setMarkerSize(2);
-                series->setPointLabelsVisible(false);
-
-                // Add data points
-                for (int i = 1; i < fields.size(); ++i) {
-                    double value = fields[i].toDouble();
-                    series->append(i, value);
-                    maxValue = qMax(maxValue, value);
-                    minValue = qMin(minValue, value);
-                }
-
-                categorySeries[category] = series;
-                chart->addSeries(series);
-            }
-        }
-        csvFile.close();
-
-        // Create and setup axes
-        QValueAxis *axisY = new QValueAxis();
-        double maxRounded = std::ceil(maxValue / 400.0) * 400;
-        double minRounded = std::min(0.0, std::floor(minValue / 400.0) * 400);
-        axisY->setRange(minRounded, maxRounded);
-        axisY->setTickCount((maxRounded - minRounded) / 400 + 1);
-        axisY->setLabelFormat("%d");
-        axisY->setTitleText("Amount (£)");
-        axisY->setGridLineVisible(true);
-        chart->addAxis(axisY, Qt::AlignLeft);
-
-        // Create custom x-axis with date labels
-        QCategoryAxis *axisX = new QCategoryAxis();
-        axisX->setRange(1, dates.size());
-        axisX->setTitleText(xAxisTitle);
-        axisX->setGridLineVisible(true);
-        
-        // Add date labels to x-axis
-        for (int i = 0; i < dates.size(); ++i) {
-            axisX->append(dates[i], i + 1);
-        }
-        axisX->setLabelsPosition(QCategoryAxis::AxisLabelsPositionOnValue);
-        axisX->setLabelsAngle(-65);
-        chart->addAxis(axisX, Qt::AlignBottom);
-
-        // Attach axes to all series
-        for (auto series : categorySeries) {
-            series->attachAxis(axisX);
-            series->attachAxis(axisY);
-        }
-
-        // Hide the legend since we have the category panel
-        chart->legend()->setVisible(false);
+        QChart* chart = ChartManager::createSummaryChart(
+            filePath, title, xAxisTitle,
+            maxValue, minValue, categorySeries
+        );
 
         // Create or update plot window
         PlotWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);

@@ -43,6 +43,7 @@ set(SOURCES
     app/src/app_config.cpp
     app/src/plot_window.cpp
     app/src/table_window.cpp
+    app/src/chart_manager.cpp
     ${RESOURCES}
 )
 
@@ -60,6 +61,7 @@ set(HEADERS
     app/inc/main_window.hpp
     app/inc/plot_window.hpp
     app/inc/table_window.hpp
+    app/inc/chart_manager.hpp
 )
 
 # Create executable
