@@ -17,8 +17,7 @@
 #include <QCheckBox>
 #include <QtCharts>
 #include "app_config.hpp"
-#include "plot_window.hpp"
-#include "table_window.hpp"
+#include "visualization_manager.hpp"
 
 namespace FinanceManager {
 
@@ -46,12 +45,21 @@ private slots:
     void browseOutputDirectory();
     void browseKeywordFile();
     void processFiles();
-    void plotWeeklySummary();
-    void plotMonthlySummary();
-    void viewAllTransactions();
-    void viewWeeklySummary();
-    void viewMonthlySummary();
-    void updateSeriesVisibility(const QString& category, bool visible);
+    void plotWeeklySummary() {
+        VisualizationManager::plotWeeklySummary(windows, outputDirEdit->text(), this);
+    }
+    void plotMonthlySummary() {
+        VisualizationManager::plotMonthlySummary(windows, outputDirEdit->text(), this);
+    }
+    void viewAllTransactions() {
+        VisualizationManager::viewAllTransactions(windows, outputDirEdit->text(), this);
+    }
+    void viewWeeklySummary() {
+        VisualizationManager::viewWeeklySummary(windows, outputDirEdit->text(), this);
+    }
+    void viewMonthlySummary() {
+        VisualizationManager::viewMonthlySummary(windows, outputDirEdit->text(), this);
+    }
 
 private:
     // UI Setup
@@ -59,38 +67,31 @@ private:
     void setupDefaultPaths();
     void setupDefaultStates();
     void createConnections();
-    void plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle);
 
-    // Window tracking
-    PlotWindow* weeklyPlotWindow = nullptr;
-    PlotWindow* monthlyPlotWindow = nullptr;
-    TableWindow* allTransactionsWindow = nullptr;
-    TableWindow* weeklySummaryWindow = nullptr;
-    TableWindow* monthlySummaryWindow = nullptr;
-
+    // Member variables
     AppConfig& config;
-
-    QWidget *centralWidget;
-    QVBoxLayout *mainLayout;
-    
-    QLineEdit *inputDirEdit;
-    QLineEdit *outputDirEdit;
-    QLineEdit *keywordFileEdit;
-    
-    QPushButton *inputBrowseButton;
-    QPushButton *outputBrowseButton;
-    QPushButton *keywordBrowseButton;
-    QPushButton *processButton;
-    QPushButton *plotWeeklyButton;
-    QPushButton *plotMonthlyButton;
-
-    QCheckBox *exportMonthlySummaryCheck;
-    QCheckBox *exportWeeklySummaryCheck;
-    QCheckBox *exportFullDatasetCheck;
-
     QString inputDirectory;
     QString outputDirectory;
     QString keywordFile;
+    
+    // UI Components
+    QWidget* centralWidget;
+    QVBoxLayout* mainLayout;
+    QLineEdit* inputDirEdit;
+    QLineEdit* outputDirEdit;
+    QLineEdit* keywordFileEdit;
+    QPushButton* inputBrowseButton;
+    QPushButton* outputBrowseButton;
+    QPushButton* keywordBrowseButton;
+    QPushButton* processButton;
+    QPushButton* plotWeeklyButton;
+    QPushButton* plotMonthlyButton;
+    QCheckBox* exportMonthlySummaryCheck;
+    QCheckBox* exportWeeklySummaryCheck;
+    QCheckBox* exportFullDatasetCheck;
+    
+    // Visualization windows
+    VisualizationManager::Windows windows;
 };
 
 }  // namespace FinanceManager 

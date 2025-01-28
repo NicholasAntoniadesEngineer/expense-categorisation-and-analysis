@@ -48,6 +48,7 @@ set(SOURCES
     app/src/plot_manager.cpp
     app/src/table_manager.cpp
     app/src/ui_manager.cpp
+    app/src/visualization_manager.cpp
     ${RESOURCES}
 )
 
@@ -70,6 +71,7 @@ set(HEADERS
     app/inc/plot_manager.hpp
     app/inc/table_manager.hpp
     app/inc/ui_manager.hpp
+    app/inc/visualization_manager.hpp
 )
 
 # Create executable
