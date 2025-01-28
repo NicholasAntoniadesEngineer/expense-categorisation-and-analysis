@@ -39,7 +39,7 @@ set(SOURCES
     lib/src/data_exporter.cpp
     lib/src/csv_parser.cpp
     lib/src/transaction_parser.cpp
-    app/src/finance_categorisation_window.cpp
+    app/src/main_window.cpp
     ${RESOURCES}
 )
 
@@ -53,7 +53,7 @@ set(HEADERS
     lib/inc/report_generator.hpp
     lib/inc/data_exporter.hpp
     lib/inc/csv_parser.hpp
-    app/inc/finance_categorisation_window.hpp
+    app/inc/main_window.hpp
 )
 
 # Create executable

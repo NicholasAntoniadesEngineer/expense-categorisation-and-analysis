@@ -1,5 +1,5 @@
 /**
- * @file finance_categorisation_window.hpp
+ * @file main_window.hpp
  * @brief Main window for the Finance Manager application
  * @author Nicholas Antoniades
  * @date 2024-01-24
@@ -61,12 +61,12 @@ struct AppConfig {
 /**
  * @brief Main window for selecting and processing financial data
  */
-class FinanceCategorisationWindow : public QMainWindow {
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    explicit FinanceCategorisationWindow(AppConfig& config, QWidget *parent = nullptr);
-    ~FinanceCategorisationWindow() = default;
+    explicit MainWindow(AppConfig& config, QWidget *parent = nullptr);
+    ~MainWindow() = default;
 
     // Window Setup and Configuration
     bool initializeAppearance() noexcept;

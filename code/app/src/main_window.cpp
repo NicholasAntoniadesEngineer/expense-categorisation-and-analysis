@@ -1,5 +1,5 @@
 /**
- * @file finance_categorisation_window.cpp
+ * @file main_window.cpp
  * @brief Implementation of the Finance Manager main window
  * @author Nicholas Antoniades
  * @date 2024-01-24
@@ -8,7 +8,7 @@
  * Finance Manager application, handling user interactions and file processing.
  */
 
-#include "finance_categorisation_window.hpp"
+#include "main_window.hpp"
 #include "finance_processor.hpp"
 #include <QMessageBox>
 #include <QGridLayout>
@@ -55,7 +55,7 @@ private:
 };
 
 // Constructor and Initialization
-FinanceCategorisationWindow::FinanceCategorisationWindow(AppConfig& config, QWidget *parent)
+MainWindow::MainWindow(AppConfig& config, QWidget *parent)
     : QMainWindow(parent)
     , config(config)
 {
@@ -87,7 +87,7 @@ FinanceCategorisationWindow::FinanceCategorisationWindow(AppConfig& config, QWid
 }
 
 // Window Setup and Configuration
-bool FinanceCategorisationWindow::initializeApplicationInfo() noexcept {
+bool MainWindow::initializeApplicationInfo() noexcept {
     QApplication::setApplicationName(config.app_name);
     QApplication::setOrganizationName(config.org_name);
     QApplication::setOrganizationDomain(config.org_domain);
@@ -96,7 +96,7 @@ bool FinanceCategorisationWindow::initializeApplicationInfo() noexcept {
     return true;
 }
 
-bool FinanceCategorisationWindow::initializeAppearance() noexcept {
+bool MainWindow::initializeAppearance() noexcept {
     QStyle* style = QStyleFactory::create(config.style_name);
     if (!style) {
         return false;
@@ -115,7 +115,7 @@ bool FinanceCategorisationWindow::initializeAppearance() noexcept {
     return true;
 }
 
-bool FinanceCategorisationWindow::setupWindow() noexcept {
+bool MainWindow::setupWindow() noexcept {
     setWindowTitle(config.app_name);
     resize(config.default_window_width, config.default_window_height);
     show();
@@ -123,7 +123,7 @@ bool FinanceCategorisationWindow::setupWindow() noexcept {
 }
 
 // UI Setup
-void FinanceCategorisationWindow::setupUi() {
+void MainWindow::setupUi() {
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
     
@@ -214,12 +214,12 @@ void FinanceCategorisationWindow::setupUi() {
     setupDefaultStates();
 
     // Connect summary buttons
-    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewWeeklySummary);
-    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewMonthlySummary);
-    connect(viewAllTransactionsButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::viewAllTransactions);
+    connect(viewWeeklySummaryButton, &QPushButton::clicked, this, &MainWindow::viewWeeklySummary);
+    connect(viewMonthlySummaryButton, &QPushButton::clicked, this, &MainWindow::viewMonthlySummary);
+    connect(viewAllTransactionsButton, &QPushButton::clicked, this, &MainWindow::viewAllTransactions);
 }
 
-void FinanceCategorisationWindow::setupDefaultPaths() {
+void MainWindow::setupDefaultPaths() {
     // Navigate from source file location to repository root
     QDir appDir(QString::fromUtf8(__FILE__));
     for (int i = 0; i < 4; ++i) {
@@ -232,23 +232,23 @@ void FinanceCategorisationWindow::setupDefaultPaths() {
     keywordFileEdit->setText(appDir.absoluteFilePath("config/categorisation_keywords.csv"));
 }
 
-void FinanceCategorisationWindow::setupDefaultStates() {
+void MainWindow::setupDefaultStates() {
     exportMonthlySummaryCheck->setChecked(true);
     exportWeeklySummaryCheck->setChecked(false);
     exportFullDatasetCheck->setChecked(true);
 }
 
-void FinanceCategorisationWindow::createConnections() {
-    connect(inputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseInputDirectory);
-    connect(outputBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseOutputDirectory);
-    connect(keywordBrowseButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::browseKeywordFile);
-    connect(processButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::processFiles);
-    connect(plotWeeklyButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotWeeklySummary);
-    connect(plotMonthlyButton, &QPushButton::clicked, this, &FinanceCategorisationWindow::plotMonthlySummary);
+void MainWindow::createConnections() {
+    connect(inputBrowseButton, &QPushButton::clicked, this, &MainWindow::browseInputDirectory);
+    connect(outputBrowseButton, &QPushButton::clicked, this, &MainWindow::browseOutputDirectory);
+    connect(keywordBrowseButton, &QPushButton::clicked, this, &MainWindow::browseKeywordFile);
+    connect(processButton, &QPushButton::clicked, this, &MainWindow::processFiles);
+    connect(plotWeeklyButton, &QPushButton::clicked, this, &MainWindow::plotWeeklySummary);
+    connect(plotMonthlyButton, &QPushButton::clicked, this, &MainWindow::plotMonthlySummary);
 }
 
 // Event Handlers
-void FinanceCategorisationWindow::browseInputDirectory() {
+void MainWindow::browseInputDirectory() {
     QString dir = QFileDialog::getExistingDirectory(
         this, config.strings.SELECT_INPUT_DIR_TEXT,
         inputDirEdit->text(),
@@ -261,7 +261,7 @@ void FinanceCategorisationWindow::browseInputDirectory() {
     }
 }
 
-void FinanceCategorisationWindow::browseOutputDirectory() {
+void MainWindow::browseOutputDirectory() {
     QString dir = QFileDialog::getExistingDirectory(
         this, config.strings.SELECT_OUTPUT_DIR_TEXT,
         outputDirEdit->text(),
@@ -274,7 +274,7 @@ void FinanceCategorisationWindow::browseOutputDirectory() {
     }
 }
 
-void FinanceCategorisationWindow::browseKeywordFile() {
+void MainWindow::browseKeywordFile() {
     QString file = QFileDialog::getOpenFileName(
         this, config.strings.SELECT_KEYWORD_FILE_TEXT,
         keywordFileEdit->text(),
@@ -287,7 +287,7 @@ void FinanceCategorisationWindow::browseKeywordFile() {
     }
 }
 
-void FinanceCategorisationWindow::processFiles() {
+void MainWindow::processFiles() {
     try {
         QString inputDir = inputDirEdit->text();
         QString outputDir = outputDirEdit->text();
@@ -316,7 +316,7 @@ void FinanceCategorisationWindow::processFiles() {
     }
 }
 
-void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& title) {
+void MainWindow::setupPlotWindow(QChart* chart, const QString& title) {
     // Check if we already have a window for this type of plot
     QMainWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
     
@@ -376,7 +376,7 @@ void FinanceCategorisationWindow::setupPlotWindow(QChart* chart, const QString& 
     plotWindow->show();
 }
 
-void FinanceCategorisationWindow::setupCategoryPanel(QMainWindow* plotWindow, 
+void MainWindow::setupCategoryPanel(QMainWindow* plotWindow, 
     const QStringList& categories, const QMap<QString, QLineSeries*>& series) {
     
     // Create dock widget for categories
@@ -440,7 +440,7 @@ void FinanceCategorisationWindow::setupCategoryPanel(QMainWindow* plotWindow,
     plotWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
 }
 
-void FinanceCategorisationWindow::updateSeriesVisibility(const QString& category, bool visible) {
+void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {
     // Find all plot windows and update the series in each
     for (QWidget* widget : QApplication::topLevelWidgets()) {
         QMainWindow* mainWindow = qobject_cast<QMainWindow*>(widget);
@@ -461,7 +461,7 @@ void FinanceCategorisationWindow::updateSeriesVisibility(const QString& category
     }
 }
 
-void FinanceCategorisationWindow::plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle) {
+void MainWindow::plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle) {
     try {
         QString outputDir = outputDirEdit->text();
         if (outputDir.isEmpty()) {
@@ -605,7 +605,7 @@ void FinanceCategorisationWindow::plotData(const QString& filePattern, const QSt
     }
 }
 
-void FinanceCategorisationWindow::plotWeeklySummary() {
+void MainWindow::plotWeeklySummary() {
     if (weeklyPlotWindow) {
         weeklyPlotWindow->activateWindow();
         weeklyPlotWindow->raise();
@@ -614,7 +614,7 @@ void FinanceCategorisationWindow::plotWeeklySummary() {
     plotData("weekly_summary.csv", "Weekly Expense Summary Over Time", "Week Number");
 }
 
-void FinanceCategorisationWindow::plotMonthlySummary() {
+void MainWindow::plotMonthlySummary() {
     if (monthlyPlotWindow) {
         monthlyPlotWindow->activateWindow();
         monthlyPlotWindow->raise();
@@ -623,7 +623,7 @@ void FinanceCategorisationWindow::plotMonthlySummary() {
     plotData("monthly_summary.csv", "Monthly Expense Summary Over Time", "Month Number");
 }
 
-void FinanceCategorisationWindow::viewAllTransactions() {
+void MainWindow::viewAllTransactions() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
         QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
@@ -730,7 +730,7 @@ void FinanceCategorisationWindow::viewAllTransactions() {
     allTransactionsWindow->show();
 }
 
-void FinanceCategorisationWindow::viewWeeklySummary() {
+void MainWindow::viewWeeklySummary() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
         QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
@@ -834,7 +834,7 @@ void FinanceCategorisationWindow::viewWeeklySummary() {
     weeklySummaryWindow->show();
 }
 
-void FinanceCategorisationWindow::viewMonthlySummary() {
+void MainWindow::viewMonthlySummary() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
         QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
@@ -939,7 +939,7 @@ void FinanceCategorisationWindow::viewMonthlySummary() {
 }
 
 // Utility Functions
-void FinanceCategorisationWindow::showErrorMessage(const QString& message, const char* title) noexcept {
+void MainWindow::showErrorMessage(const QString& message, const char* title) noexcept {
     QMessageBox::critical(nullptr, title, message, QMessageBox::Ok);
 }
 

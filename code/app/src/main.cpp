@@ -9,7 +9,7 @@
  * 
  */
 
-#include "finance_categorisation_window.hpp"
+#include "main_window.hpp"
 #include <QApplication>
 
 int main(int argc, char *argv[]) {
@@ -29,10 +29,10 @@ int main(int argc, char *argv[]) {
     };
 
     // Create and initialize main window
-    FinanceManager::FinanceCategorisationWindow window(config);
+    FinanceManager::MainWindow window(config);
     
     if (!window.initializeApplicationInfo() || !window.initializeAppearance()) {
-        FinanceManager::FinanceCategorisationWindow::showErrorMessage(
+        FinanceManager::MainWindow::showErrorMessage(
             "Failed to initialize application", 
             config.app_name
         );
@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (!window.setupWindow()) {
-        FinanceManager::FinanceCategorisationWindow::showErrorMessage(
+        FinanceManager::MainWindow::showErrorMessage(
             "Failed to setup main window",
             config.app_name
         );
