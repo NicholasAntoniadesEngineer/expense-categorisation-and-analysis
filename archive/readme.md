@@ -1,4 +1,4 @@
-# Finance Categorisation and Visualization Scripts (2024)
+# Finance Categorisation and Visualization Scripts (2024) ARCHIVED 
 
 This project consists of Python scripts designed to categorise expenses based on keywords, remove duplicates, generate categorised summaries, and visualise the categorized data.
 
