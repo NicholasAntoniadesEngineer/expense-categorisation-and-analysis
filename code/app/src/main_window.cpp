@@ -66,7 +66,6 @@ bool MainWindow::setupWindow() noexcept {
     return UIManager::setupMainWindow(this, config);
 }
 
-// UI Setup
 void MainWindow::setupUi() {
     centralWidget = new QWidget(this);
     setCentralWidget(centralWidget);
@@ -138,12 +137,10 @@ void MainWindow::setupUi() {
         .viewAllTransactionsButton = new QPushButton("View All Transactions", this)
     };
     
-    // Create visualization group using VisualizationManager
     QGroupBox* visualizationGroup = VisualizationManager::createVisualizationGroup(
         this, visualizationButtons);
     mainLayout->addWidget(visualizationGroup);
     
-    // Set default paths and states
     setupDefaultPaths();
     setupDefaultStates();
 

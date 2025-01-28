@@ -41,10 +41,10 @@ void TableWindow::styleTable() {
         "    alternate-background-color: #f6f8fa;"
         "    selection-background-color: #0366d6;"
         "    selection-color: white;"
-        "    color: #24292e;"  // Default text color
+        "    color: #24292e;"  
         "}"
         "QTableWidget::item {"
-        "    color: #24292e;"  // Text color for items
+        "    color: #24292e;"  
         "    padding: 4px;"
         "}"
         "QHeaderView::section {"
@@ -53,14 +53,14 @@ void TableWindow::styleTable() {
         "    padding: 5px;"
         "    border: none;"
         "}"
-        // Scrollbar styling
+
         "QScrollBar:vertical {"
         "    background-color: #24292e;"
         "    width: 12px;"
         "    margin: 0px;"
         "}"
         "QScrollBar::handle:vertical {"
-        "    background-color: #6e7681;"  // Light gray for the handle
+        "    background-color: #6e7681;"  
         "    min-height: 20px;"
         "    border-radius: 6px;"
         "}"
@@ -73,7 +73,7 @@ void TableWindow::styleTable() {
         "    margin: 0px;"
         "}"
         "QScrollBar::handle:horizontal {"
-        "    background-color: #6e7681;"  // Light gray for the handle
+        "    background-color: #6e7681;"  
         "    min-width: 20px;"
         "    border-radius: 6px;"
         "}"
@@ -81,7 +81,7 @@ void TableWindow::styleTable() {
         "    width: 0px;"
         "}"
         "QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {"
-        "    background-color: #8b949e;"  // Lighter gray on hover
+        "    background-color: #8b949e;" 
         "}"
     );
 }
@@ -118,9 +118,8 @@ void TableWindow::loadFromCSV(const QString& filePath) {
 
 void TableWindow::calculateWindowSize(int rowCount, int columnCount) {
     int totalWidth = columnCount * DEFAULT_COLUMN_WIDTH;
-    int totalHeight = rowCount * 30 + 100;  // 30 pixels per row + header height
+    int totalHeight = rowCount * 30 + 100;  
     
-    // Set reasonable maximum dimensions
     totalWidth = qMin(totalWidth, 1200);
     totalHeight = qMin(totalHeight, 800);
     
@@ -131,7 +130,6 @@ void TableWindow::setInitialSize(int width, int height) {
     resize(width, height);
 }
 
-// Static manager methods
 TableWindow* TableWindow::showTableFromFile(TableWindow*& currentWindow,
                                           const QString& outputDir,
                                           const TableConfig& config,

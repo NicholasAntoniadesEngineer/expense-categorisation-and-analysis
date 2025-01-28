@@ -41,18 +41,17 @@ bool UIManager::setupMainWindow(QWidget* window, const AppConfig& config) noexce
     
     window->setWindowTitle(config.app_name);
     window->resize(config.default_window_width, config.default_window_height);
-    window->show();  // Show the window first
+    window->show();  
     
-    // Now position the window after it's shown and has its final size
     QScreen* screen = QGuiApplication::primaryScreen();
     if (screen) {
-        QRect screenGeometry = screen->availableGeometry();  // Use available geometry instead of full geometry
+        QRect screenGeometry = screen->availableGeometry();   
         
         // Calculate position to place window at bottom center
         int x = (screenGeometry.width() - window->frameGeometry().width()) / 2;
-        int y = screenGeometry.height() - window->frameGeometry().height() - 50;  // 50 pixels from bottom
+        int y = screenGeometry.height() - window->frameGeometry().height() - 50;   
         
-        window->move(x, y);  // Use move instead of setGeometry since we already set the size
+        window->move(x, y);   
     }
     
     return true;
@@ -67,22 +66,21 @@ bool UIManager::setupStyle(const AppConfig& config) noexcept {
     
     // Apply dark theme palette
     QPalette darkPalette;
-    darkPalette.setColor(QPalette::Window, QColor(60, 60, 60));            // 20% lighter dark background
-    darkPalette.setColor(QPalette::WindowText, QColor(230, 230, 230));     // Lighter text
-    darkPalette.setColor(QPalette::Base, QColor(70, 70, 70));             // Lighter base
+    darkPalette.setColor(QPalette::Window, QColor(60, 60, 60));           
+    darkPalette.setColor(QPalette::WindowText, QColor(230, 230, 230));      
+    darkPalette.setColor(QPalette::Base, QColor(70, 70, 70));             
     darkPalette.setColor(QPalette::AlternateBase, QColor(65, 65, 65));
     darkPalette.setColor(QPalette::ToolTipBase, QColor(70, 70, 70));
     darkPalette.setColor(QPalette::ToolTipText, QColor(230, 230, 230));
     darkPalette.setColor(QPalette::Text, QColor(230, 230, 230));
-    darkPalette.setColor(QPalette::Button, QColor(80, 80, 80));           // Lighter buttons
+    darkPalette.setColor(QPalette::Button, QColor(80, 80, 80));           
     darkPalette.setColor(QPalette::ButtonText, QColor(230, 230, 230));
-    darkPalette.setColor(QPalette::Link, QColor(180, 180, 180));          // Grey instead of blue
+    darkPalette.setColor(QPalette::Link, QColor(180, 180, 180));           
     darkPalette.setColor(QPalette::Highlight, QColor(180, 180, 180));
     darkPalette.setColor(QPalette::HighlightedText, QColor(255, 255, 255));
 
     QApplication::setPalette(darkPalette);
     
-    // Apply stylesheet for custom styling
     QString styleSheet = R"(
         QMainWindow {
             background-color: #3C3C3C;
@@ -101,6 +99,8 @@ bool UIManager::setupStyle(const AppConfig& config) noexcept {
             left: 10px;
             padding: 0 3px;
             background-color: #484848;
+            font-weight: bold;
+            font-size: 14px;  /* Increased from default ~12px */
         }
         QPushButton {
             background-color: #525252;
@@ -203,15 +203,22 @@ UIManager::ExportGroup UIManager::createExportGroup(const QString& title,
     ExportGroup group;
     
     group.group = new QGroupBox(title, parent);
-    QVBoxLayout* layout = new QVBoxLayout;
+    QHBoxLayout* layout = new QHBoxLayout; 
+    
+    layout->addStretch();
     
     group.weeklyCheck = new QCheckBox(config.strings.WEEKLY_SUMMARY_TEXT, parent);
     group.monthlyCheck = new QCheckBox(config.strings.MONTHLY_SUMMARY_TEXT, parent);
     group.fullDatasetCheck = new QCheckBox(config.strings.FULL_DATASET_TEXT, parent);
     
     layout->addWidget(group.weeklyCheck);
+    layout->addStretch();  // Add stretch between checkboxes
     layout->addWidget(group.monthlyCheck);
+    layout->addStretch();  // Add stretch between checkboxes
     layout->addWidget(group.fullDatasetCheck);
+    
+    // Add stretch after last checkbox
+    layout->addStretch();
     
     group.group->setLayout(layout);
     return group;
@@ -219,7 +226,7 @@ UIManager::ExportGroup UIManager::createExportGroup(const QString& title,
 
 QPushButton* UIManager::createActionButton(const QString& text, QWidget* parent) {
     QPushButton* button = new QPushButton(text, parent);
-    if (text == "Process Files") {  // Using string literal instead of config
+    if (text == "Process Files") {  
         button->setObjectName("processButton");
     }
     return button;

@@ -60,7 +60,7 @@ QString FileDialogManager::browseForFile(QWidget* parent,
         .filter = filter,
         .isDirectory = false
     };
-    QString dummyPath;  // Not storing the path in this case
+    QString dummyPath;  
     return browseForPath(parent, config, dummyPath, targetEdit);
 }
 

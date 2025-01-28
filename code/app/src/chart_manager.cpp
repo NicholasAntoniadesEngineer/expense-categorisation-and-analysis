@@ -75,7 +75,6 @@ void ChartManager::setupAxes(QChart* chart,
                            double maxValue,
                            double minValue,
                            const QString& xAxisTitle) {
-    // Create and setup Y axis
     QValueAxis* axisY = new QValueAxis();
     double maxRounded = std::ceil(maxValue / 400.0) * 400;
     double minRounded = std::min(0.0, std::floor(minValue / 400.0) * 400);

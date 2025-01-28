@@ -69,21 +69,17 @@ void PlotWindow::setupCategoryPanel(const QStringList& categories,
     QWidget* categoryWidget = new QWidget(dock);
     QVBoxLayout* layout = new QVBoxLayout(categoryWidget);
     
-    // Add "Select All" checkbox
     QCheckBox* selectAllBox = new QCheckBox("Select All", categoryWidget);
     selectAllBox->setChecked(true);
     layout->addWidget(selectAllBox);
     
-    // Add line separator
     QFrame* line = new QFrame(categoryWidget);
     line->setFrameShape(QFrame::HLine);
     line->setFrameShadow(QFrame::Sunken);
     layout->addWidget(line);
     
-    // Create map to store checkboxes
     QMap<QString, QCheckBox*> categoryBoxes;
     
-    // Add checkbox for each category
     for (const QString& category : categories) {
         QCheckBox* box = new QCheckBox(category, categoryWidget);
         box->setChecked(true);
@@ -100,13 +96,11 @@ void PlotWindow::setupCategoryPanel(const QStringList& categories,
         layout->addWidget(box);
         categoryBoxes[category] = box;
         
-        // Connect checkbox to visibility update
         connect(box, &QCheckBox::toggled, this, [this, category](bool checked) {
             emit categoryVisibilityChanged(category, checked);
         });
     }
     
-    // Connect select all checkbox
     connect(selectAllBox, &QCheckBox::toggled, this, [categoryBoxes](bool checked) {
         for (QCheckBox* box : categoryBoxes) {
             box->setChecked(checked);
