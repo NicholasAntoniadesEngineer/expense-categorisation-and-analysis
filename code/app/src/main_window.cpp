@@ -29,31 +29,6 @@
 
 namespace FinanceManager {
 
-// Add this class definition at the top of the file, after the includes
-class MouseEventFilter : public QObject {
-public:
-    MouseEventFilter(QChart* chart, QLabel* label) 
-        : QObject(chart), m_chart(chart), m_label(label) {}
-
-protected:
-    bool eventFilter(QObject* obj, QEvent* event) override {
-        if (event->type() == QEvent::MouseMove) {
-            QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-            QPoint point = mouseEvent->pos();
-            // Convert pixel coordinates to chart coordinates
-            QPointF chartPoint = m_chart->mapToValue(point);
-            m_label->setText(QString("X: %1, Y: £%2")
-                .arg(chartPoint.x(), 0, 'f', 1)
-                .arg(chartPoint.y(), 0, 'f', 2));
-        }
-        return QObject::eventFilter(obj, event);
-    }
-
-private:
-    QChart* m_chart;
-    QLabel* m_label;
-};
-
 // Constructor and Initialization
 MainWindow::MainWindow(AppConfig& config, QWidget *parent)
     : QMainWindow(parent)
@@ -316,156 +291,11 @@ void MainWindow::processFiles() {
     }
 }
 
-void MainWindow::setupPlotWindow(QChart* chart, const QString& title) {
-    // Check if we already have a window for this type of plot
-    QMainWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
-    
-    if (plotWindow) {
-        // If window exists, update its content
-        QChartView* existingChartView = qobject_cast<QChartView*>(plotWindow->centralWidget());
-        if (existingChartView) {
-            existingChartView->setChart(chart);
-            plotWindow->activateWindow();
-            plotWindow->raise();
-            return;
-        }
-    }
-
-    // Create new window if it doesn't exist
-    plotWindow = new QMainWindow(this);
-    plotWindow->setAttribute(Qt::WA_DeleteOnClose);
-    connect(plotWindow, &QMainWindow::destroyed, this, [this, title]() {
-        if (title.contains("Weekly")) {
-            weeklyPlotWindow = nullptr;
-        } else {
-            monthlyPlotWindow = nullptr;
-        }
-    });
-
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing);
-    
-    plotWindow->setCentralWidget(chartView);
-    plotWindow->resize(1000, 600);
-    plotWindow->setWindowTitle(title);
-
-    // Create coordinate label
-    QLabel* coordLabel = new QLabel(plotWindow);
-    coordLabel->setAlignment(Qt::AlignLeft);
-    coordLabel->setStyleSheet("QLabel { color: black; background-color: rgba(255, 255, 255, 0.8); padding: 5px; border-radius: 3px; margin: 5px; font-weight: bold; }");
-    plotWindow->statusBar()->addWidget(coordLabel);
-
-    // Connect mouse tracking
-    chartView->setMouseTracking(true);
-    chartView->viewport()->installEventFilter(new MouseEventFilter(chart, coordLabel));
-
-    // Get list of categories from chart series
-    QStringList categories;
-    QMap<QString, QLineSeries*> seriesMap;
-    for (QAbstractSeries* series : chart->series()) {
-        QLineSeries* lineSeries = qobject_cast<QLineSeries*>(series);
-        if (lineSeries) {
-            categories << lineSeries->name();
-            seriesMap[lineSeries->name()] = lineSeries;
-        }
-    }
-
-    // Setup category panel
-    setupCategoryPanel(plotWindow, categories, seriesMap);
-    
-    plotWindow->show();
-}
-
-void MainWindow::setupCategoryPanel(QMainWindow* plotWindow, 
-    const QStringList& categories, const QMap<QString, QLineSeries*>& series) {
-    
-    // Create dock widget for categories
-    QDockWidget* dock = new QDockWidget("Categories", plotWindow);
-    dock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-    
-    // Create widget to hold checkboxes
-    QWidget* categoryWidget = new QWidget(dock);
-    QVBoxLayout* layout = new QVBoxLayout(categoryWidget);
-    
-    // Add "Select All" checkbox
-    QCheckBox* selectAllBox = new QCheckBox("Select All", categoryWidget);
-    selectAllBox->setChecked(true);
-    layout->addWidget(selectAllBox);
-    
-    // Add line separator
-    QFrame* line = new QFrame(categoryWidget);
-    line->setFrameShape(QFrame::HLine);
-    line->setFrameShadow(QFrame::Sunken);
-    layout->addWidget(line);
-    
-    // Create map to store checkboxes
-    QMap<QString, QCheckBox*> categoryBoxes;
-    
-    // Add checkbox for each category
-    for (const QString& category : categories) {
-        QCheckBox* box = new QCheckBox(category, categoryWidget);
-        box->setChecked(true);
-        
-        // Get the color of the corresponding series
-        QLineSeries* lineSeries = series[category];
-        if (lineSeries) {
-            QColor color = lineSeries->pen().color();
-            
-            // Create colored square icon
-            QPixmap pixmap(16, 16);
-            pixmap.fill(color);
-            box->setIcon(QIcon(pixmap));
-        }
-        
-        layout->addWidget(box);
-        categoryBoxes[category] = box;
-        
-        // Connect checkbox to visibility update
-        connect(box, &QCheckBox::toggled, this, [this, category](bool checked) {
-            updateSeriesVisibility(category, checked);
-        });
-    }
-    
-    // Connect select all checkbox
-    connect(selectAllBox, &QCheckBox::toggled, this, [categoryBoxes](bool checked) {
-        for (QCheckBox* box : categoryBoxes) {
-            box->setChecked(checked);
-        }
-    });
-    
-    layout->addStretch();
-    categoryWidget->setLayout(layout);
-    
-    dock->setWidget(categoryWidget);
-    plotWindow->addDockWidget(Qt::RightDockWidgetArea, dock);
-}
-
-void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {
-    // Find all plot windows and update the series in each
-    for (QWidget* widget : QApplication::topLevelWidgets()) {
-        QMainWindow* mainWindow = qobject_cast<QMainWindow*>(widget);
-        if (mainWindow && mainWindow != this) {
-            QChartView* chartView = qobject_cast<QChartView*>(mainWindow->centralWidget());
-            if (chartView) {
-                QChart* chart = chartView->chart();
-                // Update series visibility
-                for (QAbstractSeries* abstractSeries : chart->series()) {
-                    QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
-                    if (lineSeries && lineSeries->name() == category) {
-                        lineSeries->setVisible(visible);
-                        lineSeries->setPointsVisible(visible);
-                    }
-                }
-            }
-        }
-    }
-}
-
 void MainWindow::plotData(const QString& filePattern, const QString& title, const QString& xAxisTitle) {
     try {
         QString outputDir = outputDirEdit->text();
         if (outputDir.isEmpty()) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+            QMessageBox::warning(this, "Error", "Output directory must be specified");
             return;
         }
 
@@ -473,7 +303,7 @@ void MainWindow::plotData(const QString& filePattern, const QString& title, cons
         QStringList files = dir.entryList(QStringList() << filePattern, QDir::Files);
         
         if (files.isEmpty()) {
-            QMessageBox::warning(this, config.strings.ERROR_TITLE, QString("No %1 files found").arg(title.toLower()));
+            QMessageBox::warning(this, "Error", QString("No %1 files found").arg(title.toLower()));
             return;
         }
 
@@ -526,13 +356,12 @@ void MainWindow::plotData(const QString& filePattern, const QString& title, cons
                 
                 QPen pen = series->pen();
                 pen.setColor(colors[colorIndex % 10]);
-                pen.setWidth(1);  // Make lines thicker
+                pen.setWidth(1);
                 series->setPen(pen);
                 colorIndex++;
 
-                // Make points visible and set their size
                 series->setPointsVisible(true);
-                series->setMarkerSize(2);  // Make points larger
+                series->setMarkerSize(2);
                 series->setPointLabelsVisible(false);
 
                 // Add data points
@@ -571,36 +400,38 @@ void MainWindow::plotData(const QString& filePattern, const QString& title, cons
             axisX->append(dates[i], i + 1);
         }
         axisX->setLabelsPosition(QCategoryAxis::AxisLabelsPositionOnValue);
-        axisX->setLabelsAngle(-65);  // Angle the date labels for better readability
+        axisX->setLabelsAngle(-65);
         chart->addAxis(axisX, Qt::AlignBottom);
 
         // Attach axes to all series
         for (auto series : categorySeries) {
             series->attachAxis(axisX);
             series->attachAxis(axisY);
-            
-            // Connect hover signals for tooltips
-            connect(series, &QLineSeries::hovered, this, [series, dates](const QPointF &point, bool state) {
-                if (state) {
-                    int index = qRound(point.x()) - 1;
-                    if (index >= 0 && index < dates.size()) {
-                        QToolTip::showText(QCursor::pos(), 
-                            QString("%1\n%2: £%3")
-                                .arg(dates[index])
-                                .arg(series->name())
-                                .arg(point.y(), 0, 'f', 2));
-                    }
-                }
-            });
         }
 
         // Hide the legend since we have the category panel
         chart->legend()->setVisible(false);
 
-        setupPlotWindow(chart, title);
+        // Create or update plot window
+        PlotWindow*& plotWindow = (title.contains("Weekly") ? weeklyPlotWindow : monthlyPlotWindow);
+        
+        if (!plotWindow) {
+            plotWindow = new PlotWindow(title, this);
+            connect(plotWindow, &PlotWindow::categoryVisibilityChanged,
+                    this, &MainWindow::updateSeriesVisibility);
+            connect(plotWindow, &QObject::destroyed, [&plotWindow]() {
+                plotWindow = nullptr;
+            });
+        }
+        
+        plotWindow->setChart(chart);
+        plotWindow->setupCategoryPanel(categorySeries.keys(), categorySeries);
+        plotWindow->show();
+        plotWindow->raise();
+        plotWindow->activateWindow();
 
     } catch (const std::exception& e) {
-        QMessageBox::critical(this, config.strings.ERROR_TITLE, 
+        QMessageBox::critical(this, "Error", 
                             QString("Plot generation failed: %1").arg(e.what()));
     }
 }
@@ -626,13 +457,13 @@ void MainWindow::plotMonthlySummary() {
 void MainWindow::viewAllTransactions() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        QMessageBox::warning(this, "Error", "Output directory must be specified");
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("categorised_transactions.csv");
     if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Categorised transactions file not found");
+        QMessageBox::warning(this, "Error", "Categorised transactions file not found");
         return;
     }
 
@@ -642,104 +473,25 @@ void MainWindow::viewAllTransactions() {
         return;
     }
 
-    allTransactionsWindow = new QMainWindow(this);
-    allTransactionsWindow->setAttribute(Qt::WA_DeleteOnClose);
-    connect(allTransactionsWindow, &QMainWindow::destroyed, this, [this]() {
+    allTransactionsWindow = new TableWindow("All Categorised Transactions", this);
+    connect(allTransactionsWindow, &QObject::destroyed, this, [this]() {
         allTransactionsWindow = nullptr;
     });
-    allTransactionsWindow->setWindowTitle("All Categorised Transactions");
-    allTransactionsWindow->resize(1200, 800);
-
-    QTableWidget *table = new QTableWidget(allTransactionsWindow);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-    allTransactionsWindow->setCentralWidget(table);
-
-    QFile file(filePath);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        
-        // Read header
-        QString header = in.readLine();
-        QStringList headers = header.split(',');
-        table->setColumnCount(headers.size());
-        table->setHorizontalHeaderLabels(headers);
-        
-        // Read data
-        QVector<QStringList> rows;
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            rows.append(line.split(','));
-        }
-        
-        table->setRowCount(rows.size());
-        
-        // Populate table
-        for (int i = 0; i < rows.size(); ++i) {
-            const QStringList &row = rows[i];
-            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                QTableWidgetItem *item = new QTableWidgetItem();
-                if (j == 4) {  // Amount column
-                    double value = row[j].toDouble();
-                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                } else {
-                    item->setText(row[j]);
-                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                }
-                table->setItem(i, j, item);
-            }
-        }
-        
-        // Set fixed width for all columns based on a reasonable date width
-        const int columnWidth = 120; // Width that comfortably fits a date
-        for (int i = 0; i < headers.size(); ++i) {
-            table->setColumnWidth(i, columnWidth);
-        }
-        
-        // Enable horizontal scrolling
-        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        
-        // Style the table
-        table->setAlternatingRowColors(true);
-        table->setStyleSheet(
-            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-            "QTableWidget::item { padding: 4px; color: black; }"
-            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-        );
-        
-        // Enable sorting
-        table->setSortingEnabled(true);
-        
-        // Calculate maximum window size based on content
-        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
-                             table->verticalScrollBar()->sizeHint().width() + 4; // Add some padding
-        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
-                              table->horizontalScrollBar()->sizeHint().height() + 4;
-        
-        // Set maximum size constraints
-        allTransactionsWindow->setMaximumSize(totalWidth, totalHeight);
-        
-        // Set initial size to be reasonable but not larger than maximum
-        allTransactionsWindow->resize(qMin(1200, totalWidth), qMin(800, totalHeight));
-        
-        file.close();
-    }
-
+    allTransactionsWindow->loadFromCSV(filePath);
+    allTransactionsWindow->setInitialSize(1200, 800);
     allTransactionsWindow->show();
 }
 
 void MainWindow::viewWeeklySummary() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        QMessageBox::warning(this, "Error", "Output directory must be specified");
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("weekly_summary.csv");
     if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Weekly summary file not found");
+        QMessageBox::warning(this, "Error", "Weekly summary file not found");
         return;
     }
 
@@ -749,101 +501,25 @@ void MainWindow::viewWeeklySummary() {
         return;
     }
 
-    weeklySummaryWindow = new QMainWindow(this);
-    weeklySummaryWindow->setAttribute(Qt::WA_DeleteOnClose);
-    connect(weeklySummaryWindow, &QMainWindow::destroyed, this, [this]() {
+    weeklySummaryWindow = new TableWindow("Weekly Summary", this);
+    connect(weeklySummaryWindow, &QObject::destroyed, this, [this]() {
         weeklySummaryWindow = nullptr;
     });
-    weeklySummaryWindow->setWindowTitle("Weekly Summary");
-    weeklySummaryWindow->resize(1000, 600);
-
-    QTableWidget *table = new QTableWidget(weeklySummaryWindow);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-    weeklySummaryWindow->setCentralWidget(table);
-
-    QFile file(filePath);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        
-        // Read header
-        QString header = in.readLine();
-        QStringList headers = header.split(',');
-        table->setColumnCount(headers.size());
-        table->setHorizontalHeaderLabels(headers);
-        
-        // Read data
-        QVector<QStringList> rows;
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            rows.append(line.split(','));
-        }
-        
-        table->setRowCount(rows.size());
-        
-        // Populate table
-        for (int i = 0; i < rows.size(); ++i) {
-            const QStringList &row = rows[i];
-            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                QTableWidgetItem *item = new QTableWidgetItem();
-                if (j == 0) {  // Category column
-                    item->setText(row[j]);
-                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                } else {  // Value columns
-                    double value = row[j].toDouble();
-                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-                }
-                table->setItem(i, j, item);
-            }
-        }
-        
-        // Set fixed width for all columns based on a reasonable date width
-        const int columnWidth = 120; // Width that comfortably fits a date
-        for (int i = 0; i < headers.size(); ++i) {
-            table->setColumnWidth(i, columnWidth);
-        }
-        
-        // Enable horizontal scrolling
-        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        
-        // Style the table
-        table->setAlternatingRowColors(true);
-        table->setStyleSheet(
-            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-            "QTableWidget::item { padding: 4px; color: black; }"
-            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-        );
-        
-        // Calculate maximum window size based on content
-        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
-                             table->verticalScrollBar()->sizeHint().width() + 4;
-        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
-                              table->horizontalScrollBar()->sizeHint().height() + 4;
-        
-        // Set maximum size constraints
-        weeklySummaryWindow->setMaximumSize(totalWidth, totalHeight);
-        
-        // Set initial size to be reasonable but not larger than maximum
-        weeklySummaryWindow->resize(qMin(1000, totalWidth), qMin(600, totalHeight));
-        
-        file.close();
-    }
-
+    weeklySummaryWindow->loadFromCSV(filePath);
+    weeklySummaryWindow->setInitialSize(1000, 600);
     weeklySummaryWindow->show();
 }
 
 void MainWindow::viewMonthlySummary() {
     QString outputDir = outputDirEdit->text();
     if (outputDir.isEmpty()) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Output directory must be specified");
+        QMessageBox::warning(this, "Error", "Output directory must be specified");
         return;
     }
 
     QString filePath = QDir(outputDir).filePath("monthly_summary.csv");
     if (!QFile::exists(filePath)) {
-        QMessageBox::warning(this, config.strings.ERROR_TITLE, "Monthly summary file not found");
+        QMessageBox::warning(this, "Error", "Monthly summary file not found");
         return;
     }
 
@@ -853,89 +529,44 @@ void MainWindow::viewMonthlySummary() {
         return;
     }
 
-    monthlySummaryWindow = new QMainWindow(this);
-    monthlySummaryWindow->setAttribute(Qt::WA_DeleteOnClose);
-    connect(monthlySummaryWindow, &QMainWindow::destroyed, this, [this]() {
+    monthlySummaryWindow = new TableWindow("Monthly Summary", this);
+    connect(monthlySummaryWindow, &QObject::destroyed, this, [this]() {
         monthlySummaryWindow = nullptr;
     });
-    monthlySummaryWindow->setWindowTitle("Monthly Summary");
-    monthlySummaryWindow->resize(1000, 600);
+    monthlySummaryWindow->loadFromCSV(filePath);
+    monthlySummaryWindow->setInitialSize(1000, 600);
+    monthlySummaryWindow->show();
+}
 
-    QTableWidget *table = new QTableWidget(monthlySummaryWindow);
-    table->setEditTriggers(QAbstractItemView::NoEditTriggers);  // Read-only
-    monthlySummaryWindow->setCentralWidget(table);
-
-    QFile file(filePath);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream in(&file);
-        
-        // Read header
-        QString header = in.readLine();
-        QStringList headers = header.split(',');
-        table->setColumnCount(headers.size());
-        table->setHorizontalHeaderLabels(headers);
-        
-        // Read data
-        QVector<QStringList> rows;
-        while (!in.atEnd()) {
-            QString line = in.readLine();
-            rows.append(line.split(','));
-        }
-        
-        table->setRowCount(rows.size());
-        
-        // Populate table
-        for (int i = 0; i < rows.size(); ++i) {
-            const QStringList &row = rows[i];
-            for (int j = 0; j < row.size() && j < headers.size(); ++j) {
-                QTableWidgetItem *item = new QTableWidgetItem();
-                if (j == 0) {  // Category column
-                    item->setText(row[j]);
-                    item->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-                } else {  // Value columns
-                    double value = row[j].toDouble();
-                    item->setText(QString("£%1").arg(value, 0, 'f', 2));
-                    item->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+void MainWindow::updateSeriesVisibility(const QString& category, bool visible) {
+    // Update series visibility in all plot windows
+    if (weeklyPlotWindow) {
+        QChartView* chartView = qobject_cast<QChartView*>(weeklyPlotWindow->centralWidget());
+        if (chartView) {
+            QChart* chart = chartView->chart();
+            for (QAbstractSeries* abstractSeries : chart->series()) {
+                QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
+                if (lineSeries && lineSeries->name() == category) {
+                    lineSeries->setVisible(visible);
+                    lineSeries->setPointsVisible(visible);
                 }
-                table->setItem(i, j, item);
             }
         }
-        
-        // Set fixed width for all columns based on a reasonable date width
-        const int columnWidth = 120; // Width that comfortably fits a date
-        for (int i = 0; i < headers.size(); ++i) {
-            table->setColumnWidth(i, columnWidth);
-        }
-        
-        // Enable horizontal scrolling
-        table->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
-        table->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        
-        // Style the table
-        table->setAlternatingRowColors(true);
-        table->setStyleSheet(
-            "QTableWidget { gridline-color: #d0d0d0; color: black; background-color: white; }"
-            "QHeaderView::section { background-color: #f0f0f0; color: black; padding: 4px; }"
-            "QTableWidget::item { padding: 4px; color: black; }"
-            "QTableWidget::item:alternate { background-color: #f9f9f9; }"
-        );
-        
-        // Calculate maximum window size based on content
-        const int totalWidth = (headers.size() * columnWidth) + table->verticalHeader()->width() + 
-                             table->verticalScrollBar()->sizeHint().width() + 4;
-        const int totalHeight = (rows.size() * table->rowHeight(0)) + table->horizontalHeader()->height() +
-                              table->horizontalScrollBar()->sizeHint().height() + 4;
-        
-        // Set maximum size constraints
-        monthlySummaryWindow->setMaximumSize(totalWidth, totalHeight);
-        
-        // Set initial size to be reasonable but not larger than maximum
-        monthlySummaryWindow->resize(qMin(1000, totalWidth), qMin(600, totalHeight));
-        
-        file.close();
     }
-
-    monthlySummaryWindow->show();
+    
+    if (monthlyPlotWindow) {
+        QChartView* chartView = qobject_cast<QChartView*>(monthlyPlotWindow->centralWidget());
+        if (chartView) {
+            QChart* chart = chartView->chart();
+            for (QAbstractSeries* abstractSeries : chart->series()) {
+                QLineSeries* lineSeries = qobject_cast<QLineSeries*>(abstractSeries);
+                if (lineSeries && lineSeries->name() == category) {
+                    lineSeries->setVisible(visible);
+                    lineSeries->setPointsVisible(visible);
+                }
+            }
+        }
+    }
 }
 
 // Utility Functions

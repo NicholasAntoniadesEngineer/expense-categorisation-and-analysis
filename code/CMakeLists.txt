@@ -40,6 +40,9 @@ set(SOURCES
     lib/src/csv_parser.cpp
     lib/src/transaction_parser.cpp
     app/src/main_window.cpp
+    app/src/app_config.cpp
+    app/src/plot_window.cpp
+    app/src/table_window.cpp
     ${RESOURCES}
 )
 
@@ -53,7 +56,10 @@ set(HEADERS
     lib/inc/report_generator.hpp
     lib/inc/data_exporter.hpp
     lib/inc/csv_parser.hpp
+    app/inc/app_config.hpp
     app/inc/main_window.hpp
+    app/inc/plot_window.hpp
+    app/inc/table_window.hpp
 )
 
 # Create executable

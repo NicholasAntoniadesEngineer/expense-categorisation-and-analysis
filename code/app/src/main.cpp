@@ -10,29 +10,22 @@
  */
 
 #include "main_window.hpp"
+#include "app_config.hpp"
 #include <QApplication>
+
+using namespace FinanceManager;
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
     // Initialize application configuration
-    FinanceManager::AppConfig config{
-        .app_name = "Finance Manager",
-        .org_name = "Finance",
-        .org_domain = "finance.manager",
-        .app_version = "0.1.1",
-        .style_name = "fusion",
-        .font_family = "SF Pro Display",
-        .default_window_width = 660,
-        .default_window_height = 440,
-        .default_font_size = 12
-    };
+    AppConfig config = AppConfig::getDefaultConfig();
 
     // Create and initialize main window
-    FinanceManager::MainWindow window(config);
+    MainWindow window(config);
     
     if (!window.initializeApplicationInfo() || !window.initializeAppearance()) {
-        FinanceManager::MainWindow::showErrorMessage(
+        MainWindow::showErrorMessage(
             "Failed to initialize application", 
             config.app_name
         );
@@ -40,7 +33,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (!window.setupWindow()) {
-        FinanceManager::MainWindow::showErrorMessage(
+        MainWindow::showErrorMessage(
             "Failed to setup main window",
             config.app_name
         );
