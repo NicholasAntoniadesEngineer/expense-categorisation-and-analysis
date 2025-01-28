@@ -7,18 +7,16 @@
 
 #include "ui_manager.hpp"
 #include <QApplication>
+#include <QGuiApplication>
 #include <QStyle>
 #include <QStyleFactory>
 #include <QMessageBox>
-#include <QFont>
-#include <QIcon>
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QFileDialog>
-#include <QPalette>
-#include <QColor>
-#include <QGuiApplication>
+#include <QFont>
+#include <QIcon>
 #include <QScreen>
 
 namespace FinanceManager {

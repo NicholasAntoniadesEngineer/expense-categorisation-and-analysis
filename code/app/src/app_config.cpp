@@ -12,18 +12,19 @@ namespace FinanceManager {
 AppConfig AppConfig::getDefaultConfig() {
     AppConfig config;
     
-    // Set application metadata
+    // Basic application info
     config.app_name = "Finance Manager";
-    config.org_name = "Finance";
-    config.org_domain = "finance.manager";
-    config.app_version = "0.1.1";
-    config.style_name = "fusion";
-    config.font_family = "SF Pro Display";
-    config.default_window_width = 660;
-    config.default_window_height = 440;
-    config.default_font_size = 12;
+    config.org_name = "Nicholas Antoniades";
+    config.org_domain = "nicholasantoniades.com";
+    config.app_version = "1.0.0";
     
-    // Set UI strings
+    // UI configuration
+    config.style_name = "Fusion";
+    config.default_font_size = 12;
+    config.default_window_width = 800;
+    config.default_window_height = 600;
+    
+    // String configuration
     config.strings = {
         .INPUT_DIR_TITLE = "Input Directory",
         .OUTPUT_DIR_TITLE = "Output Directory",

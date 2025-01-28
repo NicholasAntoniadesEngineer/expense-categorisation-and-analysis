@@ -9,7 +9,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QHeaderView>
-#include <QScrollBar>
 #include <QDir>
 #include <QMessageBox>
 
