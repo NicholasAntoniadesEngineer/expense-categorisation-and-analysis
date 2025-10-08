@@ -70,12 +70,6 @@ The application includes several utility scripts in the `scripts/` directory:
   ./scripts/run.sh debug      # Run with debug output
   ```
 
-- **format.sh**
-  ```bash
-  ./scripts/format.sh         # Format all source files
-  ./scripts/format.sh check   # Check formatting only
-  ```
-
 ## Key Components
 
 - **Main Window**: Central interface for file selection and processing
